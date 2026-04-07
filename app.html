@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IKON Garments Accessories — Management System</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d1117;
+      --bg2:      #151b27;
+      --bg3:      #1c2235;
+      --bg4:      #242b3e;
+      --bg5:      #2c3450;
+      --border:   #2a3048;
+      --border2:  #343d5c;
+      --text1:    #e4e9f5;
+      --text2:    #8a94b0;
+      --text3:    #4e5978;
+      --blue:     #4d96f0;
+      --blue-bg:  rgba(77,150,240,0.10);
+      --blue-bd:  rgba(77,150,240,0.25);
+      --green:    #10b981;
+      --green-bg: rgba(16,185,129,0.10);
+      --green-bd: rgba(16,185,129,0.25);
+      --amber:    #f59e0b;
+      --amber-bg: rgba(245,158,11,0.10);
+      --amber-bd: rgba(245,158,11,0.25);
+      --red:      #ef4444;
+      --red-bg:   rgba(239,68,68,0.10);
+      --red-bd:   rgba(239,68,68,0.25);
+      --purple:   #a855f7;
+      --purple-bg:rgba(168,85,247,0.10);
+      --sidebar-w: 215px;
+      --radius:   10px;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text1);
+      display: flex;
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* ━━━━━━━━━━━━━━━━  SIDEBAR  ━━━━━━━━━━━━━━━━ */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 200;
+    }
+
+    .sidebar-brand {
+      padding: 22px 18px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .brand-name {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text1);
+    }
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text3);
+      margin-top: 2px;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-section { padding: 14px 10px; flex: 1; }
+    .nav-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--text3);
+      text-transform: uppercase;
+      padding: 0 10px 8px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13.5px;
+      color: var(--text2);
+      transition: background 0.12s, color 0.12s;
+      margin-bottom: 1px;
+      user-select: none;
+    }
+    .nav-item:hover { background: var(--bg3); color: var(--text1); }
+    .nav-item.active { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-bd); }
+    .nav-item .ni { width: 18px; text-align: center; font-size: 14px; opacity: 0.8; }
+
+    .sidebar-footer {
+      padding: 14px 18px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text3);
+    }
+    .sidebar-footer strong { color: var(--text2); display: block; font-size: 13px; margin-bottom: 2px; }
+
+    /* ━━━━━━━━━━━━━━━━  MAIN  ━━━━━━━━━━━━━━━━ */
+    .main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+    .view { display: none; flex: 1; flex-direction: column; }
+    .view.active { display: flex; }
+
+    /* ━━━━━━━━━━━━━━━━  TOPBAR  ━━━━━━━━━━━━━━━━ */
+    .topbar {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 15px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+      flex-shrink: 0;
+    }
+    .topbar-title { font-size: 18px; font-weight: 600; }
+    .topbar-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
+    .topbar-right { display: flex; gap: 9px; align-items: center; }
+
+    /* ━━━━━━━━━━━━━━━━  BUTTONS  ━━━━━━━━━━━━━━━━ */
+    .btn {
+      padding: 7px 15px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all 0.13s;
+      white-space: nowrap;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-ghost { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: var(--bg4); color: var(--text1); opacity: 1; }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-amber { background: var(--amber); color: #000; font-weight: 600; }
+    .btn-sm { padding: 5px 12px; font-size: 12px; }
+    .btn-xs { padding: 3px 9px; font-size: 11px; border-radius: 5px; }
+
+    /* ━━━━━━━━━━━━━━━━  BADGES  ━━━━━━━━━━━━━━━━ */
+    .badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .badge-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-bd); }
+    .badge-blue  { background: var(--blue-bg);  color: var(--blue);  border: 1px solid var(--blue-bd); }
+    .badge-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-bd); }
+    .badge-red   { background: var(--red-bg);   color: var(--red);   border: 1px solid var(--red-bd); }
+    .badge-gray  { background: var(--bg4); color: var(--text2); border: 1px solid var(--border2); }
+    .badge-purple{ background: var(--purple-bg); color: var(--purple); border: 1px solid rgba(168,85,247,0.25); }
+
+    /* ━━━━━━━━━━━━━━━━  CONTENT SHELL  ━━━━━━━━━━━━━━━━ */
+    .content { padding: 22px 28px; flex: 1; overflow-y: auto; }
+
+    /* ━━━━━━━━━━━━━━━━  CARDS  ━━━━━━━━━━━━━━━━ */
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .card + .card { margin-top: 14px; }
+    .card-hd {
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-hd h3 { font-size: 13.5px; font-weight: 600; }
+    .card-bd { padding: 18px; }
+
+    /* ━━━━━━━━━━━━━━━━  ALERT BANNER  ━━━━━━━━━━━━━━━━ */
+    .alert-banner {
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-bd);
+      border-radius: var(--radius);
+      padding: 11px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      color: var(--amber);
+    }
+    .alert-banner .icon { margin-right: 8px; }
+
+    /* ━━━━━━━━━━━━━━━━  STATS ROW  ━━━━━━━━━━━━━━━━ */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .stat-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 15px 16px;
+    }
+    .stat-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 500; }
+    .stat-value { font-size: 30px; font-weight: 700; margin-top: 5px; line-height: 1; }
+    .stat-sub   { font-size: 11.5px; color: var(--text3); margin-top: 4px; }
+    .stat-value.c-blue   { color: var(--blue); }
+    .stat-value.c-amber  { color: var(--amber); }
+    .stat-value.c-green  { color: var(--green); }
+    .stat-value.c-red    { color: var(--red); }
+
+    /* ━━━━━━━━━━━━━━━━  SECTION HEADER  ━━━━━━━━━━━━━━━━ */
+    .section-hd {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text3);
+    }
+
+    /* ━━━━━━━━━━━━━━━━  PIPELINE GRID  ━━━━━━━━━━━━━━━━ */
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+    .pipe-col {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .pipe-col-hd {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pipe-col-hd .col-name { font-size: 12.5px; font-weight: 600; }
+    .pipe-col-hd .col-count {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--bg4);
+      color: var(--text2);
+      padding: 1px 8px;
+      border-radius: 999px;
+    }
+    .pipe-col-body { padding: 9px; }
+
+    .order-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 7px;
+      cursor: pointer;
+      transition: border-color 0.13s, background 0.13s;
+    }
+    .order-card:hover { border-color: var(--blue-bd); background: var(--bg4); }
+    .order-card .oc-style { font-size: 13px; font-weight: 600; }
+    .order-card .oc-merch { font-size: 11.5px; color: var(--text2); margin-top: 2px; }
+    .order-card .oc-info  { font-size: 11px; color: var(--text3); margin-top: 3px; }
+    .order-card .oc-foot  { display: flex; align-items: center; justify-content: space-between; margin-top: 7px; }
+    .order-card .oc-days  { font-size: 11px; color: var(--text3); }
+
+    .more-link {
+      font-size: 12px;
+      color: var(--text3);
+      text-align: center;
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: color 0.12s, background 0.12s;
+    }
+    .more-link:hover { color: var(--blue); background: var(--bg3); }
+
+    /* ━━━━━━━━━━━━━━━━  SEARCH TABLE  ━━━━━━━━━━━━━━━━ */
+    .search-section {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .search-section-hd {
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text3);
+    }
+    .search-wrap {
+      padding: 13px 18px 8px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 12px 9px 36px;
+      font-size: 13.5px;
+      color: var(--text1);
+      outline: none;
+      transition: border-color 0.13s;
+    }
+    .search-input:focus { border-color: var(--blue); }
+    .search-input::placeholder { color: var(--text3); }
+    .search-glass {
+      position: absolute;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text3);
+      font-size: 13px;
+      pointer-events: none;
+    }
+
+    .orders-tbl { width: 100%; border-collapse: collapse; }
+    .orders-tbl th {
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text3);
+      font-weight: 600;
+      padding: 8px 18px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg2);
+    }
+    .orders-tbl td {
+      padding: 10px 18px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.1s;
+    }
+    .orders-tbl tr:last-child td { border-bottom: none; }
+    .orders-tbl tbody tr { cursor: pointer; }
+    .orders-tbl tbody tr:hover td { background: var(--bg3); }
+    .tbl-style { font-weight: 600; color: var(--blue); }
+    .tbl-date  { color: var(--text3); }
+    .stage-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; flex-shrink: 0; }
+
+    /* ━━━━━━━━━━━━━━━━  ORDER DETAIL  ━━━━━━━━━━━━━━━━ */
+    .breadcrumb {
+      font-size: 12.5px;
+      color: var(--text3);
+      padding: 12px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--bg2);
+      flex-shrink: 0;
+    }
+    .crumb { cursor: pointer; transition: color 0.12s; }
+    .crumb:hover { color: var(--blue); }
+    .crumb-sep { color: var(--text3); }
+    .crumb-cur { color: var(--text1); font-weight: 500; }
+
+    .order-hero {
+      padding: 20px 28px 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .order-title { font-size: 22px; font-weight: 700; }
+    .order-meta  { font-size: 12.5px; color: var(--text3); margin-top: 5px; }
+    .order-meta b { color: var(--text2); font-weight: 500; }
+
+    .status-pill {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .sp-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-bd); }
+    .sp-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-bd); }
+    .sp-blue  { background: var(--blue-bg);  color: var(--blue);  border: 1px solid var(--blue-bd);  }
+
+    .order-cols-wrap {
+      padding: 18px 28px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 16px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .ifield .ilabel { font-size: 10.5px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; font-weight: 500; }
+    .ifield .ivalue { font-size: 13.5px; color: var(--text1); font-weight: 500; }
+
+    .spec-note {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    /* Revision items */
+    .rev-item {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+    .rev-item.current { border-color: var(--blue-bd); }
+    .rev-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .rev-title { font-size: 13.5px; font-weight: 600; }
+    .rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .rfield .rlabel { font-size: 10.5px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 3px; }
+    .rfield .rvalue { font-size: 13px; color: var(--text2); }
+    .rvalue-bad  { color: var(--amber) !important; font-weight: 500; }
+    .rvalue-pending { color: var(--text3) !important; font-style: italic; }
+
+    .feedback-box {
+      background: var(--bg4);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      color: var(--text2);
+      font-style: italic;
+      line-height: 1.55;
+      margin-top: 4px;
+    }
+    .notes-box {
+      background: var(--bg4);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      color: var(--text2);
+      line-height: 1.55;
+      margin-top: 4px;
+    }
+    .rev-actions { display: flex; gap: 8px; margin-top: 12px; }
+
+    /* Locked section */
+    .locked-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      filter: saturate(0.4);
+      opacity: 0.55;
+    }
+    .locked-body {
+      padding: 22px;
+      text-align: center;
+      color: var(--text3);
+      font-size: 13px;
+    }
+    .lock-icon { font-size: 22px; margin-bottom: 8px; opacity: 0.5; }
+
+    /* Timeline */
+    .timeline { }
+    .tl-item {
+      display: flex;
+      gap: 13px;
+      padding-bottom: 17px;
+      position: relative;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 16px;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .tl-item:last-child::before { display: none; }
+    .tl-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tl-dot.done   { background: var(--green); }
+    .tl-dot.active {
+      background: var(--amber);
+      box-shadow: 0 0 0 3px var(--amber-bg);
+    }
+    .tl-dot.future { background: var(--bg4); border: 2px solid var(--border2); }
+    .tl-content .tl-date   { font-size: 11px; color: var(--text3); }
+    .tl-content .tl-event  { font-size: 13px; font-weight: 600; margin-top: 1px; }
+    .tl-content .tl-detail { font-size: 12px; color: var(--text3); margin-top: 1px; }
+    .tl-content .tl-event.muted { color: var(--text3); font-weight: 400; }
+
+    /* ━━━━━━━━━━━━━━━━  COMPANIES VIEW  ━━━━━━━━━━━━━━━━ */
+    .co-search-row { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .co-search-wrap { position: relative; flex: 1; max-width: 380px; }
+
+    .company-block {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .co-hd {
+      padding: 15px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .co-name { font-size: 15px; font-weight: 600; }
+    .co-meta { font-size: 12.5px; color: var(--text3); margin-top: 3px; }
+    .co-stats { font-size: 12px; color: var(--text2); margin-top: 5px; }
+    .co-stats b { color: var(--blue); }
+    .co-actions { display: flex; gap: 8px; flex-shrink: 0; margin-left: 12px; }
+
+    .merch-row { display: flex; flex-wrap: wrap; gap: 10px; padding: 14px 18px; }
+
+    .merch-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 13px 14px;
+      width: 175px;
+      cursor: pointer;
+      transition: border-color 0.13s, background 0.13s;
+    }
+    .merch-card:hover { border-color: var(--blue-bd); background: var(--bg4); }
+
+    .merch-av {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .merch-name  { font-size: 13px; font-weight: 600; }
+    .merch-role  { font-size: 11px; color: var(--text3); margin-top: 1px; }
+    .merch-stats { font-size: 11px; color: var(--text2); margin-top: 5px; }
+    .merch-tags  { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 7px; }
+
+    .add-merch-card {
+      background: var(--bg3);
+      border: 1px dashed var(--border2);
+      border-radius: 9px;
+      padding: 13px 14px;
+      width: 175px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text3);
+      font-size: 12.5px;
+      gap: 5px;
+      transition: border-color 0.13s, color 0.13s;
+      min-height: 128px;
+    }
+    .add-merch-card:hover { border-color: var(--blue); color: var(--blue); }
+    .add-merch-card .plus-ic { font-size: 20px; font-weight: 300; }
+
+    .co-footer {
+      text-align: center;
+      padding: 13px;
+      font-size: 12.5px;
+      color: var(--text3);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .co-footer a { color: var(--blue); cursor: pointer; text-decoration: none; }
+    .co-footer a:hover { text-decoration: underline; }
+
+    /* ━━━━━━━━━━━━━━━━  PIPELINE STATUS ROW  ━━━━━━━━━━━━━━━━ */
+    .pipeline-stages-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .ps-stage {
+      padding: 6px 12px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--text3);
+      white-space: nowrap;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-right: none;
+    }
+    .ps-stage:first-child { border-radius: 7px 0 0 7px; }
+    .ps-stage:last-child  { border-radius: 0 7px 7px 0; border-right: 1px solid var(--border); }
+    .ps-stage.done   { color: var(--green);  background: var(--green-bg); border-color: var(--green-bd); }
+    .ps-stage.active { color: var(--amber);  background: var(--amber-bg); border-color: var(--amber-bd); font-weight: 600; }
+    .ps-arrow { color: var(--text3); font-size: 11px; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 6px 2px; }
+
+    /* ━━━━━━━━━━━━━━━━  SCROLLBARS  ━━━━━━━━━━━━━━━━ */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--bg5); }
+
+    /* ━━━━━━━━━━━━━━━━  DIVIDER  ━━━━━━━━━━━━━━━━ */
+    .divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+    /* ━━━━━━━━━━━━━━━━  RESPONSIVE NOTES  ━━━━━━━━━━━━━━━━ */
+    @media (max-width: 1100px) {
+      .pipeline-grid { grid-template-columns: repeat(2,1fr); }
+      .stats-row { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 820px) {
+      .order-cols-wrap { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ════════════════  SIDEBAR  ════════════════ -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-name">IKON</div>
+    <div class="brand-sub">Garments Accessories</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Main</div>
+    <div class="nav-item active" data-view="dashboard" onclick="nav('dashboard')">
+      <span class="ni">▦</span> Dashboard
+    </div>
+    <div class="nav-item" data-view="companies" onclick="nav('companies')">
+      <span class="ni">◈</span> Companies
+    </div>
+    <div class="nav-item" data-view="order-detail" onclick="nav('order-detail')">
+      <span class="ni">◻</span> Orders
+    </div>
+    <div class="nav-label" style="margin-top:14px;">Finance</div>
+    <div class="nav-item" onclick="">
+      <span class="ni">◈</span> Documents
+    </div>
+    <div class="nav-item" onclick="">
+      <span class="ni">◈</span> LC Tracker
+    </div>
+    <div class="nav-item" onclick="">
+      <span class="ni">◈</span> Reports
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    <strong>Nezam Uddin</strong>
+    IKON Garments Accessories
+  </div>
+</nav>
+
+<!-- ════════════════  MAIN  ════════════════ -->
+<main class="main">
+
+  <!-- ══════════  DASHBOARD VIEW  ══════════ -->
+  <div id="v-dashboard" class="view active">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title">Dashboard</div>
+        <div class="topbar-sub">Wednesday, 8 April 2026</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-ghost" onclick="nav('companies')">+ Company</button>
+        <button class="btn btn-primary">+ New Order</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- Alert -->
+      <div class="alert-banner">
+        <span><span class="icon">⚠</span> 3 LCs maturing within 14 days — action required</span>
+        <button class="btn btn-amber btn-sm">View</button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Active Orders</div>
+          <div class="stat-value c-blue">114</div>
+          <div class="stat-sub">across 23 companies</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Pending Corrections</div>
+          <div class="stat-value c-amber">18</div>
+          <div class="stat-sub">samples awaiting revision</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Approved This Month</div>
+          <div class="stat-value c-green">9</div>
+          <div class="stat-sub">moved to bulk production</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">LC Maturing (90d)</div>
+          <div class="stat-value c-red">3</div>
+          <div class="stat-sub">next: 16 Apr 2026</div>
+        </div>
+      </div>
+
+      <!-- Pipeline -->
+      <div class="section-hd">
+        <span class="section-title">Pipeline View</span>
+        <span style="font-size:12px; color:var(--text3);">Live — updates as you work</span>
+      </div>
+
+      <div class="pipeline-grid">
+
+        <!-- Sample Stage -->
+        <div class="pipe-col">
+          <div class="pipe-col-hd">
+            <span class="col-name">Sample stage</span>
+            <span class="col-count">31</span>
+          </div>
+          <div class="pipe-col-body">
+            <div class="order-card" onclick="nav('order-detail')">
+              <div class="oc-style">Style SH-204</div>
+              <div class="oc-merch">Karim · ABC Ltd.</div>
+              <div class="oc-info">Rev 2 — correction</div>
+              <div class="oc-foot">
+                <span class="oc-days">12 days</span>
+                <span class="badge badge-amber">correction</span>
+              </div>
+            </div>
+            <div class="order-card">
+              <div class="oc-style">Style BG-110</div>
+              <div class="oc-merch">Rahim · Delta Garments</div>
+              <div class="oc-info">Rev 1 — sent</div>
+              <div class="oc-foot">
+                <span class="oc-days">4 days</span>
+                <span class="badge badge-blue">waiting</span>
+              </div>
+            </div>
+            <div class="order-card">
+              <div class="oc-style">Style KP-077</div>
+              <div class="oc-merch">Nasrin · Horizon Co.</div>
+              <div class="oc-info">Rev 3 — correction</div>
+              <div class="oc-foot">
+                <span class="oc-days">21 days</span>
+                <span class="badge badge-amber">correction</span>
+              </div>
+            </div>
+            <div class="more-link">+28 more orders</div>
+          </div>
+        </div>
+
+        <!-- Bulk Production -->
+        <div class="pipe-col">
+          <div class="pipe-col-hd">
+            <span class="col-name">Bulk production</span>
+            <span class="col-count">22</span>
+          </div>
+          <div class="pipe-col-body">
+            <div class="order-card">
+              <div class="oc-style">Style MT-301</div>
+              <div class="oc-merch">Tariq · Zenith Exports</div>
+              <div class="oc-info">Deadline: 20 Apr</div>
+              <div class="oc-foot">
+                <span class="oc-days">34 days</span>
+                <span class="badge badge-green">on track</span>
+              </div>
+            </div>
+            <div class="order-card">
+              <div class="oc-style">Style CR-088</div>
+              <div class="oc-merch">Sumaiya · Pacific Corp</div>
+              <div class="oc-info">Deadline: 12 Apr</div>
+              <div class="oc-foot">
+                <span class="oc-days">41 days</span>
+                <span class="badge badge-red">at risk</span>
+              </div>
+            </div>
+            <div class="order-card">
+              <div class="oc-style">Style HB-412</div>
+              <div class="oc-merch">Tariq · Global Wear</div>
+              <div class="oc-info">Deadline: 2 May</div>
+              <div class="oc-foot">
+                <span class="oc-days">29 days</span>
+                <span class="badge badge-green">on track</span>
+              </div>
+            </div>
+            <div class="more-link">+19 more orders</div>
+          </div>
+        </div>
+
+        <!-- PI / Challan -->
+        <div class="pipe-col">
+          <div class="pipe-col-hd">
+            <span class="col-name">PI / Challan</span>
+            <span class="col-count">14</span>
+          </div>
+          <div class="pipe-col-body">
+            <div class="order-card">
+              <div class="oc-style">Style SH-189</div>
+              <div class="oc-merch">Karim · ABC Ltd.</div>
+              <div class="oc-info">PI drafted</div>
+              <div class="oc-foot">
+                <span class="oc-days">58 days</span>
+                <span class="badge badge-gray">draft</span>
+              </div>
+            </div>
+            <div class="order-card">
+              <div class="oc-style">Style LX-033</div>
+              <div class="oc-merch">Mitu · Apex Fashion</div>
+              <div class="oc-info">Challan issued</div>
+              <div class="oc-foot">
+                <span class="oc-days">62 days</span>
+                <span class="badge badge-green">sent</span>
+              </div>
+            </div>
+            <div class="more-link">+12 more orders</div>
+          </div>
+        </div>
+
+        <!-- LC & Banking -->
+        <div class="pipe-col">
+          <div class="pipe-col-hd">
+            <span class="col-name">LC &amp; banking</span>
+            <span class="col-count">11</span>
+          </div>
+          <div class="pipe-col-body">
+            <div class="order-card">
+              <div class="oc-style">Style MT-244</div>
+              <div class="oc-merch">Rahim · Delta Garments</div>
+              <div class="oc-info">Matures 16 Apr</div>
+              <div class="oc-foot">
+                <span class="oc-days">88 days</span>
+                <span class="badge badge-red">urgent</span>
+              </div>
+            </div>
+            <div class="order-card">
+              <div class="oc-style">Style BG-099</div>
+              <div class="oc-merch">Faisal · Zenith Exports</div>
+              <div class="oc-info">Matures 22 Apr</div>
+              <div class="oc-foot">
+                <span class="oc-days">82 days</span>
+                <span class="badge badge-amber">soon</span>
+              </div>
+            </div>
+            <div class="order-card">
+              <div class="oc-style">Style CR-071</div>
+              <div class="oc-merch">Nasrin · Horizon Co.</div>
+              <div class="oc-info">Forwarded to bank</div>
+              <div class="oc-foot">
+                <span class="oc-days">67 days</span>
+                <span class="badge badge-blue">processing</span>
+              </div>
+            </div>
+            <div class="more-link">+8 more orders</div>
+          </div>
+        </div>
+
+      </div><!-- /pipeline-grid -->
+
+      <!-- All Orders quick search -->
+      <div class="search-section">
+        <div class="search-section-hd">All Orders — Quick Search</div>
+        <div class="search-wrap">
+          <span class="search-glass">⌕</span>
+          <input
+            class="search-input"
+            type="text"
+            id="orderSearch"
+            placeholder="Search by style, merchandiser, company…"
+            oninput="filterOrders(this.value)"
+          />
+        </div>
+        <table class="orders-tbl">
+          <thead>
+            <tr>
+              <th>Style</th>
+              <th>Merchandiser</th>
+              <th>Company</th>
+              <th>Stage</th>
+              <th>Days active</th>
+              <th>Last update</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /dashboard view -->
+
+
+  <!-- ══════════  ORDER DETAIL VIEW  ══════════ -->
+  <div id="v-order-detail" class="view" style="flex-direction:column;">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title">Order Detail</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-ghost" onclick="nav('dashboard')">← Back to Dashboard</button>
+      </div>
+    </div>
+
+    <div class="breadcrumb">
+      <span class="crumb" onclick="nav('dashboard')">Dashboard</span>
+      <span class="crumb-sep">›</span>
+      <span class="crumb" onclick="nav('companies')">ABC Ltd.</span>
+      <span class="crumb-sep">›</span>
+      <span class="crumb">Karim Ahmed</span>
+      <span class="crumb-sep">›</span>
+      <span class="crumb-cur">Order SH-204</span>
+    </div>
+
+    <div class="order-hero">
+      <div>
+        <div class="order-title">Style SH-204</div>
+        <div class="order-meta">
+          <b>Karim Ahmed</b> · <b>ABC Ltd.</b> · Order received: 27 Mar 2026 · 12 days active
+        </div>
+      </div>
+      <div style="display:flex; gap:9px; align-items:center; flex-shrink:0; margin-left:16px;">
+        <span class="status-pill sp-amber">Sample — correction needed</span>
+        <button class="btn btn-ghost">Actions ▾</button>
+      </div>
+    </div>
+
+    <div class="order-cols-wrap">
+      <!-- LEFT: main content -->
+      <div>
+
+        <!-- Order Info -->
+        <div class="card" style="margin-bottom:14px;">
+          <div class="card-hd">
+            <h3>Order information</h3>
+            <button class="btn btn-ghost btn-sm">Edit</button>
+          </div>
+          <div class="card-bd">
+            <div class="info-grid">
+              <div class="ifield">
+                <div class="ilabel">Style name</div>
+                <div class="ivalue">SH-204</div>
+              </div>
+              <div class="ifield">
+                <div class="ilabel">Product type</div>
+                <div class="ivalue">Woven label</div>
+              </div>
+              <div class="ifield">
+                <div class="ilabel">Order date</div>
+                <div class="ivalue">27 Mar 2026</div>
+              </div>
+              <div class="ifield">
+                <div class="ilabel">Merchandiser</div>
+                <div class="ivalue">Karim Ahmed</div>
+              </div>
+              <div class="ifield">
+                <div class="ilabel">Company</div>
+                <div class="ivalue">ABC Ltd.</div>
+              </div>
+              <div class="ifield">
+                <div class="ilabel">Expected quantity</div>
+                <div class="ivalue">15,000 pcs</div>
+              </div>
+            </div>
+            <div>
+              <div class="ilabel" style="margin-bottom:6px;">Description / spec notes</div>
+              <div class="spec-note">
+                Satin woven label, 2cm × 5cm, gold thread on black base. Reference image attached.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sample Revisions -->
+        <div class="card" style="margin-bottom:14px;">
+          <div class="card-hd">
+            <h3>Sample revisions</h3>
+            <button class="btn btn-primary btn-sm">+ Add revision</button>
+          </div>
+          <div class="card-bd" style="padding-bottom:8px;">
+
+            <!-- Revision 1 -->
+            <div class="rev-item">
+              <div class="rev-hd">
+                <span class="rev-title">Revision 1</span>
+                <span class="badge badge-green">sent</span>
+              </div>
+              <div class="rev-grid">
+                <div class="rfield">
+                  <div class="rlabel">Type</div>
+                  <div class="rvalue">In-house</div>
+                </div>
+                <div class="rfield">
+                  <div class="rlabel">Date made</div>
+                  <div class="rvalue">29 Mar 2026</div>
+                </div>
+                <div class="rfield">
+                  <div class="rlabel">Date sent to merchandiser</div>
+                  <div class="rvalue">30 Mar 2026</div>
+                </div>
+                <div class="rfield">
+                  <div class="rlabel">Result</div>
+                  <div class="rvalue rvalue-bad">Correction needed</div>
+                </div>
+              </div>
+              <div class="rlabel" style="margin-bottom:4px;">Merchandiser feedback</div>
+              <div class="feedback-box">"Thread colour slightly off — need darker gold. Size OK."</div>
+            </div>
+
+            <!-- Revision 2 — current -->
+            <div class="rev-item current">
+              <div class="rev-hd">
+                <span class="rev-title">Revision 2 — current</span>
+                <span class="badge badge-blue">In progress</span>
+              </div>
+              <div class="rev-grid">
+                <div class="rfield">
+                  <div class="rlabel">Type</div>
+                  <div class="rvalue">In-house</div>
+                </div>
+                <div class="rfield">
+                  <div class="rlabel">Date started</div>
+                  <div class="rvalue">3 Apr 2026</div>
+                </div>
+                <div class="rfield">
+                  <div class="rlabel">Date sent</div>
+                  <div class="rvalue rvalue-pending">Not yet sent</div>
+                </div>
+                <div class="rfield">
+                  <div class="rlabel">Result</div>
+                  <div class="rvalue rvalue-pending">Pending</div>
+                </div>
+              </div>
+              <div class="rlabel" style="margin-bottom:4px;">Internal notes</div>
+              <div class="notes-box">Adjusting thread shade — checking supplier sample today.</div>
+              <div class="rev-actions">
+                <button class="btn btn-ghost btn-sm">Mark as sent</button>
+                <button class="btn btn-green btn-sm">Mark approved ✓</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Locked: Bulk Production & Docs -->
+        <div class="locked-card">
+          <div class="card-hd" style="padding:13px 18px;">
+            <h3 style="color:var(--text3);">Bulk production &amp; docs</h3>
+            <span style="font-size:12px; color:var(--text3);">🔒 Unlocks after sample approval</span>
+          </div>
+          <div class="locked-body">
+            <div class="lock-icon">🔒</div>
+            Delivery challan · PI · LC documentation · Bank forwarding<br>
+            will appear here once the sample is approved.
+          </div>
+        </div>
+
+      </div><!-- /left col -->
+
+      <!-- RIGHT: timeline -->
+      <div>
+        <div class="card" style="margin-bottom:14px;">
+          <div class="card-hd"><h3>Order timeline</h3></div>
+          <div class="card-bd">
+            <div class="timeline">
+
+              <div class="tl-item">
+                <div class="tl-dot done"></div>
+                <div class="tl-content">
+                  <div class="tl-date">27 Mar 2026</div>
+                  <div class="tl-event">Order received from Karim</div>
+                  <div class="tl-detail">Style SH-204 · Woven label · 15,000 pcs</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot done"></div>
+                <div class="tl-content">
+                  <div class="tl-date">30 Mar 2026</div>
+                  <div class="tl-event">Revision 1 sent</div>
+                  <div class="tl-detail">In-house production · Sent to merchandiser</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot done"></div>
+                <div class="tl-content">
+                  <div class="tl-date">3 Apr 2026</div>
+                  <div class="tl-event">Correction — Revision 2 started</div>
+                  <div class="tl-detail">Thread colour adjustment requested</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot active"></div>
+                <div class="tl-content">
+                  <div class="tl-date">Today</div>
+                  <div class="tl-event">Revision 2 in progress</div>
+                  <div class="tl-detail">Waiting to send to Karim</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot future"></div>
+                <div class="tl-content">
+                  <div class="tl-date">—</div>
+                  <div class="tl-event muted">Sample approval</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot future"></div>
+                <div class="tl-content">
+                  <div class="tl-date">—</div>
+                  <div class="tl-event muted">Bulk production</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot future"></div>
+                <div class="tl-content">
+                  <div class="tl-date">—</div>
+                  <div class="tl-event muted">Delivery challan · PI</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot future"></div>
+                <div class="tl-content">
+                  <div class="tl-date">—</div>
+                  <div class="tl-event muted">LC open → Bank forward</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot future"></div>
+                <div class="tl-content">
+                  <div class="tl-date">—</div>
+                  <div class="tl-event muted">LC maturity (90 days)</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick stats for this order -->
+        <div class="card">
+          <div class="card-hd"><h3>Order summary</h3></div>
+          <div class="card-bd">
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div style="display:flex; justify-content:space-between; font-size:13px;">
+                <span style="color:var(--text3);">Revision rounds</span>
+                <span style="color:var(--amber); font-weight:600;">2 so far</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:13px;">
+                <span style="color:var(--text3);">Production type</span>
+                <span>In-house</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:13px;">
+                <span style="color:var(--text3);">Days in pipeline</span>
+                <span>12</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:13px;">
+                <span style="color:var(--text3);">Expected quantity</span>
+                <span>15,000 pcs</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:13px;">
+                <span style="color:var(--text3);">Current status</span>
+                <span style="color:var(--amber);">Correction needed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /right col -->
+    </div><!-- /order-cols-wrap -->
+  </div><!-- /order detail view -->
+
+
+  <!-- ══════════  COMPANIES VIEW  ══════════ -->
+  <div id="v-companies" class="view" style="flex-direction:column;">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title">Companies &amp; Merchandisers</div>
+        <div class="topbar-sub">
+          <span class="crumb" onclick="nav('dashboard')" style="cursor:pointer; color:var(--text3); font-size:12px;">Dashboard</span>
+          <span style="color:var(--text3); font-size:12px;"> › Companies</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-primary">+ Add Company</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="co-search-row">
+        <div class="co-search-wrap">
+          <span class="search-glass" style="left:12px;">⌕</span>
+          <input class="search-input" type="text" placeholder="Search company or name…" style="padding-left:34px;" />
+        </div>
+        <span style="font-size:12.5px; color:var(--text3);">Showing 2 of 23 companies</span>
+      </div>
+
+      <!-- ABC Ltd. -->
+      <div class="company-block">
+        <div class="co-hd">
+          <div>
+            <div class="co-name">ABC Ltd.</div>
+            <div class="co-meta">Bangladesh · Contact: Mr. Hossain · +880 1711 000111</div>
+            <div class="co-stats">
+              <b>3</b> merchandisers &nbsp;·&nbsp; <b>14</b> total orders &nbsp;·&nbsp; <b>4</b> active now
+            </div>
+          </div>
+          <div class="co-actions">
+            <button class="btn btn-ghost btn-sm">Edit</button>
+            <button class="btn btn-ghost btn-sm" onclick="nav('dashboard')">All orders</button>
+          </div>
+        </div>
+        <div class="merch-row">
+          <div class="merch-card" onclick="nav('order-detail')">
+            <div class="merch-av" style="background:#12284a; color:#4d96f0;">KA</div>
+            <div class="merch-name">Karim Ahmed</div>
+            <div class="merch-role">Senior Merchandiser</div>
+            <div class="merch-stats">2 active orders</div>
+            <div class="merch-tags">
+              <span class="badge badge-amber" style="font-size:9px;">SH-204 correction</span>
+              <span class="badge badge-gray"  style="font-size:9px;">SH-189 PI</span>
+            </div>
+          </div>
+          <div class="merch-card">
+            <div class="merch-av" style="background:#0e2a1e; color:#10b981;">RB</div>
+            <div class="merch-name">Rana Begum</div>
+            <div class="merch-role">Merchandiser</div>
+            <div class="merch-stats">1 active order</div>
+            <div class="merch-tags">
+              <span class="badge badge-blue" style="font-size:9px;">AB-012 bulk</span>
+            </div>
+          </div>
+          <div class="merch-card">
+            <div class="merch-av" style="background:#21103a; color:#a855f7;">SM</div>
+            <div class="merch-name">Sajid Mia</div>
+            <div class="merch-role">Junior Merchandiser</div>
+            <div class="merch-stats">1 active order</div>
+            <div class="merch-tags">
+              <span class="badge badge-green" style="font-size:9px;">PQ-055 LC</span>
+            </div>
+          </div>
+          <div class="add-merch-card">
+            <span class="plus-ic">+</span>
+            <span>Add merchandiser</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delta Garments -->
+      <div class="company-block">
+        <div class="co-hd">
+          <div>
+            <div class="co-name">Delta Garments</div>
+            <div class="co-meta">Bangladesh · Contact: Ms. Fatema · +880 1811 222333</div>
+            <div class="co-stats">
+              <b>2</b> merchandisers &nbsp;·&nbsp; <b>9</b> total orders &nbsp;·&nbsp; <b>2</b> active now
+            </div>
+          </div>
+          <div class="co-actions">
+            <button class="btn btn-ghost btn-sm">Edit</button>
+            <button class="btn btn-ghost btn-sm">All orders</button>
+          </div>
+        </div>
+        <div class="merch-row">
+          <div class="merch-card">
+            <div class="merch-av" style="background:#12203a; color:#4d96f0;">RK</div>
+            <div class="merch-name">Rahim Khan</div>
+            <div class="merch-role">Senior Merchandiser</div>
+            <div class="merch-stats">2 active orders</div>
+            <div class="merch-tags">
+              <span class="badge badge-blue"  style="font-size:9px;">BC-110 sample</span>
+              <span class="badge badge-green" style="font-size:9px;">MT-244 LC</span>
+            </div>
+          </div>
+          <div class="merch-card">
+            <div class="merch-av" style="background:#1e2235; color:#8a94b0;">NI</div>
+            <div class="merch-name">Nafisa Islam</div>
+            <div class="merch-role">Merchandiser</div>
+            <div class="merch-stats">0 active orders</div>
+            <div class="merch-tags">
+              <span style="font-size:11px; color:var(--text3);">No active orders</span>
+            </div>
+          </div>
+          <div class="add-merch-card">
+            <span class="plus-ic">+</span>
+            <span>Add merchandiser</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zenith Exports -->
+      <div class="company-block">
+        <div class="co-hd">
+          <div>
+            <div class="co-name">Zenith Exports</div>
+            <div class="co-meta">Bangladesh · Contact: Mr. Tariq · +880 1922 333444</div>
+            <div class="co-stats">
+              <b>1</b> merchandiser &nbsp;·&nbsp; <b>7</b> total orders &nbsp;·&nbsp; <b>2</b> active now
+            </div>
+          </div>
+          <div class="co-actions">
+            <button class="btn btn-ghost btn-sm">Edit</button>
+            <button class="btn btn-ghost btn-sm">All orders</button>
+          </div>
+        </div>
+        <div class="merch-row">
+          <div class="merch-card">
+            <div class="merch-av" style="background:#2a1010; color:#ef4444;">FA</div>
+            <div class="merch-name">Faisal Ahmed</div>
+            <div class="merch-role">Merchandiser</div>
+            <div class="merch-stats">2 active orders</div>
+            <div class="merch-tags">
+              <span class="badge badge-green" style="font-size:9px;">MT-301 bulk</span>
+              <span class="badge badge-red"   style="font-size:9px;">BG-099 LC</span>
+            </div>
+          </div>
+          <div class="add-merch-card">
+            <span class="plus-ic">+</span>
+            <span>Add merchandiser</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="co-footer">
+        Showing 3 of 23 companies · <a href="#" onclick="return false;">Load all</a>
+      </div>
+    </div><!-- /content -->
+  </div><!-- /companies view -->
+
+</main>
+
+<script>
+  // ══════════════════════════════════════════
+  //  DATA
+  // ══════════════════════════════════════════
+  const ORDERS = [
+    { style:'SH-204',  merch:'Karim',   company:'ABC Ltd.',        stage:'Correction',     days:12, last:'3 Apr',  color:'amber' },
+    { style:'BG-110',  merch:'Rahim',   company:'Delta Garments',  stage:'Sample sent',    days:4,  last:'5 Apr',  color:'blue'  },
+    { style:'MT-301',  merch:'Faisal',  company:'Zenith Exports',  stage:'Bulk production',days:34, last:'7 Apr',  color:'green' },
+    { style:'CR-088',  merch:'Sumaiya', company:'Pacific Corp',    stage:'Bulk production',days:41, last:'6 Apr',  color:'red'   },
+    { style:'SH-189',  merch:'Karim',   company:'ABC Ltd.',        stage:'PI draft',        days:58, last:'2 Apr',  color:'gray'  },
+    { style:'LX-033',  merch:'Mitu',    company:'Apex Fashion',   stage:'Challan issued',  days:62, last:'1 Apr',  color:'green' },
+    { style:'MT-244',  merch:'Rahim',   company:'Delta Garments',  stage:'LC open',        days:88, last:'31 Mar', color:'red'   },
+    { style:'KP-077',  merch:'Nasrin',  company:'Horizon Co.',     stage:'Correction',     days:21, last:'4 Apr',  color:'amber' },
+    { style:'HB-412',  merch:'Tariq',   company:'Global Wear',     stage:'Bulk production',days:29, last:'7 Apr',  color:'green' },
+    { style:'BG-099',  merch:'Faisal',  company:'Zenith Exports',  stage:'LC open',        days:82, last:'28 Mar', color:'red'   },
+    { style:'AB-012',  merch:'Rana',    company:'ABC Ltd.',        stage:'Bulk production',days:19, last:'6 Apr',  color:'green' },
+    { style:'PQ-055',  merch:'Sajid',   company:'ABC Ltd.',        stage:'LC open',        days:76, last:'1 Apr',  color:'green' },
+    { style:'CR-071',  merch:'Nasrin',  company:'Horizon Co.',     stage:'Bank forwarded', days:67, last:'5 Apr',  color:'blue'  },
+  ];
+
+  const COLOR_DOT = {
+    amber:'#f59e0b', blue:'#4d96f0', green:'#10b981', red:'#ef4444', gray:'#8a94b0'
+  };
+
+  // ══════════════════════════════════════════
+  //  RENDER ORDERS TABLE
+  // ══════════════════════════════════════════
+  function renderOrders(data) {
+    const body = document.getElementById('ordersBody');
+    if (!data.length) {
+      body.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:24px;">No orders match your search.</td></tr>`;
+      return;
+    }
+    body.innerHTML = data.map(o => `
+      <tr onclick="nav('order-detail')">
+        <td class="tbl-style">${o.style}</td>
+        <td>${o.merch}</td>
+        <td>${o.company}</td>
+        <td>
+          <span class="stage-dot" style="background:${COLOR_DOT[o.color]};vertical-align:middle;"></span>
+          ${o.stage}
+        </td>
+        <td>${o.days}d</td>
+        <td class="tbl-date">${o.last}</td>
+      </tr>
+    `).join('');
+  }
+
+  function filterOrders(q) {
+    const lq = (q || '').toLowerCase();
+    const filtered = lq
+      ? ORDERS.filter(o =>
+          o.style.toLowerCase().includes(lq)   ||
+          o.merch.toLowerCase().includes(lq)   ||
+          o.company.toLowerCase().includes(lq) ||
+          o.stage.toLowerCase().includes(lq)
+        )
+      : ORDERS;
+    renderOrders(filtered);
+  }
+
+  // ══════════════════════════════════════════
+  //  NAVIGATION
+  // ══════════════════════════════════════════
+  const VIEW_MAP = {
+    'dashboard':    'v-dashboard',
+    'order-detail': 'v-order-detail',
+    'companies':    'v-companies',
+  };
+
+  const NAV_MAP = {
+    'dashboard':    'dashboard',
+    'order-detail': 'order-detail',
+    'companies':    'companies',
+  };
+
+  function nav(viewName) {
+    // hide all views
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    // deactivate nav items
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+    const vid = VIEW_MAP[viewName];
+    if (vid) document.getElementById(vid).classList.add('active');
+
+    // activate matching nav item
+    const navEl = document.querySelector(`.nav-item[data-view="${NAV_MAP[viewName]}"]`);
+    if (navEl) navEl.classList.add('active');
+
+    // scroll to top
+    window.scrollTo(0, 0);
+  }
+
+  // ══════════════════════════════════════════
+  //  INIT
+  // ══════════════════════════════════════════
+  renderOrders(ORDERS);
+</script>
+
+</body>
+</html>

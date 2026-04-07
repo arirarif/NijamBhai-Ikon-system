@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IKON · Delivery Challan — DC-2026/07</title>
+<link rel="stylesheet" href="_shared.css">
+</head>
+<body>
+
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">IKON G.A.</div>
+    <div class="sub">Garments Accessories</div>
+    <span class="badge-proto">PROTOTYPE</span>
+  </div>
+  <nav>
+    <div class="nav-section">Main</div>
+    <a class="nav-item" href="01-dashboard.html"><i class="icon">⊞</i> Dashboard</a>
+    <a class="nav-item" href="#"><i class="icon">☰</i> All Orders <span class="nav-badge blue">114</span></a>
+    <div class="nav-section">Clients</div>
+    <a class="nav-item" href="02-companies.html"><i class="icon">🏢</i> Companies</a>
+    <div class="nav-section">Documents</div>
+    <a class="nav-item" href="06-pi.html"><i class="icon">📄</i> Proforma Invoice</a>
+    <a class="nav-item" href="07-lc-tracker.html"><i class="icon">🏦</i> LC Tracker <span class="nav-badge">3</span></a>
+    <a class="nav-item active" href="08-challan.html"><i class="icon">📦</i> Delivery Challan</a>
+    <div class="nav-section">More</div>
+    <a class="nav-item" href="#"><i class="icon">⚙</i> Settings</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user"><strong>Nezam Uddin</strong>Owner · IKON G.A.</div>
+  </div>
+</aside>
+
+<div id="main">
+  <div id="topbar">
+    <span class="topbar-title">Delivery Challan</span>
+    <div class="topbar-right">
+      <button class="btn btn-outline btn-sm">← All Challans</button>
+      <button class="btn btn-outline btn-sm" onclick="window.print()">🖨 Print / PDF</button>
+      <button class="btn btn-primary btn-sm">Issue Challan</button>
+    </div>
+  </div>
+
+  <div id="content">
+    <div style="max-width:820px;margin:0 auto">
+
+      <!-- Breadcrumb + toolbar -->
+      <div class="breadcrumb">
+        <a href="01-dashboard.html">Dashboard</a><span class="sep">›</span>
+        <a href="#">Documents</a><span class="sep">›</span>
+        DC-2026/07 · Apex Fashion
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap">
+        <span style="font-size:15px;font-weight:700">DC-2026/07</span>
+        <span class="badge sent">Issued</span>
+        <span style="font-size:12px;color:var(--text3)">Issued 1 Apr 2026 · Style LX-033</span>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm">Edit</button>
+          <a class="btn btn-green btn-sm" href="06-pi.html">Create PI →</a>
+        </div>
+      </div>
+
+      <!-- WHITE DOCUMENT -->
+      <div class="pi-doc">
+
+        <!-- Letterhead -->
+        <div class="pi-letterhead">
+          <div class="company-name">IKON GARMENTS ACCESSORIES</div>
+          <div class="address">
+            House 18, Road 10, Sector 09, Uttara, Dhaka-1230, Bangladesh<br>
+            Tel: +8801730214607 &nbsp;|&nbsp; Email: ikongas@gmail.com &nbsp;|&nbsp; BIN/VAT: 003543528-0102
+          </div>
+        </div>
+
+        <div class="pi-title">DELIVERY CHALLAN</div>
+
+        <!-- Meta row -->
+        <div class="pi-meta">
+          <div class="pi-buyer">
+            <strong>DELIVERED TO:</strong>
+            APEX FASHION LTD.<br>
+            Mitu (Merchandiser)<br>
+            Mohakhali, Dhaka, Bangladesh
+          </div>
+          <div class="pi-info">
+            <div><strong>Challan No:</strong> DC-2026/07</div>
+            <div><strong>Date:</strong> 1 Apr 2026</div>
+            <div><strong>Transport:</strong> Road (Own Vehicle)</div>
+            <div><strong>Driver:</strong> Abdul Karim</div>
+          </div>
+        </div>
+
+        <!-- Items table -->
+        <table class="pi-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th style="text-align:left">Description</th>
+              <th>Style</th>
+              <th>Unit</th>
+              <th>Ordered Qty</th>
+              <th>Delivered Qty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Printed Woven Label — LX-033 (Blue/White)</td>
+              <td>LX-033</td>
+              <td>pcs</td>
+              <td>1,00,000</td>
+              <td>1,00,000</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Hang Tag — Apex Fashion with barcode</td>
+              <td>LX-034</td>
+              <td>pcs</td>
+              <td>50,000</td>
+              <td>50,000</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Poly Bag — 30cm × 40cm, printed</td>
+              <td>PB-011</td>
+              <td>pcs</td>
+              <td>10,000</td>
+              <td>10,000</td>
+            </tr>
+            <tr class="pi-total-row">
+              <td colspan="4" style="text-align:right">TOTAL PIECES</td>
+              <td>1,60,000</td>
+              <td>1,60,000</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Carton details -->
+        <div style="font-size:12px;margin-bottom:14px;border:1px solid #ddd;border-radius:4px;padding:8px 12px">
+          <strong>Packing Details:</strong> 3 cartons total &nbsp;|&nbsp;
+          Carton 1: 40×40×40cm (labels) &nbsp;|&nbsp;
+          Carton 2: 30×30×30cm (hang tags) &nbsp;|&nbsp;
+          Carton 3: 35×35×35cm (poly bags) &nbsp;|&nbsp;
+          Total Weight: approx. 18 kg
+        </div>
+
+        <!-- Remarks -->
+        <div style="font-size:12px;margin-bottom:16px">
+          <strong>Remarks:</strong> Full delivery as per approved sample. No short shipment.
+          Goods delivered to factory gate and signed by buyer's representative.
+        </div>
+
+        <!-- Signatures -->
+        <div class="pi-sign">
+          <div class="sig-box">
+            <div style="height:36px"></div>
+            Dispatched By<br>
+            <strong>IKON GARMENTS ACCESSORIES</strong>
+          </div>
+          <div class="sig-box">
+            <div style="height:36px"></div>
+            Received By (Buyer)<br>
+            <strong>APEX FASHION LTD.</strong>
+          </div>
+          <div class="sig-box">
+            <div style="height:36px"></div>
+            Driver Signature<br>
+            Abdul Karim
+          </div>
+        </div>
+
+      </div><!-- end pi-doc -->
+
+    </div>
+  </div><!-- end content -->
+</div><!-- end main -->
+
+</body>
+</html>

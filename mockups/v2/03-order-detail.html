@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IKON · Order Detail — SH-204</title>
+<link rel="stylesheet" href="_shared.css">
+</head>
+<body>
+
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">IKON G.A.</div>
+    <div class="sub">Garments Accessories</div>
+    <span class="badge-proto">PROTOTYPE</span>
+  </div>
+  <nav>
+    <div class="nav-section">Main</div>
+    <a class="nav-item" href="01-dashboard.html"><i class="icon">⊞</i> Dashboard</a>
+    <a class="nav-item active" href="#"><i class="icon">☰</i> All Orders <span class="nav-badge blue">114</span></a>
+    <div class="nav-section">Clients</div>
+    <a class="nav-item" href="02-companies.html"><i class="icon">🏢</i> Companies</a>
+    <div class="nav-section">Documents</div>
+    <a class="nav-item" href="06-pi.html"><i class="icon">📄</i> Proforma Invoice</a>
+    <a class="nav-item" href="07-lc-tracker.html"><i class="icon">🏦</i> LC Tracker <span class="nav-badge">3</span></a>
+    <a class="nav-item" href="08-challan.html"><i class="icon">📦</i> Delivery Challan</a>
+    <div class="nav-section">More</div>
+    <a class="nav-item" href="#"><i class="icon">⚙</i> Settings</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user"><strong>Nezam Uddin</strong>Owner · IKON G.A.</div>
+  </div>
+</aside>
+
+<div id="main">
+  <div id="topbar">
+    <span class="topbar-title">Order Detail</span>
+    <div class="topbar-right">
+      <a class="btn btn-outline btn-sm" href="05-sample-revision.html">+ Add Revision</a>
+      <button class="btn btn-green btn-sm">✓ Mark Approved</button>
+    </div>
+  </div>
+
+  <div id="content">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="01-dashboard.html">Dashboard</a><span class="sep">›</span>
+      <a href="#">All Orders</a><span class="sep">›</span>
+      Style SH-204
+    </div>
+
+    <!-- Stage bar -->
+    <div class="stage-bar">
+      <div class="stage done"><span class="snum">1</span>Order Received</div>
+      <div class="stage done"><span class="snum">2</span>Sample In Progress</div>
+      <div class="stage done"><span class="snum">3</span>Sample Sent</div>
+      <div class="stage current"><span class="snum">4</span>Correction Needed</div>
+      <div class="stage"><span class="snum">5</span>Sample Approved</div>
+      <div class="stage"><span class="snum">6</span>Bulk Production</div>
+      <div class="stage"><span class="snum">7</span>Challan Issued</div>
+      <div class="stage"><span class="snum">8</span>PI Done</div>
+      <div class="stage"><span class="snum">9</span>LC Open</div>
+      <div class="stage"><span class="snum">10</span>Matured</div>
+    </div>
+
+    <!-- Order hero -->
+    <div class="order-hero">
+      <div class="left">
+        <h1>Style SH-204</h1>
+        <div class="sub">Karim Ahmed · ABC Ltd. · <span style="color:#8892a4">Order received 27 Mar 2026</span></div>
+        <div class="actions" style="margin-top:10px">
+          <span class="badge correction">Correction Needed</span>
+          <span style="font-size:12px;color:#8892a4">12 days active · 2 revisions</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+
+      <!-- LEFT column -->
+      <div>
+
+        <!-- Order info card -->
+        <div class="card">
+          <div class="card-header">
+            <span class="ctitle">Order Info</span>
+            <button class="btn btn-outline btn-sm">Edit</button>
+          </div>
+          <div class="card-body">
+            <div class="info-grid">
+              <div class="info-item"><div class="label">Style Name</div><div class="value">SH-204</div></div>
+              <div class="info-item"><div class="label">Item Type</div><div class="value">Elastic Band</div></div>
+              <div class="info-item"><div class="label">Quantity</div><div class="value">50,000 pcs</div></div>
+              <div class="info-item"><div class="label">Buyer Company</div><div class="value">ABC Ltd.</div></div>
+              <div class="info-item"><div class="label">Merchandiser</div><div class="value">Karim Ahmed</div></div>
+              <div class="info-item"><div class="label">Received Date</div><div class="value">27 Mar 2026</div></div>
+            </div>
+            <div class="desc-row">
+              <div class="label">Description</div>
+              <div class="value">25mm wide woven elastic with navy blue and white stripe pattern. Must match Pantone 281 C exactly. Buyer requires OEKO-TEX standard 100 certificate for this item.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Revision history -->
+        <div class="section-title" style="margin-top:20px">Sample Revisions</div>
+
+        <!-- Revision 1 — done -->
+        <div class="revision-item">
+          <div class="revision-header">
+            <span class="rno">Revision 1</span>
+            <span class="badge approved">Completed</span>
+            <span style="font-size:11px;color:#8892a4;margin-left:auto">27 Mar – 2 Apr 2026</span>
+          </div>
+          <div class="revision-body">
+            <div class="rev-grid">
+              <div class="rev-item"><div class="rlabel">Made By</div><div class="rvalue">In-house</div></div>
+              <div class="rev-item"><div class="rlabel">Sample Sent</div><div class="rvalue">2 Apr 2026</div></div>
+              <div class="rev-item"><div class="rlabel">Result</div><div class="rvalue"><span class="badge correction">Correction</span></div></div>
+              <div class="rev-item"><div class="rlabel">Buyer Feedback</div><div class="rvalue">Reviewed</div></div>
+            </div>
+            <div class="feedback-box">
+              <div class="flabel">Buyer Feedback</div>
+              <div class="ftext">"Stripe width is 3mm, we need 5mm. Color matches but the contrast between stripes is too low. Please redo."</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Revision 2 — current/open -->
+        <div class="revision-item" style="border-color:#3b82f6">
+          <div class="revision-header" style="background:rgba(59,130,246,.1)">
+            <span class="rno">Revision 2</span>
+            <span class="badge in-progress">In Progress</span>
+            <span style="font-size:11px;color:#8892a4;margin-left:auto">Started 3 Apr 2026</span>
+          </div>
+          <div class="revision-body">
+            <div class="rev-grid">
+              <div class="rev-item"><div class="rlabel">Made By</div><div class="rvalue">Outsourced · Mirpur Trims</div></div>
+              <div class="rev-item"><div class="rlabel">Sample Sent</div><div class="rvalue">—</div></div>
+              <div class="rev-item"><div class="rlabel">Result</div><div class="rvalue"><span class="badge in-progress">Pending</span></div></div>
+              <div class="rev-item"><div class="rlabel">Expected</div><div class="rvalue">10 Apr 2026</div></div>
+            </div>
+            <div class="feedback-box" style="border-color:#1d3a5e;background:rgba(59,130,246,.05)">
+              <div class="flabel">Internal Note</div>
+              <div class="ftext">Stripe width corrected to 5mm. Sent Pantone swatch to vendor. Follow up on 9 Apr if not received.</div>
+            </div>
+            <div class="rev-actions">
+              <button class="btn btn-outline btn-sm">Edit</button>
+              <button class="btn btn-primary btn-sm">Mark Sent to Buyer</button>
+              <a class="btn btn-green btn-sm" href="05-sample-revision.html">+ Add Revision</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Locked sections -->
+        <div class="section-title" style="margin-top:20px">Bulk Production</div>
+        <div class="locked-section">
+          <div class="locked-header">
+            <span class="ctitle">Bulk Production Details</span>
+            <span class="lock-badge">🔒 Locked</span>
+          </div>
+          <div class="locked-body">
+            <div class="lock-icon">🔒</div>
+            <div class="lock-msg">Locked until sample is approved</div>
+            <div class="lock-sub">Approve this sample to unlock bulk production tracking</div>
+          </div>
+        </div>
+
+        <div class="section-title" style="margin-top:20px">Documents</div>
+        <div class="locked-section">
+          <div class="locked-header">
+            <span class="ctitle">PI / Challan / LC</span>
+            <span class="lock-badge">🔒 Locked</span>
+          </div>
+          <div class="locked-body">
+            <div class="lock-icon">📄</div>
+            <div class="lock-msg">Locked until bulk production is complete</div>
+            <div class="lock-sub">Documents will unlock after challan is issued</div>
+          </div>
+        </div>
+
+      </div><!-- end left column -->
+
+      <!-- RIGHT column — Timeline sidebar -->
+      <div>
+        <div class="card">
+          <div class="card-header"><span class="ctitle">Timeline</span></div>
+          <div class="card-body">
+            <div class="timeline">
+
+              <div class="tl-item">
+                <div class="tl-dot-wrap"><div class="tl-dot done"></div><div class="tl-line"></div></div>
+                <div class="tl-content">
+                  <div class="tl-date">27 Mar 2026</div>
+                  <div class="tl-title">Order received from Karim</div>
+                  <div class="tl-sub">50,000 pcs elastic band</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot-wrap"><div class="tl-dot done"></div><div class="tl-line"></div></div>
+                <div class="tl-content">
+                  <div class="tl-date">27 Mar 2026</div>
+                  <div class="tl-title">Sample production started</div>
+                  <div class="tl-sub">In-house production</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot-wrap"><div class="tl-dot done"></div><div class="tl-line"></div></div>
+                <div class="tl-content">
+                  <div class="tl-date">2 Apr 2026</div>
+                  <div class="tl-title">Sample sent to buyer</div>
+                  <div class="tl-sub">Revision 1 dispatched</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot-wrap"><div class="tl-dot done"></div><div class="tl-line"></div></div>
+                <div class="tl-content">
+                  <div class="tl-date">3 Apr 2026</div>
+                  <div class="tl-title">Correction feedback received</div>
+                  <div class="tl-sub">Stripe width issue — redo needed</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot-wrap"><div class="tl-dot current"></div><div class="tl-line"></div></div>
+                <div class="tl-content">
+                  <div class="tl-date">3 Apr 2026</div>
+                  <div class="tl-title">Revision 2 started</div>
+                  <div class="tl-sub">Outsourced to Mirpur Trims</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot-wrap"><div class="tl-dot pending"></div><div class="tl-line"></div></div>
+                <div class="tl-content">
+                  <div class="tl-date">—</div>
+                  <div class="tl-title pending">Send to buyer</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot-wrap"><div class="tl-dot pending"></div><div class="tl-line"></div></div>
+                <div class="tl-content">
+                  <div class="tl-date">—</div>
+                  <div class="tl-title pending">Sample approved</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot-wrap"><div class="tl-dot pending"></div><div class="tl-line"></div></div>
+                <div class="tl-content">
+                  <div class="tl-date">—</div>
+                  <div class="tl-title pending">Bulk production</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot-wrap"><div class="tl-dot pending"></div><div class="tl-line"></div></div>
+                <div class="tl-content">
+                  <div class="tl-date">—</div>
+                  <div class="tl-title pending">Challan issued</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot-wrap"><div class="tl-dot pending"></div><div class="tl-line"></div></div>
+                <div class="tl-content">
+                  <div class="tl-date">—</div>
+                  <div class="tl-title pending">PI done</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot-wrap"><div class="tl-dot pending"></div><div class="tl-line"></div></div>
+                <div class="tl-content">
+                  <div class="tl-date">—</div>
+                  <div class="tl-title pending">LC opened</div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot-wrap"><div class="tl-dot pending"></div></div>
+                <div class="tl-content">
+                  <div class="tl-date">—</div>
+                  <div class="tl-title pending">LC matured</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div><!-- end right column -->
+
+    </div><!-- end two-col -->
+
+  </div><!-- end content -->
+</div><!-- end main -->
+
+</body>
+</html>

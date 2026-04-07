@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IKON · Proforma Invoice — PI-2025/02</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* Document wrapper sits inside dark content area */
+  .doc-wrapper { max-width: 820px; margin: 0 auto; }
+  .doc-toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+  .doc-toolbar .doc-title { font-size: 15px; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">IKON G.A.</div>
+    <div class="sub">Garments Accessories</div>
+    <span class="badge-proto">PROTOTYPE</span>
+  </div>
+  <nav>
+    <div class="nav-section">Main</div>
+    <a class="nav-item" href="01-dashboard.html"><i class="icon">⊞</i> Dashboard</a>
+    <a class="nav-item" href="#"><i class="icon">☰</i> All Orders <span class="nav-badge blue">114</span></a>
+    <div class="nav-section">Clients</div>
+    <a class="nav-item" href="02-companies.html"><i class="icon">🏢</i> Companies</a>
+    <div class="nav-section">Documents</div>
+    <a class="nav-item active" href="06-pi.html"><i class="icon">📄</i> Proforma Invoice</a>
+    <a class="nav-item" href="07-lc-tracker.html"><i class="icon">🏦</i> LC Tracker <span class="nav-badge">3</span></a>
+    <a class="nav-item" href="08-challan.html"><i class="icon">📦</i> Delivery Challan</a>
+    <div class="nav-section">More</div>
+    <a class="nav-item" href="#"><i class="icon">⚙</i> Settings</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user"><strong>Nezam Uddin</strong>Owner · IKON G.A.</div>
+  </div>
+</aside>
+
+<div id="main">
+  <div id="topbar">
+    <span class="topbar-title">Proforma Invoice</span>
+    <div class="topbar-right">
+      <button class="btn btn-outline btn-sm">← All PIs</button>
+      <button class="btn btn-outline btn-sm" onclick="window.print()">🖨 Print / PDF</button>
+      <button class="btn btn-primary btn-sm">Send to Buyer</button>
+    </div>
+  </div>
+
+  <div id="content">
+    <div class="doc-wrapper">
+
+      <!-- Breadcrumb + toolbar -->
+      <div class="breadcrumb">
+        <a href="01-dashboard.html">Dashboard</a><span class="sep">›</span>
+        <a href="#">Documents</a><span class="sep">›</span>
+        PI-2025/02 · Rio Design Ltd.
+      </div>
+      <div class="doc-toolbar">
+        <span class="doc-title">PI-2025/02</span>
+        <span class="badge approved">Issued</span>
+        <span style="font-size:12px;color:var(--text3)">Issued 28 Feb 2025 · Linked to LC MT-244</span>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm">Edit PI</button>
+          <a class="btn btn-green btn-sm" href="07-lc-tracker.html">View LC →</a>
+        </div>
+      </div>
+
+      <!-- WHITE DOCUMENT -->
+      <div class="pi-doc">
+
+        <!-- Letterhead -->
+        <div class="pi-letterhead">
+          <div class="company-name">IKON GARMENTS ACCESSORIES</div>
+          <div class="address">
+            House 18, Road 10, Sector 09, Uttara, Dhaka-1230, Bangladesh<br>
+            Tel: +8801730214607 &nbsp;|&nbsp; Email: ikongas@gmail.com &nbsp;|&nbsp; BIN/VAT: 003543528-0102
+          </div>
+        </div>
+
+        <div class="pi-title">PROFORMA INVOICE</div>
+
+        <!-- Meta row -->
+        <div class="pi-meta">
+          <div class="pi-buyer">
+            <strong>BUYER:</strong>
+            RIO DESIGN LIMITED<br>
+            Dhaka, Bangladesh
+          </div>
+          <div class="pi-info">
+            <div><strong>PI No:</strong> PI-2025/02</div>
+            <div><strong>Date:</strong> 28 Feb 2025</div>
+            <div><strong>Currency:</strong> BDT</div>
+          </div>
+        </div>
+
+        <!-- Bank info -->
+        <div style="background:#f0f4ff;border:1px solid #c7d2fe;border-radius:4px;padding:8px 12px;font-size:11px;margin-bottom:14px">
+          <strong>Bank:</strong> Community Bank Ltd, Uttara Branch, Dhaka &nbsp;|&nbsp;
+          <strong>Swift:</strong> COYMBDDD &nbsp;|&nbsp;
+          <strong>A/C:</strong> 0100310654101
+        </div>
+
+        <!-- Items table -->
+        <table class="pi-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th style="text-align:left">Description</th>
+              <th>Style</th>
+              <th>Qty (pcs)</th>
+              <th>Unit Price (৳)</th>
+              <th>Amount (৳)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>25mm Woven Elastic Band — Navy/White stripe</td>
+              <td>MT-244</td>
+              <td>50,000</td>
+              <td>4.50</td>
+              <td>2,25,000.00</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>15mm Plain Elastic Band — Black</td>
+              <td>SH-189</td>
+              <td>30,000</td>
+              <td>3.20</td>
+              <td>96,000.00</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Printed Label — Style LX-033 woven</td>
+              <td>LX-033</td>
+              <td>1,00,000</td>
+              <td>0.80</td>
+              <td>80,000.00</td>
+            </tr>
+            <tr class="pi-total-row">
+              <td colspan="5" style="text-align:right">TOTAL AMOUNT</td>
+              <td>৳ 4,01,000.00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="pi-words">IN WORDS: TAKA FOUR LAKH ONE THOUSAND ONLY</div>
+
+        <!-- Terms -->
+        <div class="pi-terms">
+          <h3>Terms &amp; Conditions:</h3>
+          <ol>
+            <li>Payment by Letter of Credit (LC) — 90 days from bill of lading date.</li>
+            <li>Delivery within 30 days after LC receipt.</li>
+            <li>Goods as per sample approved by buyer.</li>
+            <li>All disputes subject to Dhaka jurisdiction.</li>
+            <li>This PI is valid for 30 days from issue date.</li>
+          </ol>
+        </div>
+
+        <!-- Signature -->
+        <div class="pi-sign">
+          <div class="sig-box">
+            <div style="height:36px"></div>
+            Authorised Signatory<br>
+            <strong>IKON GARMENTS ACCESSORIES</strong>
+          </div>
+          <div class="sig-box">
+            <div style="height:36px"></div>
+            Accepted By Buyer<br>
+            <strong>RIO DESIGN LIMITED</strong>
+          </div>
+        </div>
+
+      </div><!-- end pi-doc -->
+
+    </div><!-- end doc-wrapper -->
+  </div><!-- end content -->
+</div><!-- end main -->
+
+</body>
+</html>

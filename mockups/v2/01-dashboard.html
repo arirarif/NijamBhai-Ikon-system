@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IKON · Dashboard</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* search filter JS helper */
+  tr.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">IKON G.A.</div>
+    <div class="sub">Garments Accessories</div>
+    <span class="badge-proto">PROTOTYPE</span>
+  </div>
+  <nav>
+    <div class="nav-section">Main</div>
+    <a class="nav-item active" href="01-dashboard.html"><i class="icon">⊞</i> Dashboard <span class="nav-badge orange">18</span></a>
+    <a class="nav-item" href="#"><i class="icon">☰</i> All Orders <span class="nav-badge blue">114</span></a>
+    <div class="nav-section">Clients</div>
+    <a class="nav-item" href="02-companies.html"><i class="icon">🏢</i> Companies</a>
+    <div class="nav-section">Documents</div>
+    <a class="nav-item" href="06-pi.html"><i class="icon">📄</i> Proforma Invoice</a>
+    <a class="nav-item" href="07-lc-tracker.html"><i class="icon">🏦</i> LC Tracker <span class="nav-badge">3</span></a>
+    <a class="nav-item" href="08-challan.html"><i class="icon">📦</i> Delivery Challan</a>
+    <div class="nav-section">More</div>
+    <a class="nav-item" href="#"><i class="icon">⚙</i> Settings</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user"><strong>Nezam Uddin</strong>Owner · IKON G.A.</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <span class="topbar-title">Dashboard</span>
+    <span class="topbar-date">Wednesday, 8 April 2026</span>
+    <div class="topbar-right">
+      <a class="btn btn-outline btn-sm" href="02-companies.html">+ Company</a>
+      <a class="btn btn-primary btn-sm" href="04-new-order.html">+ New Order</a>
+    </div>
+  </div>
+
+  <div id="content">
+
+    <!-- Alert strip -->
+    <div class="alert-strip">
+      <div class="dot"></div>
+      <span>3 LCs maturing within 14 days — action required</span>
+      <a class="view-btn" href="07-lc-tracker.html">View</a>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="label">Active Orders</div>
+        <div class="value">114</div>
+        <div class="sub">across 23 companies</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Pending Corrections</div>
+        <div class="value orange">18</div>
+        <div class="sub">samples awaiting revision</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Approved This Month</div>
+        <div class="value green">9</div>
+        <div class="sub">moved to bulk production</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">LC Maturing (90d)</div>
+        <div class="value red">3</div>
+        <div class="sub">next: 16 Apr 2026</div>
+      </div>
+    </div>
+
+    <!-- Pipeline view -->
+    <div class="section-title">Pipeline View</div>
+    <div class="pipeline-grid">
+
+      <!-- Col 1 -->
+      <div class="pipeline-col">
+        <div class="pipeline-col-header">
+          <span class="col-title">Sample Stage</span>
+          <span class="count-badge">31</span>
+        </div>
+        <div class="pipeline-cards">
+          <a class="order-card" href="03-order-detail.html">
+            <div class="style">Style SH-204</div>
+            <div class="merch">Karim · ABC Ltd.</div>
+            <div class="meta"><span class="days">12 days</span><span class="badge correction">correction</span></div>
+          </a>
+          <a class="order-card" href="03-order-detail.html">
+            <div class="style">Style BG-110</div>
+            <div class="merch">Rahim · Delta Garments</div>
+            <div class="meta"><span class="days">4 days</span><span class="badge sent">sent</span></div>
+          </a>
+          <a class="order-card" href="03-order-detail.html">
+            <div class="style">Style KP-077</div>
+            <div class="merch">Nasrin · Horizon Co.</div>
+            <div class="meta"><span class="days">21 days</span><span class="badge correction">correction</span></div>
+          </a>
+          <span class="more-link">+28 more</span>
+        </div>
+      </div>
+
+      <!-- Col 2 -->
+      <div class="pipeline-col">
+        <div class="pipeline-col-header">
+          <span class="col-title">Bulk Production</span>
+          <span class="count-badge">22</span>
+        </div>
+        <div class="pipeline-cards">
+          <a class="order-card" href="03-order-detail.html">
+            <div class="style">Style MT-301</div>
+            <div class="merch">Faisal · Zenith Exports</div>
+            <div class="meta"><span class="days">Deadline: 20 Apr</span><span class="badge on-track">on track</span></div>
+          </a>
+          <a class="order-card" href="03-order-detail.html">
+            <div class="style">Style CR-088</div>
+            <div class="merch">Sumaiya · Pacific Corp</div>
+            <div class="meta"><span class="days">Deadline: 12 Apr</span><span class="badge at-risk">at risk</span></div>
+          </a>
+          <a class="order-card" href="03-order-detail.html">
+            <div class="style">Style HB-412</div>
+            <div class="merch">Tariq · Global Wear</div>
+            <div class="meta"><span class="days">Deadline: 2 May</span><span class="badge on-track">on track</span></div>
+          </a>
+          <span class="more-link">+19 more</span>
+        </div>
+      </div>
+
+      <!-- Col 3 -->
+      <div class="pipeline-col">
+        <div class="pipeline-col-header">
+          <span class="col-title">PI / Challan</span>
+          <span class="count-badge">14</span>
+        </div>
+        <div class="pipeline-cards">
+          <a class="order-card" href="06-pi.html">
+            <div class="style">Style SH-189</div>
+            <div class="merch">Karim · ABC Ltd.</div>
+            <div class="meta"><span class="days">PI drafted</span><span class="badge draft">draft</span></div>
+          </a>
+          <a class="order-card" href="08-challan.html">
+            <div class="style">Style LX-033</div>
+            <div class="merch">Mitu · Apex Fashion</div>
+            <div class="meta"><span class="days">Challan issued</span><span class="badge sent">sent</span></div>
+          </a>
+          <span class="more-link">+12 more</span>
+        </div>
+      </div>
+
+      <!-- Col 4 -->
+      <div class="pipeline-col">
+        <div class="pipeline-col-header">
+          <span class="col-title">LC &amp; Banking</span>
+          <span class="count-badge">11</span>
+        </div>
+        <div class="pipeline-cards">
+          <a class="order-card" href="07-lc-tracker.html">
+            <div class="style">Style MT-244</div>
+            <div class="merch">Rahim · Delta Garments</div>
+            <div class="meta"><span class="days">Matures 16 Apr</span><span class="badge urgent">urgent</span></div>
+          </a>
+          <a class="order-card" href="07-lc-tracker.html">
+            <div class="style">Style BG-099</div>
+            <div class="merch">Faisal · Zenith Exports</div>
+            <div class="meta"><span class="days">Matures 22 Apr</span><span class="badge soon">soon</span></div>
+          </a>
+          <a class="order-card" href="07-lc-tracker.html">
+            <div class="style">Style CR-071</div>
+            <div class="merch">Nasrin · Horizon Co.</div>
+            <div class="meta"><span class="days">Forwarded to bank</span><span class="badge processing">processing</span></div>
+          </a>
+          <span class="more-link">+8 more</span>
+        </div>
+      </div>
+
+    </div><!-- end pipeline-grid -->
+
+    <!-- Quick search table -->
+    <div class="search-section">
+      <div class="search-header">
+        <span class="title">All Orders — Quick Search</span>
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input class="search-input" type="text" placeholder="Search by style, merchandiser, company..." oninput="filterTable(this.value)">
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Style</th><th>Merchandiser</th><th>Company</th><th>Stage</th><th>Days Active</th><th>Last Update</th>
+          </tr>
+        </thead>
+        <tbody id="qtbody">
+          <tr onclick="location='03-order-detail.html'"><td class="style-link">SH-204</td><td>Karim Ahmed</td><td class="dim">ABC Ltd.</td><td><span class="badge correction">Correction</span></td><td class="days">12d</td><td class="dim">3 Apr</td></tr>
+          <tr onclick="location='03-order-detail.html'"><td class="style-link">BG-110</td><td>Rahim Khan</td><td class="dim">Delta Garments</td><td><span class="badge sent">Sample sent</span></td><td class="days">4d</td><td class="dim">5 Apr</td></tr>
+          <tr onclick="location='03-order-detail.html'"><td class="style-link">MT-301</td><td>Faisal Ahmed</td><td class="dim">Zenith Exports</td><td><span class="badge bulk">Bulk production</span></td><td class="days">34d</td><td class="dim">7 Apr</td></tr>
+          <tr onclick="location='03-order-detail.html'"><td class="style-link">CR-088</td><td>Sumaiya</td><td class="dim">Pacific Corp</td><td><span class="badge at-risk">At risk</span></td><td class="days">41d</td><td class="dim">6 Apr</td></tr>
+          <tr onclick="location='06-pi.html'"><td class="style-link">SH-189</td><td>Karim Ahmed</td><td class="dim">ABC Ltd.</td><td><span class="badge draft">PI draft</span></td><td class="days">58d</td><td class="dim">2 Apr</td></tr>
+          <tr onclick="location='08-challan.html'"><td class="style-link">LX-033</td><td>Mitu</td><td class="dim">Apex Fashion</td><td><span class="badge sent">Challan issued</span></td><td class="days">62d</td><td class="dim">1 Apr</td></tr>
+          <tr onclick="location='07-lc-tracker.html'"><td class="style-link">MT-244</td><td>Rahim Khan</td><td class="dim">Delta Garments</td><td><span class="badge lc-open">LC open</span></td><td class="days">88d</td><td class="dim">31 Mar</td></tr>
+          <tr onclick="location='03-order-detail.html'"><td class="style-link">KP-077</td><td>Nasrin</td><td class="dim">Horizon Co.</td><td><span class="badge correction">Correction</span></td><td class="days">21d</td><td class="dim">4 Apr</td></tr>
+          <tr onclick="location='03-order-detail.html'"><td class="style-link">HB-412</td><td>Tariq</td><td class="dim">Global Wear</td><td><span class="badge bulk">Bulk production</span></td><td class="days">29d</td><td class="dim">7 Apr</td></tr>
+          <tr onclick="location='07-lc-tracker.html'"><td class="style-link">BG-099</td><td>Faisal Ahmed</td><td class="dim">Zenith Exports</td><td><span class="badge lc-open">LC open</span></td><td class="days">82d</td><td class="dim">28 Mar</td></tr>
+          <tr onclick="location='03-order-detail.html'"><td class="style-link">MBJA-W26</td><td>Ataur</td><td class="dim">JBC</td><td><span class="badge bulk">Bulk production</span></td><td class="days">7d</td><td class="dim">1 Apr</td></tr>
+          <tr onclick="location='03-order-detail.html'"><td class="style-link">WL-055</td><td>Rafi</td><td class="dim">Rio Design Ltd.</td><td><span class="badge approved">Approved</span></td><td class="days">15d</td><td class="dim">6 Apr</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- end content -->
+</div><!-- end main -->
+
+<script>
+function filterTable(val) {
+  val = val.toLowerCase();
+  document.querySelectorAll('#qtbody tr').forEach(r => {
+    r.classList.toggle('hidden', !r.textContent.toLowerCase().includes(val));
+  });
+}
+</script>
+</body>
+</html>

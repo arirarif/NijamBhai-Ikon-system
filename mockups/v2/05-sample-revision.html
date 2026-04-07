@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IKON · Add Sample Revision</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .form-section { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; overflow: hidden; }
+  .form-section-header { padding: 12px 16px; background: var(--bg3); border-bottom: 1px solid var(--border); font-size: 13px; font-weight: 600; }
+  .form-section-body { padding: 18px; }
+  .form-footer { display: flex; justify-content: flex-end; gap: 10px; padding-top: 16px; }
+
+  /* Radio toggle style */
+  .radio-group { display: flex; gap: 10px; }
+  .radio-option { flex: 1; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; cursor: pointer; transition: all .15s; }
+  .radio-option:hover { border-color: var(--accent); background: var(--bg3); }
+  .radio-option input[type=radio] { display: none; }
+  .radio-option.selected { border-color: var(--accent); background: rgba(59,130,246,.1); }
+  .radio-option .ro-title { font-size: 13px; font-weight: 600; }
+  .radio-option .ro-sub   { font-size: 11px; color: var(--text3); margin-top: 3px; }
+  .ro-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border); display: inline-block; margin-right: 8px; vertical-align: middle; }
+  .radio-option.selected .ro-dot { border-color: var(--accent); background: var(--accent); }
+
+  /* Result radio */
+  .result-group { display: flex; gap: 10px; }
+  .result-option { padding: 8px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; }
+  .result-option:hover { background: var(--bg3); }
+  .result-option.sel-correction { border-color: #7f1d1d; background: var(--red-bg); color: var(--red); }
+  .result-option.sel-approved   { border-color: #166534; background: var(--green-bg); color: var(--green); }
+  .result-option.sel-pending    { border-color: var(--border); background: var(--bg4); color: var(--text2); }
+
+  .order-context { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
+  .order-context .oc-style { font-size: 15px; font-weight: 700; }
+  .order-context .oc-meta  { font-size: 12px; color: var(--text3); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">IKON G.A.</div>
+    <div class="sub">Garments Accessories</div>
+    <span class="badge-proto">PROTOTYPE</span>
+  </div>
+  <nav>
+    <div class="nav-section">Main</div>
+    <a class="nav-item" href="01-dashboard.html"><i class="icon">⊞</i> Dashboard</a>
+    <a class="nav-item active" href="#"><i class="icon">☰</i> All Orders <span class="nav-badge blue">114</span></a>
+    <div class="nav-section">Clients</div>
+    <a class="nav-item" href="02-companies.html"><i class="icon">🏢</i> Companies</a>
+    <div class="nav-section">Documents</div>
+    <a class="nav-item" href="06-pi.html"><i class="icon">📄</i> Proforma Invoice</a>
+    <a class="nav-item" href="07-lc-tracker.html"><i class="icon">🏦</i> LC Tracker <span class="nav-badge">3</span></a>
+    <a class="nav-item" href="08-challan.html"><i class="icon">📦</i> Delivery Challan</a>
+    <div class="nav-section">More</div>
+    <a class="nav-item" href="#"><i class="icon">⚙</i> Settings</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user"><strong>Nezam Uddin</strong>Owner · IKON G.A.</div>
+  </div>
+</aside>
+
+<div id="main">
+  <div id="topbar">
+    <span class="topbar-title">Add Sample Revision</span>
+  </div>
+
+  <div id="content">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="01-dashboard.html">Dashboard</a><span class="sep">›</span>
+      <a href="03-order-detail.html">Style SH-204</a><span class="sep">›</span>
+      Add Revision
+    </div>
+
+    <!-- Order context bar -->
+    <div class="order-context">
+      <div>
+        <div class="oc-style">Style SH-204</div>
+        <div class="oc-meta">Karim Ahmed · ABC Ltd. · Revision 3</div>
+      </div>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+        <span class="badge correction">Previous: Correction</span>
+        <a class="btn btn-outline btn-sm" href="03-order-detail.html">← Back to order</a>
+      </div>
+    </div>
+
+    <!-- Production method -->
+    <div class="form-section">
+      <div class="form-section-header">Sample Production Method</div>
+      <div class="form-section-body">
+        <div class="radio-group">
+          <label class="radio-option selected">
+            <input type="radio" name="prod" value="inhouse" checked>
+            <span class="ro-dot"></span>
+            <span class="ro-title">In-house</span>
+            <div class="ro-sub">Made at IKON factory in Uttara</div>
+          </label>
+          <label class="radio-option" onclick="toggleVendor(true)">
+            <input type="radio" name="prod" value="outsource">
+            <span class="ro-dot"></span>
+            <span class="ro-title">Outsourced</span>
+            <div class="ro-sub">Send to external vendor</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vendor selection (shown when outsourced) -->
+    <div class="form-section" id="vendor-section" style="display:none">
+      <div class="form-section-header">Vendor Details</div>
+      <div class="form-section-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Select Vendor *</label>
+            <select class="form-select">
+              <option>— Select vendor —</option>
+              <option>Mirpur Trims Co.</option>
+              <option>Gilistan Accessories</option>
+              <option>Star Elastic Dhaka</option>
+              <option>+ Add new vendor</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sent to Vendor Date</label>
+            <input class="form-input" type="date" value="2026-04-08">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes to Vendor</label>
+          <textarea class="form-textarea" placeholder="Specifications, corrections to address, Pantone references..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dates -->
+    <div class="form-section">
+      <div class="form-section-header">Dates</div>
+      <div class="form-section-body">
+        <div class="form-row-3">
+          <div class="form-group">
+            <label class="form-label">Production Start Date *</label>
+            <input class="form-input" type="date" value="2026-04-08">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Expected Completion</label>
+            <input class="form-input" type="date">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sample Sent to Buyer</label>
+            <input class="form-input" type="date" placeholder="Fill after sending">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="form-section">
+      <div class="form-section-header">Buyer Response (fill after feedback)</div>
+      <div class="form-section-body">
+        <div class="form-group">
+          <label class="form-label">Result</label>
+          <div class="result-group">
+            <div class="result-option sel-pending">⏳ Pending response</div>
+            <div class="result-option">❌ Correction needed</div>
+            <div class="result-option">✓ Approved</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Buyer Feedback / Comments</label>
+          <textarea class="form-textarea" placeholder="Write what the buyer said — corrections needed, what to fix, what was approved..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Internal note -->
+    <div class="form-section">
+      <div class="form-section-header">Internal Notes (not shown to buyer)</div>
+      <div class="form-section-body">
+        <div class="form-group">
+          <textarea class="form-textarea" placeholder="Internal follow-up notes, who to call, what materials needed..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reference images -->
+    <div class="form-section">
+      <div class="form-section-header">Reference / Sample Images (optional)</div>
+      <div class="form-section-body">
+        <div style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;color:var(--text3);cursor:pointer">
+          <div style="font-size:22px;margin-bottom:6px">🖼</div>
+          <div>Drag &amp; drop or click to upload</div>
+          <div style="font-size:11px;margin-top:4px">PNG, JPG up to 5MB each</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <a class="btn btn-outline" href="03-order-detail.html">Cancel</a>
+      <button class="btn btn-primary">Save Revision</button>
+    </div>
+
+  </div><!-- end content -->
+</div><!-- end main -->
+
+<script>
+function toggleVendor(show) {
+  document.getElementById('vendor-section').style.display = show ? 'block' : 'none';
+  document.querySelectorAll('.radio-option').forEach((el, i) => {
+    el.classList.toggle('selected', i === (show ? 1 : 0));
+  });
+}
+document.querySelectorAll('.radio-option').forEach((el, i) => {
+  el.addEventListener('click', () => toggleVendor(i === 1));
+});
+</script>
+
+</body>
+</html>

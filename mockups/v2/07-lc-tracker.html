@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IKON · LC Tracker</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  /* Add new LC card */
+  .doc-card.add-card {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px; min-height: 180px; border-style: dashed; cursor: pointer;
+    color: var(--text3); transition: all .15s;
+  }
+  .doc-card.add-card:hover { border-color: var(--accent); color: var(--accent); }
+  .doc-card.add-card .plus { font-size: 28px; }
+  /* Upload area */
+  .upload-small { border: 1px dashed var(--border); border-radius: var(--radius-sm); padding: 8px 12px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text3); cursor: pointer; margin-top: 8px; }
+  .upload-small:hover { border-color: var(--accent); color: var(--accent); }
+  .lc-progress { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-top: 10px; }
+  .lc-progress-bar { height: 100%; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">IKON G.A.</div>
+    <div class="sub">Garments Accessories</div>
+    <span class="badge-proto">PROTOTYPE</span>
+  </div>
+  <nav>
+    <div class="nav-section">Main</div>
+    <a class="nav-item" href="01-dashboard.html"><i class="icon">⊞</i> Dashboard</a>
+    <a class="nav-item" href="#"><i class="icon">☰</i> All Orders <span class="nav-badge blue">114</span></a>
+    <div class="nav-section">Clients</div>
+    <a class="nav-item" href="02-companies.html"><i class="icon">🏢</i> Companies</a>
+    <div class="nav-section">Documents</div>
+    <a class="nav-item" href="06-pi.html"><i class="icon">📄</i> Proforma Invoice</a>
+    <a class="nav-item active" href="07-lc-tracker.html"><i class="icon">🏦</i> LC Tracker <span class="nav-badge">3</span></a>
+    <a class="nav-item" href="08-challan.html"><i class="icon">📦</i> Delivery Challan</a>
+    <div class="nav-section">More</div>
+    <a class="nav-item" href="#"><i class="icon">⚙</i> Settings</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user"><strong>Nezam Uddin</strong>Owner · IKON G.A.</div>
+  </div>
+</aside>
+
+<div id="main">
+  <div id="topbar">
+    <span class="topbar-title">LC Tracker</span>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm">+ Add LC Record</button>
+    </div>
+  </div>
+
+  <div id="content">
+
+    <!-- Alert strip -->
+    <div class="alert-strip">
+      <div class="dot"></div>
+      <span>MT-244 matures in <strong>8 days</strong> — forward documents to bank immediately</span>
+      <button class="view-btn">Remind</button>
+    </div>
+
+    <!-- Summary bar -->
+    <div class="stat-row" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px">
+      <div class="stat-card">
+        <div class="label">Open LCs</div>
+        <div class="value">3</div>
+        <div class="sub">total active</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Maturing ≤ 14 days</div>
+        <div class="value red">2</div>
+        <div class="sub">action required</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Total LC Value</div>
+        <div class="value" style="font-size:20px;color:var(--teal)">৳ 11,60,000</div>
+        <div class="sub">across 3 banks</div>
+      </div>
+    </div>
+
+    <div class="section-title">Active LC Records</div>
+
+    <div class="doc-cards">
+
+      <!-- LC 1 — Urgent -->
+      <div class="doc-card" style="border-color:#7f1d1d">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div class="dc-title">MT-244 · Rio Design Ltd.</div>
+          <span class="badge urgent">URGENT</span>
+        </div>
+        <div class="dc-row"><span>Style</span><strong>MT-244</strong></div>
+        <div class="dc-row"><span>Merchandiser</span><strong>Rahim Khan</strong></div>
+        <div class="dc-row"><span>LC Amount</span><strong>৳ 4,01,000</strong></div>
+        <div class="dc-row"><span>LC Bank</span><strong>Community Bank Ltd, Uttara</strong></div>
+        <div class="dc-row"><span>LC Opened</span><strong>18 Jan 2026</strong></div>
+        <div class="dc-row"><span>Bill of Lading</span><strong>8 Jan 2026</strong></div>
+        <div class="dc-row"><span>Maturity Date</span><strong style="color:var(--red)">16 Apr 2026</strong></div>
+        <div class="maturity-countdown urgent-bg">
+          <div class="days-num">8</div>
+          <div class="days-label">days until maturity</div>
+        </div>
+        <!-- Checklist -->
+        <div style="font-size:11px;color:var(--text3);margin-top:12px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Document Checklist</div>
+        <ul class="checklist">
+          <li><span class="chk done">✓</span>PI issued (PI-2025/02)</li>
+          <li><span class="chk done">✓</span>Bill of Lading received</li>
+          <li><span class="chk done">✓</span>Packing list prepared</li>
+          <li><span class="chk done">✓</span>Certificate of origin</li>
+          <li><span class="chk" style="background:var(--red-bg);border-color:#7f1d1d;color:var(--red)">!</span>Documents forwarded to bank — <strong style="color:var(--red)">PENDING</strong></li>
+        </ul>
+        <div class="lc-progress" style="margin-top:12px">
+          <div class="lc-progress-bar" style="width:91%;background:var(--red)"></div>
+        </div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;text-align:right">91 of 90 days elapsed</div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="btn btn-outline btn-sm" style="flex:1">View PI</button>
+          <button class="btn btn-red btn-sm" style="flex:1">Mark Forwarded</button>
+        </div>
+      </div>
+
+      <!-- LC 2 — Soon -->
+      <div class="doc-card" style="border-color:#7c2d12">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div class="dc-title">BG-099 · Zenith Exports</div>
+          <span class="badge soon">Soon</span>
+        </div>
+        <div class="dc-row"><span>Style</span><strong>BG-099</strong></div>
+        <div class="dc-row"><span>Merchandiser</span><strong>Faisal Ahmed</strong></div>
+        <div class="dc-row"><span>LC Amount</span><strong>৳ 3,84,000</strong></div>
+        <div class="dc-row"><span>LC Bank</span><strong>Dhaka Bank Ltd, Gulshan</strong></div>
+        <div class="dc-row"><span>LC Opened</span><strong>24 Jan 2026</strong></div>
+        <div class="dc-row"><span>Bill of Lading</span><strong>14 Jan 2026</strong></div>
+        <div class="dc-row"><span>Maturity Date</span><strong style="color:var(--orange)">22 Apr 2026</strong></div>
+        <div class="maturity-countdown">
+          <div class="days-num">14</div>
+          <div class="days-label">days until maturity</div>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:12px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Document Checklist</div>
+        <ul class="checklist">
+          <li><span class="chk done">✓</span>PI issued</li>
+          <li><span class="chk done">✓</span>Bill of Lading received</li>
+          <li><span class="chk done">✓</span>Packing list prepared</li>
+          <li><span class="chk">·</span>Certificate of origin — in progress</li>
+          <li><span class="chk">·</span>Documents forwarded to bank</li>
+        </ul>
+        <div class="lc-progress" style="margin-top:12px">
+          <div class="lc-progress-bar" style="width:84%;background:var(--orange)"></div>
+        </div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;text-align:right">76 of 90 days elapsed</div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="btn btn-outline btn-sm" style="flex:1">View PI</button>
+          <button class="btn btn-outline btn-sm" style="flex:1">Update Docs</button>
+        </div>
+      </div>
+
+      <!-- LC 3 — Processing (plenty of time) -->
+      <div class="doc-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div class="dc-title">CR-071 · Pacific Corp</div>
+          <span class="badge processing">Processing</span>
+        </div>
+        <div class="dc-row"><span>Style</span><strong>CR-071</strong></div>
+        <div class="dc-row"><span>Merchandiser</span><strong>Sumaiya</strong></div>
+        <div class="dc-row"><span>LC Amount</span><strong>৳ 3,75,000</strong></div>
+        <div class="dc-row"><span>LC Bank</span><strong>BRAC Bank, Mohakhali</strong></div>
+        <div class="dc-row"><span>LC Opened</span><strong>30 Mar 2026</strong></div>
+        <div class="dc-row"><span>Bill of Lading</span><strong>20 Mar 2026</strong></div>
+        <div class="dc-row"><span>Maturity Date</span><strong style="color:var(--teal)">18 Jun 2026</strong></div>
+        <div class="maturity-countdown" style="background:var(--teal-bg);border-color:#134e4a">
+          <div class="days-num" style="color:var(--teal)">71</div>
+          <div class="days-label">days until maturity</div>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:12px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Document Checklist</div>
+        <ul class="checklist">
+          <li><span class="chk done">✓</span>PI issued</li>
+          <li><span class="chk done">✓</span>Bill of Lading received</li>
+          <li><span class="chk">·</span>Packing list</li>
+          <li><span class="chk">·</span>Certificate of origin</li>
+          <li><span class="chk">·</span>Documents to bank</li>
+        </ul>
+        <div class="lc-progress" style="margin-top:12px">
+          <div class="lc-progress-bar" style="width:21%;background:var(--teal)"></div>
+        </div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;text-align:right">19 of 90 days elapsed</div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="btn btn-outline btn-sm" style="flex:1">View PI</button>
+          <button class="btn btn-outline btn-sm" style="flex:1">Update Docs</button>
+        </div>
+      </div>
+
+      <!-- Add new LC -->
+      <div class="doc-card add-card">
+        <div class="plus">+</div>
+        <div style="font-size:13px;font-weight:600">Add New LC Record</div>
+        <div style="font-size:11px">Link a PI and start tracking</div>
+      </div>
+
+    </div><!-- end doc-cards -->
+
+  </div><!-- end content -->
+</div><!-- end main -->
+
+</body>
+</html>

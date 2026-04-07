@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IKON — Garments Accessories Manager</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0f1117;
+    --bg2:       #171b26;
+    --bg3:       #1e2333;
+    --bg4:       #252a3a;
+    --border:    #2a2f42;
+    --text:      #e2e8f0;
+    --text2:     #8892a4;
+    --text3:     #555e70;
+    --accent:    #3b82f6;
+    --accent2:   #1d4ed8;
+    --green:     #22c55e;
+    --green-bg:  #052e16;
+    --red:       #ef4444;
+    --red-bg:    #2d0a0a;
+    --orange:    #f97316;
+    --orange-bg: #2d1606;
+    --yellow:    #eab308;
+    --yellow-bg: #1c1500;
+    --purple:    #a855f7;
+    --purple-bg: #1a0626;
+    --teal:      #14b8a6;
+    --teal-bg:   #042019;
+    --sidebar-w: 220px;
+    --header-h:  56px;
+    --radius:    8px;
+    --radius-sm: 5px;
+  }
+
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; font-size: 14px; }
+
+  /* ── SIDEBAR ── */
+  #sidebar {
+    width: var(--sidebar-w); min-height: 100vh; background: var(--bg2);
+    border-right: 1px solid var(--border); display: flex; flex-direction: column;
+    position: fixed; top: 0; left: 0; z-index: 100;
+  }
+  .sidebar-logo {
+    padding: 18px 16px 14px; border-bottom: 1px solid var(--border);
+  }
+  .sidebar-logo .brand { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: .4px; }
+  .sidebar-logo .sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .sidebar-logo .badge-live { display: inline-block; background: var(--green-bg); color: var(--green); border: 1px solid var(--green); border-radius: 4px; font-size: 9px; font-weight: 700; padding: 1px 5px; margin-top: 6px; letter-spacing: .5px; }
+
+  nav { flex: 1; padding: 8px 0; }
+  .nav-section { font-size: 10px; font-weight: 700; color: var(--text3); letter-spacing: 1px; padding: 12px 16px 4px; text-transform: uppercase; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px; padding: 9px 16px;
+    cursor: pointer; color: var(--text2); font-size: 13px; transition: all .15s;
+    border-left: 3px solid transparent;
+  }
+  .nav-item:hover { color: var(--text); background: var(--bg3); }
+  .nav-item.active { color: var(--text); background: var(--bg3); border-left-color: var(--accent); }
+  .nav-item .icon { width: 16px; text-align: center; opacity: .7; }
+  .nav-item.active .icon { opacity: 1; }
+  .nav-badge { margin-left: auto; background: var(--red); color: #fff; border-radius: 10px; font-size: 10px; font-weight: 700; padding: 1px 6px; }
+  .nav-badge.orange { background: var(--orange); }
+  .nav-badge.blue { background: var(--accent); }
+
+  .sidebar-footer { padding: 12px 16px; border-top: 1px solid var(--border); }
+  .sidebar-footer .user { font-size: 12px; color: var(--text2); }
+  .sidebar-footer .user strong { display: block; color: var(--text); font-size: 13px; }
+
+  /* ── MAIN CONTENT ── */
+  #main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; }
+
+  #topbar {
+    height: var(--header-h); background: var(--bg2); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 24px; gap: 12px; position: sticky; top: 0; z-index: 50;
+  }
+  .topbar-title { font-size: 15px; font-weight: 600; }
+  .topbar-date { font-size: 12px; color: var(--text3); margin-left: 4px; }
+  .topbar-actions { margin-left: auto; display: flex; gap: 8px; }
+
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all .15s; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent2); }
+  .btn-outline { background: transparent; color: var(--text2); border: 1px solid var(--border); }
+  .btn-outline:hover { background: var(--bg3); color: var(--text); }
+  .btn-sm { padding: 5px 10px; font-size: 12px; }
+  .btn-green { background: var(--green-bg); color: var(--green); border: 1px solid #166534; }
+  .btn-green:hover { background: #065f46; }
+  .btn-red { background: var(--red-bg); color: var(--red); border: 1px solid #7f1d1d; }
+
+  #content { padding: 24px; flex: 1; }
+
+  /* ── SCREENS ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ── ALERT STRIP ── */
+  .alert-strip {
+    background: #1c1a00; border: 1px solid #6b5500; border-radius: var(--radius);
+    padding: 10px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  }
+  .alert-strip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); flex-shrink: 0; }
+  .alert-strip span { flex: 1; font-size: 13px; color: var(--yellow); }
+  .alert-strip .view-btn { background: var(--yellow); color: #000; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; cursor: pointer; border: none; }
+
+  /* ── STAT CARDS ── */
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+  .stat-card .label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+  .stat-card .value { font-size: 28px; font-weight: 700; color: var(--text); line-height: 1; }
+  .stat-card .sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
+  .stat-card .value.red { color: var(--red); }
+  .stat-card .value.orange { color: var(--orange); }
+  .stat-card .value.green { color: var(--green); }
+  .stat-card .value.yellow { color: var(--yellow); }
+
+  /* ── PIPELINE ── */
+  .section-title { font-size: 13px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 12px; }
+  .pipeline-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+  .pipeline-col { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .pipeline-col-header { padding: 10px 14px; background: var(--bg3); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .pipeline-col-header .col-title { font-size: 12px; font-weight: 600; }
+  .pipeline-col-header .count-badge { background: var(--bg4); color: var(--text2); font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 10px; }
+  .pipeline-cards { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+
+  .order-card {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 10px 12px; cursor: pointer; transition: all .15s;
+  }
+  .order-card:hover { border-color: var(--accent); background: var(--bg4); }
+  .order-card .style { font-size: 13px; font-weight: 600; color: var(--text); }
+  .order-card .merch { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .order-card .meta { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+  .order-card .days { font-size: 11px; color: var(--text3); }
+
+  /* ── STATUS BADGES ── */
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; }
+  .badge.correction { background: var(--red-bg); color: var(--red); border: 1px solid #7f1d1d; }
+  .badge.correction::before { background: var(--red); }
+  .badge.sent { background: #0c1a2e; color: var(--accent); border: 1px solid #1d3a5e; }
+  .badge.sent::before { background: var(--accent); }
+  .badge.waiting { background: var(--bg4); color: var(--text3); border: 1px solid var(--border); }
+  .badge.waiting::before { background: var(--text3); }
+  .badge.approved { background: var(--green-bg); color: var(--green); border: 1px solid #166534; }
+  .badge.approved::before { background: var(--green); }
+  .badge.bulk { background: var(--yellow-bg); color: var(--yellow); border: 1px solid #854d0e; }
+  .badge.bulk::before { background: var(--yellow); }
+  .badge.on-track { background: var(--green-bg); color: var(--green); border: 1px solid #166534; }
+  .badge.on-track::before { background: var(--green); }
+  .badge.at-risk { background: var(--orange-bg); color: var(--orange); border: 1px solid #7c2d12; }
+  .badge.at-risk::before { background: var(--orange); }
+  .badge.draft { background: var(--bg4); color: var(--text2); border: 1px solid var(--border); }
+  .badge.draft::before { background: var(--text2); }
+  .badge.lc-open { background: var(--purple-bg); color: var(--purple); border: 1px solid #581c87; }
+  .badge.lc-open::before { background: var(--purple); }
+  .badge.urgent { background: var(--red-bg); color: var(--red); border: 1px solid #7f1d1d; }
+  .badge.urgent::before { background: var(--red); }
+  .badge.soon { background: var(--orange-bg); color: var(--orange); border: 1px solid #7c2d12; }
+  .badge.soon::before { background: var(--orange); }
+  .badge.processing { background: var(--teal-bg); color: var(--teal); border: 1px solid #134e4a; }
+  .badge.processing::before { background: var(--teal); }
+  .badge.in-progress { background: #0c1a2e; color: var(--accent); border: 1px solid #1d3a5e; }
+  .badge.in-progress::before { background: var(--accent); }
+
+  .more-link { font-size: 11px; color: var(--accent); padding: 6px 12px 8px; display: block; cursor: pointer; }
+  .more-link:hover { color: #93c5fd; }
+
+  /* ── QUICK SEARCH TABLE ── */
+  .search-section { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .search-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+  .search-header .title { font-size: 13px; font-weight: 600; }
+  .search-input-wrap { margin-left: auto; position: relative; }
+  .search-input { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 12px 6px 32px; color: var(--text); font-size: 13px; outline: none; width: 280px; }
+  .search-input:focus { border-color: var(--accent); }
+  .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 12px; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th { background: var(--bg3); padding: 9px 14px; text-align: left; font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid var(--border); }
+  tbody tr { border-bottom: 1px solid var(--border); cursor: pointer; transition: background .1s; }
+  tbody tr:hover { background: var(--bg3); }
+  tbody td { padding: 10px 14px; font-size: 13px; color: var(--text); }
+  tbody td.dim { color: var(--text2); }
+  tbody td.days { color: var(--text3); font-size: 12px; }
+  tbody td.style-link { color: var(--accent); font-weight: 600; }
+
+  /* ── COMPANIES SCREEN ── */
+  .companies-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .companies-header h1 { font-size: 20px; font-weight: 700; }
+  .search-box { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; color: var(--text); font-size: 13px; outline: none; width: 260px; }
+  .search-box:focus { border-color: var(--accent); }
+  .companies-list { display: flex; flex-direction: column; gap: 16px; }
+  .company-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .company-card-header { padding: 14px 18px; background: var(--bg3); border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 16px; }
+  .company-card-header .info { flex: 1; }
+  .company-card-header .name { font-size: 16px; font-weight: 700; }
+  .company-card-header .meta { font-size: 12px; color: var(--text2); margin-top: 3px; }
+  .company-stats { display: flex; gap: 16px; margin-top: 6px; }
+  .company-stats .stat { font-size: 12px; color: var(--text3); }
+  .company-stats .stat strong { color: var(--text); }
+  .company-card-header .actions { display: flex; gap: 8px; margin-left: auto; }
+
+  .merch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; padding: 14px 18px; }
+  .merch-card { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; cursor: pointer; transition: all .15s; }
+  .merch-card:hover { border-color: var(--accent); }
+  .merch-card.add-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 90px; border-style: dashed; cursor: pointer; color: var(--text3); }
+  .merch-card.add-card:hover { border-color: var(--accent); color: var(--accent); }
+  .merch-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .merch-card .mname { font-size: 13px; font-weight: 600; }
+  .merch-card .mtitle { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .merch-card .morders { font-size: 11px; color: var(--text2); margin-top: 6px; }
+  .merch-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .merch-tag { font-size: 10px; padding: 1px 7px; border-radius: 4px; font-weight: 600; background: var(--bg4); color: var(--text2); border: 1px solid var(--border); }
+  .merch-tag.c { background: var(--red-bg); color: var(--red); border-color: #7f1d1d; }
+  .merch-tag.b { background: var(--yellow-bg); color: var(--yellow); border-color: #854d0e; }
+  .merch-tag.lc { background: var(--purple-bg); color: var(--purple); border-color: #581c87; }
+  .merch-tag.pi { background: var(--teal-bg); color: var(--teal); border-color: #134e4a; }
+
+  /* ── ORDER DETAIL SCREEN ── */
+  .breadcrumb { font-size: 12px; color: var(--text3); margin-bottom: 14px; }
+  .breadcrumb span { color: var(--text2); cursor: pointer; }
+  .breadcrumb span:hover { color: var(--accent); }
+  .breadcrumb .sep { margin: 0 6px; }
+
+  .order-hero { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px; }
+  .order-hero .left { flex: 1; }
+  .order-hero h1 { font-size: 24px; font-weight: 700; }
+  .order-hero .sub { font-size: 13px; color: var(--text2); margin-top: 4px; }
+  .order-hero .actions { display: flex; gap: 8px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 340px; gap: 18px; align-items: start; }
+
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 14px; }
+  .card-header { padding: 12px 16px; background: var(--bg3); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .card-header .ctitle { font-size: 13px; font-weight: 600; }
+  .card-body { padding: 16px; }
+
+  .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .info-item .label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; }
+  .info-item .value { font-size: 13px; color: var(--text); font-weight: 500; }
+  .desc-row { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .desc-row .label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; }
+  .desc-row .value { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+  /* Revisions */
+  .revision-item { border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 10px; }
+  .revision-header { padding: 10px 14px; background: var(--bg3); display: flex; align-items: center; gap: 10px; }
+  .revision-header .rno { font-size: 13px; font-weight: 600; }
+  .revision-body { padding: 14px; }
+  .rev-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 16px; }
+  .rev-item .rlabel { font-size: 11px; color: var(--text3); margin-bottom: 3px; }
+  .rev-item .rvalue { font-size: 13px; color: var(--text); }
+  .feedback-box { margin-top: 12px; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; }
+  .feedback-box .flabel { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+  .feedback-box .ftext { font-size: 12px; color: var(--text2); font-style: italic; line-height: 1.4; }
+  .rev-actions { display: flex; gap: 8px; margin-top: 12px; }
+
+  /* Timeline */
+  .timeline { padding: 6px 0; }
+  .tl-item { display: flex; gap: 12px; padding: 8px 0; }
+  .tl-dot-wrap { display: flex; flex-direction: column; align-items: center; }
+  .tl-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+  .tl-dot.done { background: var(--green); }
+  .tl-dot.current { background: var(--accent); box-shadow: 0 0 0 3px rgba(59,130,246,.3); }
+  .tl-dot.pending { background: transparent; border: 2px solid var(--border); }
+  .tl-line { flex: 1; width: 1px; background: var(--border); min-height: 20px; margin-top: 4px; }
+  .tl-content .tl-date { font-size: 11px; color: var(--text3); }
+  .tl-content .tl-title { font-size: 13px; color: var(--text); font-weight: 500; }
+  .tl-content .tl-title.pending { color: var(--text3); }
+  .tl-content .tl-sub { font-size: 11px; color: var(--text2); margin-top: 1px; }
+
+  /* Locked section */
+  .locked-section { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .locked-header { padding: 12px 16px; background: var(--bg3); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .locked-header .lock-badge { background: var(--bg4); color: var(--text3); border: 1px solid var(--border); border-radius: 4px; font-size: 11px; padding: 2px 8px; }
+  .locked-body { padding: 32px; text-align: center; }
+  .lock-icon { font-size: 28px; color: var(--text3); margin-bottom: 10px; }
+  .locked-body .lock-msg { font-size: 13px; color: var(--text3); }
+  .locked-body .lock-sub { font-size: 12px; color: var(--text3); margin-top: 4px; opacity: .7; }
+
+  /* ── PIPELINE STAGE BAR ── */
+  .stage-bar { display: flex; gap: 0; margin-bottom: 24px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .stage { flex: 1; padding: 8px 6px; text-align: center; font-size: 10px; color: var(--text3); border-right: 1px solid var(--border); cursor: default; transition: all .15s; }
+  .stage:last-child { border-right: none; }
+  .stage.done { background: rgba(34,197,94,.08); color: var(--green); }
+  .stage.current { background: rgba(59,130,246,.15); color: var(--accent); font-weight: 700; }
+  .stage .snum { font-size: 9px; opacity: .6; display: block; margin-bottom: 1px; }
+
+  /* ── FORM ELEMENTS ── */
+  .form-group { margin-bottom: 16px; }
+  .form-label { display: block; font-size: 12px; color: var(--text2); margin-bottom: 5px; font-weight: 500; }
+  .form-input, .form-select, .form-textarea {
+    width: 100%; background: var(--bg3); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 8px 12px; color: var(--text);
+    font-size: 13px; outline: none; font-family: inherit;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  /* ── PI SCREEN ── */
+  .pi-doc { background: #fff; color: #111; border-radius: var(--radius); padding: 32px; max-width: 760px; margin: 0 auto; }
+  .pi-letterhead { text-align: center; border-bottom: 2px solid #111; padding-bottom: 14px; margin-bottom: 20px; }
+  .pi-letterhead .company-name { font-size: 20px; font-weight: 800; letter-spacing: 2px; color: #1a1a2e; }
+  .pi-letterhead .address { font-size: 11px; color: #444; margin-top: 4px; line-height: 1.5; }
+  .pi-title { font-size: 14px; font-weight: 700; text-align: center; letter-spacing: 3px; margin-bottom: 20px; text-decoration: underline; }
+  .pi-meta { display: flex; justify-content: space-between; margin-bottom: 20px; }
+  .pi-buyer { font-size: 12px; }
+  .pi-buyer strong { font-size: 13px; display: block; margin-bottom: 3px; }
+  .pi-info { text-align: right; font-size: 12px; }
+  .pi-info div { margin-bottom: 3px; }
+  .pi-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 16px; }
+  .pi-table th { background: #1a1a2e; color: #fff; padding: 7px 10px; text-align: center; font-size: 11px; }
+  .pi-table td { padding: 6px 10px; border: 1px solid #ddd; }
+  .pi-table td:first-child, .pi-table td:nth-child(3), .pi-table td:nth-child(4), .pi-table td:nth-child(5) { text-align: center; }
+  .pi-table tr:nth-child(even) { background: #f8f8f8; }
+  .pi-total-row td { font-weight: 700; background: #eef; }
+  .pi-words { font-size: 11px; font-weight: 700; text-align: center; margin-bottom: 16px; padding: 6px; background: #f0f0f0; border: 1px solid #ccc; }
+  .pi-terms h3 { font-size: 12px; font-weight: 700; margin-bottom: 6px; text-decoration: underline; }
+  .pi-terms ol { font-size: 11px; line-height: 1.8; padding-left: 18px; color: #333; }
+  .pi-sign { display: flex; justify-content: space-between; margin-top: 24px; font-size: 12px; }
+  .pi-sign .sig-box { border-top: 1px solid #111; width: 180px; padding-top: 6px; text-align: center; }
+
+  /* LC / Challan summary cards */
+  .doc-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .doc-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+  .doc-card .dc-title { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  .doc-card .dc-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--text2); margin-bottom: 6px; }
+  .doc-card .dc-row strong { color: var(--text); }
+  .checklist { list-style: none; margin-top: 10px; }
+  .checklist li { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text2); margin-bottom: 6px; }
+  .checklist li .chk { width: 15px; height: 15px; border-radius: 3px; border: 1px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; }
+  .checklist li .chk.done { background: var(--green); border-color: var(--green); color: #fff; }
+  .maturity-countdown { margin-top: 14px; background: var(--yellow-bg); border: 1px solid #854d0e; border-radius: var(--radius-sm); padding: 12px 14px; text-align: center; }
+  .maturity-countdown .days-num { font-size: 32px; font-weight: 800; color: var(--yellow); }
+  .maturity-countdown .days-label { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .maturity-countdown.urgent-bg { background: var(--red-bg); border-color: #7f1d1d; }
+  .maturity-countdown.urgent-bg .days-num { color: var(--red); }
+
+  /* Divider */
+  hr.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+  /* Responsive hint */
+  @media (max-width: 1100px) {
+    .pipeline-grid { grid-template-columns: repeat(2,1fr); }
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     SIDEBAR
+══════════════════════════════════════════ -->
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">IKON G.A.</div>
+    <div class="sub">Garments Accessories</div>
+    <span class="badge-live">PROTOTYPE</span>
+  </div>
+  <nav>
+    <div class="nav-section">Main</div>
+    <div class="nav-item active" onclick="show('dashboard')">
+      <span class="icon">⊞</span> Dashboard
+      <span class="nav-badge orange">18</span>
+    </div>
+    <div class="nav-item" onclick="show('orders')">
+      <span class="icon">☰</span> All Orders
+      <span class="nav-badge blue">114</span>
+    </div>
+    <div class="nav-section">Clients</div>
+    <div class="nav-item" onclick="show('companies')">
+      <span class="icon">🏢</span> Companies
+    </div>
+    <div class="nav-section">Documents</div>
+    <div class="nav-item" onclick="show('pi')">
+      <span class="icon">📄</span> Proforma Invoice
+    </div>
+    <div class="nav-item" onclick="show('lc')">
+      <span class="icon">🏦</span> LC Tracker
+      <span class="nav-badge">3</span>
+    </div>
+    <div class="nav-item" onclick="show('challan')">
+      <span class="icon">📦</span> Delivery Challan
+    </div>
+    <div class="nav-section">More</div>
+    <div class="nav-item" onclick="show('vendors')">
+      <span class="icon">🔗</span> Vendors
+    </div>
+    <div class="nav-item">
+      <span class="icon">⚙</span> Settings
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user">
+      <strong>Nezam Uddin</strong>
+      Owner · IKON G.A.
+    </div>
+  </div>
+</aside>
+
+<!-- ══════════════════════════════════════════
+     MAIN
+══════════════════════════════════════════ -->
+<div id="main">
+  <div id="topbar">
+    <span class="topbar-title" id="topbar-title">Dashboard</span>
+    <span class="topbar-date" id="topbar-date">Wednesday, 8 April 2026</span>
+    <div class="topbar-actions">
+      <button class="btn btn-outline btn-sm" onclick="show('companies')">+ Company</button>
+      <button class="btn btn-primary btn-sm" onclick="show('new-order')">+ New Order</button>
+    </div>
+  </div>
+
+  <div id="content">
+
+    <!-- ══════════════════════════════════════
+         SCREEN: DASHBOARD
+    ══════════════════════════════════════ -->
+    <div id="screen-dashboard" class="screen active">
+
+      <div class="alert-strip">
+        <div class="dot"></div>
+        <span>3 LCs maturing within 14 days — action required</span>
+        <button class="view-btn" onclick="show('lc')">View</button>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="label">Active Orders</div>
+          <div class="value">114</div>
+          <div class="sub">across 23 companies</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Pending Corrections</div>
+          <div class="value orange">18</div>
+          <div class="sub">samples awaiting revision</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Approved This Month</div>
+          <div class="value green">9</div>
+          <div class="sub">moved to bulk production</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">LC Maturing (90d)</div>
+          <div class="value red">3</div>
+          <div class="sub">next: 16 Apr 2026</div>
+        </div>
+      </div>
+
+      <div class="section-title">Pipeline View</div>
+      <div class="pipeline-grid">
+
+        <!-- Sample Stage -->
+        <div class="pipeline-col">
+          <div class="pipeline-col-header">
+            <span class="col-title">Sample Stage</span>
+            <span class="count-badge">31</span>
+          </div>
+          <div class="pipeline-cards">
+            <div class="order-card" onclick="show('order-detail')">
+              <div class="style">Style SH-204</div>
+              <div class="merch">Karim · ABC Ltd.</div>
+              <div class="meta">
+                <span class="days">12 days</span>
+                <span class="badge correction">correction</span>
+              </div>
+            </div>
+            <div class="order-card">
+              <div class="style">Style BG-110</div>
+              <div class="merch">Rahim · Delta Garments</div>
+              <div class="meta">
+                <span class="days">4 days</span>
+                <span class="badge sent">sent</span>
+              </div>
+            </div>
+            <div class="order-card">
+              <div class="style">Style KP-077</div>
+              <div class="merch">Nasrin · Horizon Co.</div>
+              <div class="meta">
+                <span class="days">21 days</span>
+                <span class="badge correction">correction</span>
+              </div>
+            </div>
+            <a class="more-link">+28 more</a>
+          </div>
+        </div>
+
+        <!-- Bulk Production -->
+        <div class="pipeline-col">
+          <div class="pipeline-col-header">
+            <span class="col-title">Bulk Production</span>
+            <span class="count-badge">22</span>
+          </div>
+          <div class="pipeline-cards">
+            <div class="order-card">
+              <div class="style">Style MT-301</div>
+              <div class="merch">Faisal · Zenith Exports</div>
+              <div class="meta">
+                <span class="days">Deadline: 20 Apr</span>
+                <span class="badge on-track">on track</span>
+              </div>
+            </div>
+            <div class="order-card">
+              <div class="style">Style CR-088</div>
+              <div class="merch">Sumaiya · Pacific Corp</div>
+              <div class="meta">
+                <span class="days">Deadline: 12 Apr</span>
+                <span class="badge at-risk">at risk</span>
+              </div>
+            </div>
+            <div class="order-card">
+              <div class="style">Style HB-412</div>
+              <div class="merch">Tariq · Global Wear</div>
+              <div class="meta">
+                <span class="days">Deadline: 2 May</span>
+                <span class="badge on-track">on track</span>
+              </div>
+            </div>
+            <a class="more-link">+19 more</a>
+          </div>
+        </div>
+
+        <!-- PI / Challan -->
+        <div class="pipeline-col">
+          <div class="pipeline-col-header">
+            <span class="col-title">PI / Challan</span>
+            <span class="count-badge">14</span>
+          </div>
+          <div class="pipeline-cards">
+            <div class="order-card" onclick="show('pi')">
+              <div class="style">Style SH-189</div>
+              <div class="merch">Karim · ABC Ltd.</div>
+              <div class="meta">
+                <span class="days">PI drafted</span>
+                <span class="badge draft">draft</span>
+              </div>
+            </div>
+            <div class="order-card" onclick="show('challan')">
+              <div class="style">Style LX-033</div>
+              <div class="merch">Mitu · Apex Fashion</div>
+              <div class="meta">
+                <span class="days">Challan issued</span>
+                <span class="badge sent">sent</span>
+              </div>
+            </div>
+            <a class="more-link">+12 more</a>
+          </div>
+        </div>
+
+        <!-- LC & Banking -->
+        <div class="pipeline-col">
+          <div class="pipeline-col-header">
+            <span class="col-title">LC &amp; Banking</span>
+            <span class="count-badge">11</span>
+          </div>
+          <div class="pipeline-cards">
+            <div class="order-card" onclick="show('lc')">
+              <div class="style">Style MT-244</div>
+              <div class="merch">Rahim · Delta Garments</div>
+              <div class="meta">
+                <span class="days">Matures 16 Apr</span>
+                <span class="badge urgent">urgent</span>
+              </div>
+            </div>
+            <div class="order-card" onclick="show('lc')">
+              <div class="style">Style BG-099</div>
+              <div class="merch">Faisal · Zenith Exports</div>
+              <div class="meta">
+                <span class="days">Matures 22 Apr</span>
+                <span class="badge soon">soon</span>
+              </div>
+            </div>
+            <div class="order-card" onclick="show('lc')">
+              <div class="style">Style CR-071</div>
+              <div class="merch">Nasrin · Horizon Co.</div>
+              <div class="meta">
+                <span class="days">Forwarded to bank</span>
+                <span class="badge processing">processing</span>
+              </div>
+            </div>
+            <a class="more-link">+8 more</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Search -->
+      <div class="search-section">
+        <div class="search-header">
+          <span class="title">All Orders — Quick Search</span>
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input class="search-input" type="text" placeholder="Search by style, merchandiser, company..." oninput="filterTable(this.value)">
+          </div>
+        </div>
+        <table id="orders-table">
+          <thead>
+            <tr>
+              <th>Style</th><th>Merchandiser</th><th>Company</th><th>Stage</th><th>Days Active</th><th>Last Update</th>
+            </tr>
+          </thead>
+          <tbody id="orders-tbody">
+            <tr onclick="show('order-detail')"><td class="style-link">SH-204</td><td>Karim</td><td class="dim">ABC Ltd.</td><td><span class="badge correction">Correction</span></td><td class="days">12d</td><td class="dim">3 Apr</td></tr>
+            <tr><td class="style-link">BG-110</td><td>Rahim</td><td class="dim">Delta Garments</td><td><span class="badge sent">Sample sent</span></td><td class="days">4d</td><td class="dim">5 Apr</td></tr>
+            <tr><td class="style-link">MT-301</td><td>Faisal</td><td class="dim">Zenith Exports</td><td><span class="badge bulk">Bulk production</span></td><td class="days">34d</td><td class="dim">7 Apr</td></tr>
+            <tr><td class="style-link">CR-088</td><td>Sumaiya</td><td class="dim">Pacific Corp</td><td><span class="badge bulk">Bulk production</span></td><td class="days">41d</td><td class="dim">6 Apr</td></tr>
+            <tr onclick="show('pi')"><td class="style-link">SH-189</td><td>Karim</td><td class="dim">ABC Ltd.</td><td><span class="badge draft">PI draft</span></td><td class="days">58d</td><td class="dim">2 Apr</td></tr>
+            <tr onclick="show('challan')"><td class="style-link">LX-033</td><td>Mitu</td><td class="dim">Apex Fashion</td><td><span class="badge sent">Challan issued</span></td><td class="days">62d</td><td class="dim">1 Apr</td></tr>
+            <tr onclick="show('lc')"><td class="style-link">MT-244</td><td>Rahim</td><td class="dim">Delta Garments</td><td><span class="badge lc-open">LC open</span></td><td class="days">88d</td><td class="dim">31 Mar</td></tr>
+            <tr><td class="style-link">KP-077</td><td>Nasrin</td><td class="dim">Horizon Co.</td><td><span class="badge correction">Correction</span></td><td class="days">21d</td><td class="dim">4 Apr</td></tr>
+            <tr><td class="style-link">HB-412</td><td>Tariq</td><td class="dim">Global Wear</td><td><span class="badge bulk">Bulk production</span></td><td class="days">29d</td><td class="dim">7 Apr</td></tr>
+            <tr onclick="show('lc')"><td class="style-link">BG-099</td><td>Faisal</td><td class="dim">Zenith Exports</td><td><span class="badge lc-open">LC open</span></td><td class="days">82d</td><td class="dim">28 Mar</td></tr>
+            <tr><td class="style-link">MBJA-W26</td><td>Ataur</td><td class="dim">JBC</td><td><span class="badge bulk">Bulk production</span></td><td class="days">7d</td><td class="dim">1 Apr</td></tr>
+            <tr><td class="style-link">WL-055</td><td>Rafi</td><td class="dim">Rio Design Ltd.</td><td><span class="badge approved">Approved</span></td><td class="days">15d</td><td class="dim">6 Apr</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SCREEN: COMPANIES
+    ══════════════════════════════════════ -->
+    <div id="screen-companies" class="screen">
+      <div class="companies-header">
+        <h1>Companies &amp; Merchandisers</h1>
+        <input class="search-box" type="text" placeholder="Search company or name...">
+        <button class="btn btn-primary" style="margin-left:auto">+ Add Company</button>
+      </div>
+
+      <div class="companies-list">
+
+        <!-- ABC Ltd. -->
+        <div class="company-card">
+          <div class="company-card-header">
+            <div class="info">
+              <div class="name">ABC Ltd.</div>
+              <div class="meta">Bangladesh · Contact: Mr. Hossain · +880 1711 000111</div>
+              <div class="company-stats">
+                <div class="stat"><strong>3</strong> merchandisers</div>
+                <div class="stat"><strong>14</strong> total orders</div>
+                <div class="stat"><strong>4</strong> active now</div>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-outline btn-sm">Edit</button>
+              <button class="btn btn-outline btn-sm" onclick="show('orders')">All Orders</button>
+            </div>
+          </div>
+          <div class="merch-grid">
+            <div class="merch-card" onclick="show('order-detail')">
+              <div class="merch-avatar" style="background:#3b82f6">KA</div>
+              <div class="mname">Karim Ahmed</div>
+              <div class="mtitle">Senior Merchandiser</div>
+              <div class="morders">2 active orders</div>
+              <div class="merch-tags">
+                <span class="merch-tag c">SH-204 correction</span>
+                <span class="merch-tag pi">SH-189 PI</span>
+              </div>
+            </div>
+            <div class="merch-card">
+              <div class="merch-avatar" style="background:#22c55e">RB</div>
+              <div class="mname">Rana Begum</div>
+              <div class="mtitle">Merchandiser</div>
+              <div class="morders">1 active order</div>
+              <div class="merch-tags">
+                <span class="merch-tag b">AB-012 bulk</span>
+              </div>
+            </div>
+            <div class="merch-card">
+              <div class="merch-avatar" style="background:#a855f7">SM</div>
+              <div class="mname">Sajid Mia</div>
+              <div class="mtitle">Junior Merchandiser</div>
+              <div class="morders">1 active order</div>
+              <div class="merch-tags">
+                <span class="merch-tag lc">PQ-055 LC</span>
+              </div>
+            </div>
+            <div class="merch-card add-card">
+              <span style="font-size:20px">+</span>
+              <span style="font-size:12px">Add merchandiser</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delta Garments -->
+        <div class="company-card">
+          <div class="company-card-header">
+            <div class="info">
+              <div class="name">Delta Garments</div>
+              <div class="meta">Bangladesh · Contact: Ms. Fatema · +880 1811 222333</div>
+              <div class="company-stats">
+                <div class="stat"><strong>2</strong> merchandisers</div>
+                <div class="stat"><strong>9</strong> total orders</div>
+                <div class="stat"><strong>2</strong> active now</div>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-outline btn-sm">Edit</button>
+              <button class="btn btn-outline btn-sm" onclick="show('orders')">All Orders</button>
+            </div>
+          </div>
+          <div class="merch-grid">
+            <div class="merch-card">
+              <div class="merch-avatar" style="background:#ef4444">RK</div>
+              <div class="mname">Rahim Khan</div>
+              <div class="mtitle">Senior Merchandiser</div>
+              <div class="morders">2 active orders</div>
+              <div class="merch-tags">
+                <span class="merch-tag">BG-110 sample</span>
+                <span class="merch-tag lc">MT-244 LC</span>
+              </div>
+            </div>
+            <div class="merch-card">
+              <div class="merch-avatar" style="background:#555e70">NI</div>
+              <div class="mname">Nafisa Islam</div>
+              <div class="mtitle">Merchandiser</div>
+              <div class="morders">0 active orders</div>
+              <div class="merch-tags">
+                <span style="font-size:11px;color:var(--text3)">No active orders</span>
+              </div>
+            </div>
+            <div class="merch-card add-card">
+              <span style="font-size:20px">+</span>
+              <span style="font-size:12px">Add merchandiser</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Zenith Exports -->
+        <div class="company-card">
+          <div class="company-card-header">
+            <div class="info">
+              <div class="name">Zenith Exports</div>
+              <div class="meta">Bangladesh · Contact: Mr. Alam · +880 1955 445566</div>
+              <div class="company-stats">
+                <div class="stat"><strong>1</strong> merchandiser</div>
+                <div class="stat"><strong>7</strong> total orders</div>
+                <div class="stat"><strong>2</strong> active now</div>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-outline btn-sm">Edit</button>
+              <button class="btn btn-outline btn-sm" onclick="show('orders')">All Orders</button>
+            </div>
+          </div>
+          <div class="merch-grid">
+            <div class="merch-card">
+              <div class="merch-avatar" style="background:#f97316">FA</div>
+              <div class="mname">Faisal Ahmed</div>
+              <div class="mtitle">Merchandiser</div>
+              <div class="morders">2 active orders</div>
+              <div class="merch-tags">
+                <span class="merch-tag b">MT-301 bulk</span>
+                <span class="merch-tag lc">BG-099 LC</span>
+              </div>
+            </div>
+            <div class="merch-card add-card">
+              <span style="font-size:20px">+</span>
+              <span style="font-size:12px">Add merchandiser</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;font-size:12px;color:var(--text3);padding:12px">
+          Showing 3 of 23 companies · <span style="color:var(--accent);cursor:pointer">Load all</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SCREEN: ORDER DETAIL
+    ══════════════════════════════════════ -->
+    <div id="screen-order-detail" class="screen">
+
+      <div class="breadcrumb">
+        <span onclick="show('dashboard')">Dashboard</span>
+        <span class="sep">›</span>
+        <span onclick="show('companies')">ABC Ltd.</span>
+        <span class="sep">›</span>
+        <span onclick="show('companies')">Karim Ahmed</span>
+        <span class="sep">›</span>
+        <span style="color:var(--text)">Order SH-204</span>
+      </div>
+
+      <!-- Pipeline stage bar -->
+      <div class="stage-bar">
+        <div class="stage done"><span class="snum">1</span>Order received</div>
+        <div class="stage done"><span class="snum">2</span>Sample in progress</div>
+        <div class="stage done"><span class="snum">3</span>Sample sent</div>
+        <div class="stage current"><span class="snum">4</span>Correction needed</div>
+        <div class="stage"><span class="snum">5</span>Approved</div>
+        <div class="stage"><span class="snum">6</span>Bulk production</div>
+        <div class="stage"><span class="snum">7</span>Challan issued</div>
+        <div class="stage"><span class="snum">8</span>PI done</div>
+        <div class="stage"><span class="snum">9</span>LC open</div>
+        <div class="stage"><span class="snum">10</span>Matured</div>
+      </div>
+
+      <div class="order-hero">
+        <div class="left">
+          <h1>Style SH-204</h1>
+          <div class="sub">Karim Ahmed · ABC Ltd. · Order received: 27 Mar 2026 · 12 days active</div>
+        </div>
+        <div class="actions">
+          <span class="badge correction" style="font-size:13px;padding:5px 12px">Sample — correction needed</span>
+          <button class="btn btn-outline btn-sm">Actions ▾</button>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <!-- LEFT COLUMN -->
+        <div>
+          <!-- Order Info -->
+          <div class="card">
+            <div class="card-header">
+              <span class="ctitle">Order Information</span>
+              <button class="btn btn-outline btn-sm">Edit</button>
+            </div>
+            <div class="card-body">
+              <div class="info-grid">
+                <div class="info-item"><div class="label">Style Name</div><div class="value">SH-204</div></div>
+                <div class="info-item"><div class="label">Product Type</div><div class="value">Woven Label</div></div>
+                <div class="info-item"><div class="label">Order Date</div><div class="value">27 Mar 2026</div></div>
+                <div class="info-item"><div class="label">Merchandiser</div><div class="value">Karim Ahmed</div></div>
+                <div class="info-item"><div class="label">Company</div><div class="value">ABC Ltd.</div></div>
+                <div class="info-item"><div class="label">Expected Quantity</div><div class="value">15,000 pcs</div></div>
+              </div>
+              <div class="desc-row">
+                <div class="label">Description / Spec Notes</div>
+                <div class="value">Satin woven label, 2cm × 5cm, gold thread on black base. Reference image attached.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sample Revisions -->
+          <div class="card">
+            <div class="card-header">
+              <span class="ctitle">Sample Revisions</span>
+              <button class="btn btn-primary btn-sm" onclick="show('new-revision')">+ Add Revision</button>
+            </div>
+            <div class="card-body">
+
+              <div class="revision-item">
+                <div class="revision-header">
+                  <span class="rno">Revision 1</span>
+                  <span style="margin-left:auto"><span class="badge sent">sent</span></span>
+                </div>
+                <div class="revision-body">
+                  <div class="rev-grid">
+                    <div class="rev-item"><div class="rlabel">Type</div><div class="rvalue">In-house</div></div>
+                    <div class="rev-item"><div class="rlabel">Date Made</div><div class="rvalue">29 Mar 2026</div></div>
+                    <div class="rev-item"><div class="rlabel">Date Sent to Merchandiser</div><div class="rvalue">30 Mar 2026</div></div>
+                    <div class="rev-item"><div class="rlabel">Result</div><div class="rvalue" style="color:var(--red)">Correction Needed</div></div>
+                  </div>
+                  <div class="feedback-box">
+                    <div class="flabel">Merchandiser Feedback</div>
+                    <div class="ftext">"Thread colour slightly off — need darker gold. Size OK."</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="revision-item">
+                <div class="revision-header">
+                  <span class="rno">Revision 2 — current</span>
+                  <span style="margin-left:auto"><span class="badge in-progress">In progress</span></span>
+                </div>
+                <div class="revision-body">
+                  <div class="rev-grid">
+                    <div class="rev-item"><div class="rlabel">Type</div><div class="rvalue">In-house</div></div>
+                    <div class="rev-item"><div class="rlabel">Date Started</div><div class="rvalue">3 Apr 2026</div></div>
+                    <div class="rev-item"><div class="rlabel">Date Sent</div><div class="rvalue" style="color:var(--text3)">Not yet sent</div></div>
+                    <div class="rev-item"><div class="rlabel">Result</div><div class="rvalue" style="color:var(--text3)">Pending</div></div>
+                  </div>
+                  <div class="feedback-box">
+                    <div class="flabel">Internal Notes</div>
+                    <div class="ftext">Adjusting thread shade — checking supplier sample today.</div>
+                  </div>
+                  <div class="rev-actions">
+                    <button class="btn btn-outline btn-sm">Mark as Sent</button>
+                    <button class="btn btn-green btn-sm">Mark Approved ✓</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Locked: Bulk + Docs -->
+          <div class="locked-section">
+            <div class="locked-header">
+              <span class="ctitle">Bulk Production &amp; Documents</span>
+              <span class="lock-badge">🔒 Unlocks after sample approval</span>
+            </div>
+            <div class="locked-body">
+              <div class="lock-icon">🔒</div>
+              <div class="lock-msg">Bulk production, Delivery Challan, PI and LC will appear here after sample is approved.</div>
+              <div class="lock-sub">Approve revision 2 above to unlock this section.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Timeline -->
+        <div>
+          <div class="card">
+            <div class="card-header"><span class="ctitle">Order Timeline</span></div>
+            <div class="card-body">
+              <div class="timeline">
+                <div class="tl-item">
+                  <div class="tl-dot-wrap"><div class="tl-dot done"></div><div class="tl-line"></div></div>
+                  <div class="tl-content">
+                    <div class="tl-date">27 Mar 2026</div>
+                    <div class="tl-title">Order received from Karim</div>
+                    <div class="tl-sub">Style SH-204 · Woven label · 15,000 pcs</div>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot-wrap"><div class="tl-dot done"></div><div class="tl-line"></div></div>
+                  <div class="tl-content">
+                    <div class="tl-date">30 Mar 2026</div>
+                    <div class="tl-title">Revision 1 sent</div>
+                    <div class="tl-sub">In-house production · Sent to merchandiser</div>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot-wrap"><div class="tl-dot done"></div><div class="tl-line"></div></div>
+                  <div class="tl-content">
+                    <div class="tl-date">3 Apr 2026</div>
+                    <div class="tl-title">Correction received — Revision 2 started</div>
+                    <div class="tl-sub">Thread colour adjustment requested</div>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot-wrap"><div class="tl-dot current"></div><div class="tl-line"></div></div>
+                  <div class="tl-content">
+                    <div class="tl-date">Today</div>
+                    <div class="tl-title">Revision 2 in progress</div>
+                    <div class="tl-sub">Waiting to send to Karim</div>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot-wrap"><div class="tl-dot pending"></div><div class="tl-line"></div></div>
+                  <div class="tl-content">
+                    <div class="tl-date">—</div>
+                    <div class="tl-title pending">Sample approval</div>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot-wrap"><div class="tl-dot pending"></div><div class="tl-line"></div></div>
+                  <div class="tl-content">
+                    <div class="tl-date">—</div>
+                    <div class="tl-title pending">Bulk production</div>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot-wrap"><div class="tl-dot pending"></div><div class="tl-line"></div></div>
+                  <div class="tl-content">
+                    <div class="tl-date">—</div>
+                    <div class="tl-title pending">Delivery challan · PI · LC</div>
+                  </div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-dot-wrap"><div class="tl-dot pending"></div></div>
+                  <div class="tl-content">
+                    <div class="tl-date">—</div>
+                    <div class="tl-title pending">LC maturity</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SCREEN: NEW ORDER FORM
+    ══════════════════════════════════════ -->
+    <div id="screen-new-order" class="screen">
+      <div class="breadcrumb">
+        <span onclick="show('dashboard')">Dashboard</span>
+        <span class="sep">›</span>
+        <span style="color:var(--text)">New Order</span>
+      </div>
+      <div style="max-width:640px">
+        <h2 style="font-size:20px;font-weight:700;margin-bottom:20px">Create New Order</h2>
+        <div class="card">
+          <div class="card-header"><span class="ctitle">Client</span></div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Company *</label>
+                <select class="form-select">
+                  <option>— Select company —</option>
+                  <option>ABC Ltd.</option>
+                  <option>Delta Garments</option>
+                  <option>Zenith Exports</option>
+                  <option>Pacific Corp</option>
+                  <option>Apex Fashion</option>
+                  <option>Horizon Co.</option>
+                  <option>+ Add new company</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Merchandiser *</label>
+                <select class="form-select">
+                  <option>— Select after company —</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="ctitle">Product Details</span></div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Style Name / Code *</label>
+                <input class="form-input" type="text" placeholder="e.g. SH-204, MBJA W26">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Product Type *</label>
+                <select class="form-select">
+                  <option>— Select type —</option>
+                  <option>Woven Label</option>
+                  <option>Satin Label</option>
+                  <option>Customer Care Label</option>
+                  <option>Elastic</option>
+                  <option>Horn Button</option>
+                  <option>Other (free text)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Expected Quantity</label>
+                <input class="form-input" type="text" placeholder="e.g. 15000">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Unit</label>
+                <select class="form-select">
+                  <option>PCS</option>
+                  <option>DOZ</option>
+                  <option>YDS</option>
+                  <option>GROSS</option>
+                  <option>MTR</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description / Spec Notes</label>
+              <textarea class="form-textarea" placeholder="Size, colour, material, thread type, any special notes..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reference Image (optional)</label>
+              <input class="form-input" type="file" accept="image/*" style="padding:6px">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Order Date</label>
+              <input class="form-input" type="date" value="2026-04-08">
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+          <button class="btn btn-outline" onclick="show('dashboard')">Cancel</button>
+          <button class="btn btn-outline">Save as Draft</button>
+          <button class="btn btn-primary" onclick="show('order-detail')">Create Order →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SCREEN: NEW REVISION FORM
+    ══════════════════════════════════════ -->
+    <div id="screen-new-revision" class="screen">
+      <div class="breadcrumb">
+        <span onclick="show('dashboard')">Dashboard</span>
+        <span class="sep">›</span>
+        <span onclick="show('order-detail')">Order SH-204</span>
+        <span class="sep">›</span>
+        <span style="color:var(--text)">Add Revision</span>
+      </div>
+      <div style="max-width:580px">
+        <h2 style="font-size:20px;font-weight:700;margin-bottom:20px">Revision 3 — Style SH-204</h2>
+        <div class="card">
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">Production Type *</label>
+              <div style="display:flex;gap:12px;margin-top:4px">
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px">
+                  <input type="radio" name="type" checked> In-house (own factory)
+                </label>
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px">
+                  <input type="radio" name="type"> Outsourced
+                </label>
+              </div>
+            </div>
+            <div class="form-group" id="vendor-row" style="display:none">
+              <label class="form-label">Vendor / Location</label>
+              <select class="form-select">
+                <option>— Select vendor —</option>
+                <option>Mirpur vendor</option>
+                <option>Gilistan vendor</option>
+                <option>Other (type below)</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Date Sample Made</label>
+                <input class="form-input" type="date" value="2026-04-08">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Date Sent to Merchandiser</label>
+                <input class="form-input" type="date">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Result</label>
+              <select class="form-select">
+                <option>Pending (not sent yet)</option>
+                <option>Sent — awaiting feedback</option>
+                <option>Correction needed</option>
+                <option>Approved ✓</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Merchandiser Feedback</label>
+              <textarea class="form-textarea" placeholder="What did the merchandiser say? What needs to change?"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Internal Notes</label>
+              <textarea class="form-textarea" placeholder="Your own factory notes — not visible to merchandiser"></textarea>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+          <button class="btn btn-outline" onclick="show('order-detail')">Cancel</button>
+          <button class="btn btn-outline">Save Draft</button>
+          <button class="btn btn-primary" onclick="show('order-detail')">Save Revision</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SCREEN: PROFORMA INVOICE (PI)
+    ══════════════════════════════════════ -->
+    <div id="screen-pi" class="screen">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <h2 style="font-size:20px;font-weight:700">Proforma Invoice</h2>
+        <span class="badge draft">PI-2026/04 · Draft</span>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm">Edit</button>
+          <button class="btn btn-primary btn-sm">🖨 Print / PDF</button>
+        </div>
+      </div>
+
+      <div class="pi-doc">
+        <div class="pi-letterhead">
+          <div class="company-name">IKON GARMENTS ACCESSORIES</div>
+          <div class="address">
+            House 18, Road 10, Sector 09, Uttara, Dhaka-1230, Bangladesh<br>
+            E-mail: ikongas@gmail.com &nbsp;·&nbsp; Tel: +8801730214607
+          </div>
+        </div>
+        <div class="pi-title">PROFORMA INVOICE</div>
+        <div class="pi-meta">
+          <div class="pi-buyer">
+            <strong>RIO DESIGN LIMITED</strong>
+            Industrial Plot #03 Milk Vita Road<br>
+            Section #7, Mirpur 1216, Dhaka<br>
+            Bangladesh
+          </div>
+          <div class="pi-info">
+            <div>Date: <strong>08.04.2026</strong></div>
+            <div>No: <strong>PI-2026/04</strong></div>
+          </div>
+        </div>
+        <table class="pi-table">
+          <thead>
+            <tr>
+              <th>SL</th><th style="text-align:left">Description (Style)</th><th>Qty</th><th>Unit Price</th><th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>SATIN LABEL Style LS8285H008 (Light Wash &amp; Mid Wash)</td><td>325.00 DOZ</td><td>$0.085</td><td>$27.63</td></tr>
+            <tr><td>2</td><td>CUSTOMER CARE Style LS8285H008 (Light Wash &amp; Mid Wash)</td><td>325.00 DOZ</td><td>$0.085</td><td>$27.63</td></tr>
+            <tr><td>3</td><td>SATIN LABEL Style LS82SC017 (Light Wash, White &amp; Mid Wash)</td><td>1,551.75 DOZ</td><td>$0.085</td><td>$131.90</td></tr>
+            <tr><td>4</td><td>CUSTOMER CARE Style LS82SC017 (Light Wash, White &amp; Mid Wash)</td><td>778.67 DOZ</td><td>$0.085</td><td>$66.22</td></tr>
+            <tr><td>5</td><td>SATIN LABEL Style LS82SH561 (Dark Wash &amp; Black)</td><td>238.33 DOZ</td><td>$0.085</td><td>$20.26</td></tr>
+            <tr><td>6</td><td>CUSTOMER CARE Style LS82SH561 (Dark Wash &amp; Black)</td><td>739.67 DOZ</td><td>$0.085</td><td>$62.87</td></tr>
+            <tr><td>7</td><td>ELASTIC Style CH-LI8W250N260 Mid Wash</td><td>30.83 DOZ</td><td>$0.085</td><td>$2.62</td></tr>
+            <tr><td>8</td><td>ELASTIC Style CH-LI8W250N147 2.2CM White</td><td>397.58 DOZ</td><td>$0.085</td><td>$33.79</td></tr>
+            <tr><td>9</td><td>ELASTIC HORN BUTTON Style CH8W250N142</td><td>8,800.00 YDS</td><td>$0.050 YDS</td><td>$440.00</td></tr>
+            <tr><td>10</td><td>SATIN LABEL Style CH8W250N142</td><td>366.67 DOZ</td><td>$0.085</td><td>$31.17</td></tr>
+            <tr><td>11</td><td>SATIN LABEL Style LZ8W25LG10 · 8.5CM White</td><td>1,700.00 DOZ</td><td>$0.085</td><td>$144.50</td></tr>
+            <tr><td>12</td><td>SATIN LABEL Style LZ8W25LG10 · 8.5CM Black</td><td>24,738.00 YDS</td><td>$0.004</td><td>$107.18</td></tr>
+            <tr><td>13</td><td>CUSTOMER CARE Style LZ8W25LG13</td><td>4,196.67 DOZ</td><td>$0.085</td><td>$356.72</td></tr>
+            <tr><td>14</td><td>SATIN Label Style L8ZL25BL13 · Brown</td><td>2,300.00 DOZ</td><td>$0.085</td><td>$195.50</td></tr>
+            <tr><td>15</td><td>SATIN LABEL Style L82025N090 · Khaki</td><td>1,836.25 DOZ</td><td>$0.085</td><td>$156.08</td></tr>
+            <tr><td>16</td><td>CUSTOMER CARE Style LI8W250N090 · Khaki</td><td>291.67 DOZ</td><td>$0.085</td><td>$24.79</td></tr>
+            <tr class="pi-total-row"><td colspan="4" style="text-align:right">TOTAL</td><td>$1,828.86</td></tr>
+          </tbody>
+        </table>
+        <div class="pi-words">US DOLLAR ONE THOUSAND EIGHT HUNDRED TWENTY EIGHT AND EIGHTY SIX CENTS ONLY</div>
+        <div class="pi-terms">
+          <h3>Terms &amp; Conditions:</h3>
+          <ol>
+            <li>Shipper (Seller's) Inspection will be final.</li>
+            <li>Partial Shipment to be Allowed &amp; Transshipment Prohibited.</li>
+            <li>Shipment by own van from our factory in Uttara, Dhaka.</li>
+            <li>Applicant should have the obligation to take consignment within 7 days after Delivery for orders.</li>
+            <li>Payment should have the following obligation to take consignment within 7 days after Delivery for orders.</li>
+            <li>Advising Bank: <strong>COMMUNITY BANK LTD</strong> · Uttara Branch, Dhaka · Swift Code: <strong>COYMBDDD</strong><br>IKON GARMENTS ACCESSORIES A/C No: 0100310654101</li>
+            <li>Payment by Irrevocable L/C 60/90 days sight.</li>
+            <li>Terms of Payment should be done in US Dollar Currency.</li>
+            <li>BIN Or VAT No: 003543528-0102</li>
+          </ol>
+        </div>
+        <div class="pi-sign">
+          <div class="sig-box">Accepted by</div>
+          <div class="sig-box">
+            Issued By<br>
+            <strong>Ikon Garments Accessories</strong><br>
+            Muhammad Nezam Uddin
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SCREEN: LC TRACKER
+    ══════════════════════════════════════ -->
+    <div id="screen-lc" class="screen">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <h2 style="font-size:20px;font-weight:700">LC Tracker</h2>
+        <span style="font-size:12px;color:var(--text3)">Letter of Credit Lifecycle</span>
+        <button class="btn btn-primary btn-sm" style="margin-left:auto">+ New LC</button>
+      </div>
+
+      <div class="doc-cards">
+
+        <!-- LC 1 — URGENT -->
+        <div class="doc-card" style="border-color:#7f1d1d">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px">
+            <div>
+              <div class="dc-title">Style MT-244 · Delta Garments</div>
+              <div style="font-size:12px;color:var(--text3)">LC No: LC-2026/008 · Rahim Khan</div>
+            </div>
+            <span class="badge urgent">urgent</span>
+          </div>
+          <div class="dc-row"><span>LC Opened</span><strong>6 Jan 2026</strong></div>
+          <div class="dc-row"><span>Bank</span><strong>Community Bank Ltd, Uttara</strong></div>
+          <div class="dc-row"><span>Bank Forwarded</span><strong>7 Jan 2026</strong></div>
+          <div class="maturity-countdown urgent-bg">
+            <div class="days-num">8</div>
+            <div class="days-label">days until maturity · 16 Apr 2026</div>
+          </div>
+          <ul class="checklist">
+            <li><span class="chk done">✓</span> Commercial Invoice</li>
+            <li><span class="chk done">✓</span> Packing List</li>
+            <li><span class="chk done">✓</span> Delivery Challan</li>
+            <li><span class="chk done">✓</span> Bill of Exchange</li>
+          </ul>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="btn btn-outline btn-sm">View Details</button>
+            <button class="btn btn-green btn-sm">Mark Matured ✓</button>
+          </div>
+        </div>
+
+        <!-- LC 2 — SOON -->
+        <div class="doc-card" style="border-color:#7c2d12">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px">
+            <div>
+              <div class="dc-title">Style BG-099 · Zenith Exports</div>
+              <div style="font-size:12px;color:var(--text3)">LC No: LC-2026/006 · Faisal Ahmed</div>
+            </div>
+            <span class="badge soon">soon</span>
+          </div>
+          <div class="dc-row"><span>LC Opened</span><strong>22 Jan 2026</strong></div>
+          <div class="dc-row"><span>Bank</span><strong>Community Bank Ltd, Uttara</strong></div>
+          <div class="dc-row"><span>Bank Forwarded</span><strong>23 Jan 2026</strong></div>
+          <div class="maturity-countdown">
+            <div class="days-num">14</div>
+            <div class="days-label">days until maturity · 22 Apr 2026</div>
+          </div>
+          <ul class="checklist">
+            <li><span class="chk done">✓</span> Commercial Invoice</li>
+            <li><span class="chk done">✓</span> Packing List</li>
+            <li><span class="chk done">✓</span> Delivery Challan</li>
+            <li><span class="chk done">✓</span> Bill of Exchange</li>
+          </ul>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="btn btn-outline btn-sm">View Details</button>
+            <button class="btn btn-green btn-sm">Mark Matured ✓</button>
+          </div>
+        </div>
+
+        <!-- LC 3 — PROCESSING -->
+        <div class="doc-card">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px">
+            <div>
+              <div class="dc-title">Style CR-071 · Horizon Co.</div>
+              <div style="font-size:12px;color:var(--text3)">LC No: LC-2026/010 · Nasrin</div>
+            </div>
+            <span class="badge processing">processing</span>
+          </div>
+          <div class="dc-row"><span>LC Opened</span><strong>25 Mar 2026</strong></div>
+          <div class="dc-row"><span>Bank</span><strong>Community Bank Ltd, Uttara</strong></div>
+          <div class="dc-row"><span>Bank Forwarded</span><strong>4 Apr 2026</strong></div>
+          <div class="maturity-countdown">
+            <div class="days-num">77</div>
+            <div class="days-label">days until maturity · 23 Jun 2026</div>
+          </div>
+          <ul class="checklist">
+            <li><span class="chk done">✓</span> Commercial Invoice</li>
+            <li><span class="chk done">✓</span> Packing List</li>
+            <li><span class="chk done">✓</span> Delivery Challan</li>
+            <li><span class="chk">·</span> Bill of Exchange — <span style="color:var(--orange);font-size:11px">pending</span></li>
+          </ul>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="btn btn-outline btn-sm">View Details</button>
+            <button class="btn btn-outline btn-sm">Upload Bill of Exchange</button>
+          </div>
+        </div>
+
+        <!-- LC 4 — Add new -->
+        <div class="doc-card" style="border-style:dashed;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;cursor:pointer;color:var(--text3)">
+          <div style="font-size:32px;margin-bottom:8px">+</div>
+          <div style="font-size:13px">Open new LC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SCREEN: DELIVERY CHALLAN
+    ══════════════════════════════════════ -->
+    <div id="screen-challan" class="screen">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <h2 style="font-size:20px;font-weight:700">Delivery Challan</h2>
+        <span class="badge sent">CH-2026/033 · Issued</span>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm">Edit</button>
+          <button class="btn btn-primary btn-sm">🖨 Print / PDF</button>
+        </div>
+      </div>
+
+      <div class="pi-doc">
+        <div class="pi-letterhead">
+          <div class="company-name">IKON GARMENTS ACCESSORIES</div>
+          <div class="address">
+            House 18, Road 10, Sector 09, Uttara, Dhaka-1230, Bangladesh<br>
+            E-mail: ikongas@gmail.com &nbsp;·&nbsp; Tel: +8801730214607
+          </div>
+        </div>
+        <div class="pi-title">DELIVERY CHALLAN</div>
+        <div class="pi-meta">
+          <div class="pi-buyer">
+            <strong>To: APEX FASHION LTD.</strong>
+            Plot 14, BSCIC Industrial Area<br>
+            Narayanganj, Dhaka<br>
+            Bangladesh<br>
+            Attn: Mitu (Merchandiser)
+          </div>
+          <div class="pi-info">
+            <div>Challan No: <strong>CH-2026/033</strong></div>
+            <div>Date: <strong>01.04.2026</strong></div>
+            <div>Style: <strong>LX-033</strong></div>
+            <div>PI Ref: <strong>PI-2026/02</strong></div>
+          </div>
+        </div>
+        <table class="pi-table">
+          <thead>
+            <tr>
+              <th>SL</th><th style="text-align:left">Item / Description</th><th>Qty</th><th>Unit</th><th>Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Woven Label — Style LX-033 (Navy Blue)</td><td>5,000</td><td>PCS</td><td>As per sample approved</td></tr>
+            <tr><td>2</td><td>Customer Care Label — Style LX-033</td><td>5,000</td><td>PCS</td><td></td></tr>
+            <tr><td>3</td><td>Satin Label — Style LX-033 (Size Label)</td><td>5,000</td><td>PCS</td><td></td></tr>
+            <tr class="pi-total-row"><td colspan="4" style="text-align:right; font-weight:700">Total Items</td><td><strong>15,000 PCS</strong></td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:12px;margin-top:14px;color:#333;line-height:1.8">
+          <strong>Dispatched from:</strong> IKON Garments Accessories, House 7, Road 7/C, Sector 9, Uttara, Dhaka<br>
+          <strong>Dispatch Date:</strong> 01 April 2026<br>
+          <strong>Delivered by:</strong> Own vehicle<br>
+          <strong>Received in good condition by:</strong> ___________________________<br>
+          <strong>Signature &amp; Date:</strong> ___________________________
+        </div>
+        <div class="pi-sign" style="margin-top:30px">
+          <div class="sig-box">Received by</div>
+          <div class="sig-box">
+            Dispatched by<br>
+            <strong>IKON Garments Accessories</strong><br>
+            Muhammad Nezam Uddin
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SCREEN: ALL ORDERS
+    ══════════════════════════════════════ -->
+    <div id="screen-orders" class="screen">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <h2 style="font-size:20px;font-weight:700">All Orders</h2>
+        <span style="font-size:12px;color:var(--text3)">114 total · 23 companies</span>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <select class="form-select" style="width:160px;padding:6px 10px">
+            <option>All stages</option>
+            <option>Sample stage</option>
+            <option>Bulk production</option>
+            <option>PI / Challan</option>
+            <option>LC &amp; Banking</option>
+          </select>
+          <select class="form-select" style="width:160px;padding:6px 10px">
+            <option>All companies</option>
+            <option>ABC Ltd.</option>
+            <option>Delta Garments</option>
+            <option>Zenith Exports</option>
+          </select>
+          <button class="btn btn-primary btn-sm" onclick="show('new-order')">+ New Order</button>
+        </div>
+      </div>
+      <div class="search-section">
+        <table>
+          <thead>
+            <tr><th>Style</th><th>Merchandiser</th><th>Company</th><th>Product Type</th><th>Stage</th><th>Days Active</th><th>Last Update</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr onclick="show('order-detail')"><td class="style-link">SH-204</td><td>Karim Ahmed</td><td class="dim">ABC Ltd.</td><td class="dim">Woven Label</td><td><span class="badge correction">Correction</span></td><td class="days">12d</td><td class="dim">3 Apr</td><td><button class="btn btn-outline btn-sm" onclick="show('order-detail')">Open</button></td></tr>
+            <tr><td class="style-link">BG-110</td><td>Rahim Khan</td><td class="dim">Delta Garments</td><td class="dim">Satin Label</td><td><span class="badge sent">Sample sent</span></td><td class="days">4d</td><td class="dim">5 Apr</td><td><button class="btn btn-outline btn-sm">Open</button></td></tr>
+            <tr><td class="style-link">MT-301</td><td>Faisal Ahmed</td><td class="dim">Zenith Exports</td><td class="dim">Elastic</td><td><span class="badge bulk">Bulk production</span></td><td class="days">34d</td><td class="dim">7 Apr</td><td><button class="btn btn-outline btn-sm">Open</button></td></tr>
+            <tr><td class="style-link">CR-088</td><td>Sumaiya</td><td class="dim">Pacific Corp</td><td class="dim">Customer Care</td><td><span class="badge at-risk">At risk</span></td><td class="days">41d</td><td class="dim">6 Apr</td><td><button class="btn btn-outline btn-sm">Open</button></td></tr>
+            <tr onclick="show('pi')"><td class="style-link">SH-189</td><td>Karim Ahmed</td><td class="dim">ABC Ltd.</td><td class="dim">Satin Label</td><td><span class="badge draft">PI draft</span></td><td class="days">58d</td><td class="dim">2 Apr</td><td><button class="btn btn-outline btn-sm">Open</button></td></tr>
+            <tr onclick="show('challan')"><td class="style-link">LX-033</td><td>Mitu</td><td class="dim">Apex Fashion</td><td class="dim">Woven Label</td><td><span class="badge sent">Challan issued</span></td><td class="days">62d</td><td class="dim">1 Apr</td><td><button class="btn btn-outline btn-sm">Open</button></td></tr>
+            <tr onclick="show('lc')"><td class="style-link">MT-244</td><td>Rahim Khan</td><td class="dim">Delta Garments</td><td class="dim">Horn Button</td><td><span class="badge lc-open">LC open</span></td><td class="days">88d</td><td class="dim">31 Mar</td><td><button class="btn btn-outline btn-sm">Open</button></td></tr>
+            <tr><td class="style-link">KP-077</td><td>Nasrin</td><td class="dim">Horizon Co.</td><td class="dim">Elastic</td><td><span class="badge correction">Correction</span></td><td class="days">21d</td><td class="dim">4 Apr</td><td><button class="btn btn-outline btn-sm">Open</button></td></tr>
+            <tr><td class="style-link">HB-412</td><td>Tariq</td><td class="dim">Global Wear</td><td class="dim">Satin Label</td><td><span class="badge bulk">Bulk production</span></td><td class="days">29d</td><td class="dim">7 Apr</td><td><button class="btn btn-outline btn-sm">Open</button></td></tr>
+            <tr onclick="show('lc')"><td class="style-link">BG-099</td><td>Faisal Ahmed</td><td class="dim">Zenith Exports</td><td class="dim">Woven Label</td><td><span class="badge lc-open">LC open</span></td><td class="days">82d</td><td class="dim">28 Mar</td><td><button class="btn btn-outline btn-sm">Open</button></td></tr>
+            <tr><td class="style-link">MBJA-W26</td><td>Ataur</td><td class="dim">JBC</td><td class="dim">Solid Elastic</td><td><span class="badge bulk">Bulk production</span></td><td class="days">7d</td><td class="dim">1 Apr</td><td><button class="btn btn-outline btn-sm">Open</button></td></tr>
+            <tr><td class="style-link">WL-055</td><td>Rafi</td><td class="dim">Rio Design Ltd.</td><td class="dim">Woven Label</td><td><span class="badge approved">Approved</span></td><td class="days">15d</td><td class="dim">6 Apr</td><td><button class="btn btn-outline btn-sm">Open</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SCREEN: VENDORS
+    ══════════════════════════════════════ -->
+    <div id="screen-vendors" class="screen">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <h2 style="font-size:20px;font-weight:700">Vendors / Outsource</h2>
+        <button class="btn btn-primary btn-sm" style="margin-left:auto">+ Add Vendor</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+        <div class="doc-card">
+          <div class="dc-title">Mirpur Vendor A</div>
+          <div class="dc-row"><span>Location</span><strong>Mirpur, Dhaka</strong></div>
+          <div class="dc-row"><span>Speciality</span><strong>Woven &amp; Satin Labels</strong></div>
+          <div class="dc-row"><span>Contact</span><strong>+880 1700 000001</strong></div>
+          <div class="dc-row"><span>Jobs completed</span><strong>34</strong></div>
+          <div class="dc-row"><span>Active now</span><strong>2 orders</strong></div>
+          <button class="btn btn-outline btn-sm" style="margin-top:10px;width:100%">View Orders</button>
+        </div>
+        <div class="doc-card">
+          <div class="dc-title">Gilistan Vendor</div>
+          <div class="dc-row"><span>Location</span><strong>Gilistan, Dhaka</strong></div>
+          <div class="dc-row"><span>Speciality</span><strong>Elastic, Horn Buttons</strong></div>
+          <div class="dc-row"><span>Contact</span><strong>+880 1700 000002</strong></div>
+          <div class="dc-row"><span>Jobs completed</span><strong>18</strong></div>
+          <div class="dc-row"><span>Active now</span><strong>1 order</strong></div>
+          <button class="btn btn-outline btn-sm" style="margin-top:10px;width:100%">View Orders</button>
+        </div>
+        <div class="doc-card" style="border-style:dashed;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:160px;cursor:pointer;color:var(--text3)">
+          <div style="font-size:28px;margin-bottom:6px">+</div>
+          <div style="font-size:13px">Add new vendor</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end #content -->
+</div><!-- end #main -->
+
+<script>
+  const titles = {
+    'dashboard':    'Dashboard',
+    'orders':       'All Orders',
+    'companies':    'Companies & Merchandisers',
+    'order-detail': 'Order Detail · SH-204',
+    'new-order':    'New Order',
+    'new-revision': 'Add Sample Revision',
+    'pi':           'Proforma Invoice',
+    'lc':           'LC Tracker',
+    'challan':      'Delivery Challan',
+    'vendors':      'Vendors',
+  };
+
+  function show(id) {
+    // hide all screens
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    // show target
+    const el = document.getElementById('screen-' + id);
+    if (el) el.classList.add('active');
+    // update topbar title
+    const tt = document.getElementById('topbar-title');
+    if (tt) tt.textContent = titles[id] || id;
+    // update nav active state
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const navMap = { dashboard: 0, orders: 1, companies: 2, pi: 3, lc: 4, challan: 5, vendors: 6 };
+    const navItems = document.querySelectorAll('.nav-item');
+    if (id === 'dashboard') navItems[0].classList.add('active');
+    else if (id === 'orders') navItems[1].classList.add('active');
+    else if (id === 'companies') navItems[2].classList.add('active');
+    else if (id === 'pi') navItems[3].classList.add('active');
+    else if (id === 'lc') navItems[4].classList.add('active');
+    else if (id === 'challan') navItems[5].classList.add('active');
+    else if (id === 'vendors') navItems[6].classList.add('active');
+    // scroll to top
+    document.getElementById('content').scrollTop = 0;
+    window.scrollTo(0, 0);
+  }
+
+  function filterTable(val) {
+    const rows = document.querySelectorAll('#orders-tbody tr');
+    val = val.toLowerCase();
+    rows.forEach(r => {
+      r.style.display = r.textContent.toLowerCase().includes(val) ? '' : 'none';
+    });
+  }
+
+  // outsource toggle in revision form
+  document.querySelectorAll('input[name="type"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const vr = document.getElementById('vendor-row');
+      if (vr) vr.style.display = radio.value === 'on' || radio.nextSibling.textContent.includes('Outsourced') ? 'block' : 'none';
+    });
+  });
+</script>
+</body>
+</html>
