@@ -49,3 +49,60 @@
     injectButton();
   }
 })();
+
+/* ─────────────────────────────────────────────────────────────
+   Mobile Sidebar Toggle
+   Injects a hamburger button into the topbar + handles overlay.
+   ───────────────────────────────────────────────────────────── */
+(function () {
+  function injectHamburger() {
+    var topbar = document.getElementById('topbar');
+    if (!topbar || document.getElementById('mob-menu-btn')) return;
+
+    // Create hamburger button
+    var btn = document.createElement('button');
+    btn.id = 'mob-menu-btn';
+    btn.className = 'mob-menu-btn';
+    btn.setAttribute('aria-label', 'Open navigation');
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+    topbar.insertBefore(btn, topbar.firstChild);
+
+    // Create overlay
+    var overlay = document.createElement('div');
+    overlay.id = 'sidebar-overlay';
+    document.body.appendChild(overlay);
+
+    // Toggle sidebar open/close
+    btn.addEventListener('click', function () {
+      document.body.classList.toggle('sidebar-open');
+    });
+
+    // Close on overlay click
+    overlay.addEventListener('click', function () {
+      document.body.classList.remove('sidebar-open');
+    });
+
+    // Close sidebar when a nav link is clicked (mobile nav)
+    var sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+      sidebar.addEventListener('click', function (e) {
+        if (e.target.closest('.nav-item') && window.innerWidth <= 900) {
+          document.body.classList.remove('sidebar-open');
+        }
+      });
+    }
+
+    // Close sidebar on Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        document.body.classList.remove('sidebar-open');
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', injectHamburger);
+  } else {
+    injectHamburger();
+  }
+})();
