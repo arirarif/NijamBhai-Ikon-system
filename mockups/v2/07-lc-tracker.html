@@ -64,7 +64,7 @@
     <div class="topbar-sep"></div>
     <div class="topbar-sub">Letter of Credit &amp; Payment Tracking</div>
     <div class="topbar-right">
-      <button class="btn btn-primary btn-sm">+ Register LC</button>
+      <button class="btn btn-primary btn-sm" onclick="document.getElementById('register-lc-form').style.display='block';document.getElementById('register-lc-form').scrollIntoView({behavior:'smooth',block:'start'})">+ Register LC</button>
     </div>
   </div>
   <div id="content">
@@ -247,7 +247,7 @@
     </div>
 
     <!-- REGISTER LC INLINE FORM -->
-    <div class="inline-form-card" style="margin-top:20px">
+    <div class="inline-form-card" id="register-lc-form" style="margin-top:20px;display:none">
       <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:14px">+ Register New LC</div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
         <div>
@@ -310,7 +310,7 @@
       </div>
       <div style="display:flex;gap:8px">
         <button class="btn btn-primary btn-sm">Register LC</button>
-        <button class="btn btn-ghost btn-sm">Cancel</button>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('register-lc-form').style.display='none'">Cancel</button>
       </div>
     </div>
 

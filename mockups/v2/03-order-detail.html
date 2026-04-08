@@ -65,7 +65,14 @@
     <div class="topbar-sub">F-2026-038 &middot; Noman Group</div>
     <div class="topbar-right">
       <a href="05-sample-revision.html" class="btn btn-outline btn-sm">📋 View Revisions <span style="background:var(--accent);color:#fff;border-radius:20px;padding:1px 7px;font-size:10px;margin-left:4px">3</span></a>
-      <button class="btn btn-primary btn-sm">⬆ Update Stage</button>
+      <button class="btn btn-primary btn-sm" id="us-toggle-btn" onclick="(function(){
+        var p=document.getElementById('us-panel');
+        var b=document.getElementById('us-toggle-btn');
+        var open=p.style.display==='flex';
+        p.style.display=open?'none':'flex';
+        b.textContent=open?'⬆ Update Stage':'✕ Close Panel';
+        if(!open){p.scrollIntoView({behavior:'smooth',block:'nearest'});}
+      })()">⬆ Update Stage</button>
     </div>
   </div>
   <div id="content">
@@ -121,29 +128,74 @@
       </div>
     </div>
 
-    <!-- UPDATE STAGE PANEL (shown open) -->
-    <div class="us-panel" style="display:flex">
-      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px">Update Order Stage</div>
+<!-- UPDATE STAGE PANEL -->
+    <div class="us-panel" id="us-panel" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--accent)">⬆ Update Order Stage</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">F-2026-038 · Noman Group · currently at <strong style="color:var(--orange)">Sample Revision</strong></div>
+        </div>
+        <span class="badge at-risk" style="font-size:10px">Stage 3 of 9</span>
+      </div>
       <div class="us-opts">
-        <div class="us-opt">✓ Order Created</div>
-        <div class="us-opt">✓ Sample Making</div>
-        <div class="us-opt active">◉ Sample Revision <span style="font-size:10px;opacity:.6;margin-left:4px">(current)</span></div>
-        <div class="us-opt">◯ Approved</div>
-        <div class="us-opt">◯ Bulk Production</div>
-        <div class="us-opt">◯ QC &amp; Packing</div>
-        <div class="us-opt">◯ Delivery Challan</div>
-        <div class="us-opt">◯ PI Issued</div>
-        <div class="us-opt">◯ LC &amp; Payment</div>
+        <div class="us-opt" style="opacity:.5;cursor:default">
+          <div class="us-opt-num" style="background:var(--green);border-color:var(--green);color:#fff">✓</div>
+          <div><div class="us-opt-name">Order Created</div><div class="us-opt-sub">08 Mar 2026 · completed</div></div>
+        </div>
+        <div class="us-opt" style="opacity:.5;cursor:default">
+          <div class="us-opt-num" style="background:var(--green);border-color:var(--green);color:#fff">✓</div>
+          <div><div class="us-opt-name">Sample Making</div><div class="us-opt-sub">22 Mar 2026 · completed</div></div>
+        </div>
+        <div class="us-opt selected" id="us-opt-3" onclick="selectStage(3)">
+          <div class="us-opt-num" style="background:var(--accent);border-color:var(--accent);color:#fff">3</div>
+          <div><div class="us-opt-name" style="color:var(--accent)">Sample Revision</div><div class="us-opt-sub">In progress · 3 revisions done</div></div>
+          <span style="margin-left:auto;font-size:10px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent);border-radius:20px;padding:2px 8px">Current</span>
+        </div>
+        <div class="us-opt" id="us-opt-4" onclick="selectStage(4)">
+          <div class="us-opt-num">4</div>
+          <div><div class="us-opt-name">Approved</div><div class="us-opt-sub">Buyer signs off sample</div></div>
+        </div>
+        <div class="us-opt" id="us-opt-5" onclick="selectStage(5)">
+          <div class="us-opt-num">5</div>
+          <div><div class="us-opt-name">Bulk Production</div><div class="us-opt-sub">Factory floor · est. 18–25 days</div></div>
+        </div>
+        <div class="us-opt" id="us-opt-6" onclick="selectStage(6)">
+          <div class="us-opt-num">6</div>
+          <div><div class="us-opt-name">QC &amp; Packing</div><div class="us-opt-sub">Inspection + final pack</div></div>
+        </div>
+        <div class="us-opt" id="us-opt-7" onclick="selectStage(7)">
+          <div class="us-opt-num">7</div>
+          <div><div class="us-opt-name">Delivery Challan</div><div class="us-opt-sub">DC issued + goods dispatched</div></div>
+        </div>
+        <div class="us-opt" id="us-opt-8" onclick="selectStage(8)">
+          <div class="us-opt-num">8</div>
+          <div><div class="us-opt-name">PI Issued</div><div class="us-opt-sub">Proforma invoice sent to buyer</div></div>
+        </div>
+        <div class="us-opt" id="us-opt-9" onclick="selectStage(9)">
+          <div class="us-opt-num">9</div>
+          <div><div class="us-opt-name">LC &amp; Payment</div><div class="us-opt-sub">LC received + payment cleared</div></div>
+        </div>
       </div>
-      <div style="margin-top:12px">
-        <label style="font-size:11px;font-weight:600;color:var(--text3);display:block;margin-bottom:4px">Stage Note (optional)</label>
-        <textarea class="form-input" rows="2" style="resize:none;font-size:12px" placeholder="e.g. R2 sample dispatched to buyer on 08 Apr…"></textarea>
+      <div style="margin-top:16px">
+        <label class="form-label">Stage Note <span style="font-weight:400;color:var(--text3)">(optional)</span></label>
+        <textarea class="form-input" rows="2" style="resize:none;font-size:12px" placeholder="e.g. R2 sample dispatched to buyer on 08 Apr, awaiting approval by 12 Apr…"></textarea>
       </div>
-      <div style="display:flex;gap:8px;margin-top:12px">
-        <button class="btn btn-primary btn-sm">Confirm Stage Update</button>
-        <button class="btn btn-ghost btn-sm">Cancel</button>
+      <div style="display:flex;gap:8px;margin-top:14px;align-items:center">
+        <button class="btn btn-primary btn-sm" onclick="alert('Stage updated!')">Confirm Stage Update</button>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('us-panel').style.display='none';document.getElementById('us-toggle-btn').textContent='⬆ Update Stage'">Cancel</button>
+        <span style="margin-left:auto;font-size:11px;color:var(--text3)">Moving forward only — cannot go back</span>
       </div>
     </div>
+    <script>
+    function selectStage(n){
+      for(var i=4;i<=9;i++){
+        var el=document.getElementById('us-opt-'+i);
+        if(el) el.classList.remove('selected');
+      }
+      var t=document.getElementById('us-opt-'+n);
+      if(t) t.classList.add('selected');
+    }
+    </script>
 
     <div class="two-col">
       <div>
