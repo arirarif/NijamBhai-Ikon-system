@@ -74,20 +74,12 @@
       <span class="current">New Order</span>
     </div>
 
-    <!-- Step Wizard -->
-    <div class="step-wizard">
-      <div class="step-item active">
-        <div class="step-box"><div class="step-num">1</div>Company &amp; Buyer</div>
-      </div>
-      <div class="step-item">
-        <div class="step-box"><div class="step-num">2</div>Product Details</div>
-      </div>
-      <div class="step-item">
-        <div class="step-box"><div class="step-num">3</div>Sample Plan</div>
-      </div>
-      <div class="step-item">
-        <div class="step-box"><div class="step-num">4</div>Review &amp; Create</div>
-      </div>
+    <!-- Progress indicator -->
+    <div style="display:flex;align-items:center;gap:0;margin-bottom:24px">
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius-sm) 0 0 var(--radius-sm);font-size:12px;font-weight:600;color:var(--green)"><span style="width:20px;height:20px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px">&#10003;</span>Company &amp; Buyer</div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--green-bg);border:1px solid var(--green-border);border-left:none;font-size:12px;font-weight:600;color:var(--green)"><span style="width:20px;height:20px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px">&#10003;</span>Product Details</div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--green-bg);border:1px solid var(--green-border);border-left:none;font-size:12px;font-weight:600;color:var(--green)"><span style="width:20px;height:20px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px">&#10003;</span>Sample Plan</div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--accent-bg);border:1px solid var(--accent);border-left:none;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:12px;font-weight:700;color:var(--accent)"><span style="width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">4</span>Review &amp; Create</div>
     </div>
 
     <div class="two-col" style="grid-template-columns:1fr 320px">
@@ -100,6 +92,7 @@
               <div class="fs-num">1</div>
               <div class="fs-title">Company &amp; Buyer Information</div>
             </div>
+            <span class="badge approved" style="font-size:10px">&#10003; Filled</span>
           </div>
           <div class="fs-body">
             <div class="form-row">
@@ -107,21 +100,21 @@
                 <label class="form-label">Buyer Company <span class="req">*</span></label>
                 <select class="form-select">
                   <option value="">Select company...</option>
-                  <option>Noman Group</option>
+                  <option selected>Noman Group</option>
                   <option>Bay Group</option>
                   <option>KDS Accessories Ltd.</option>
                   <option>Grameen Check Ltd.</option>
-                  <option value="new">+ Add New Company</option>
+                  <option value="new">+ Add New Company &#8595; (form below)</option>
                 </select>
               </div>
               <div class="form-group">
                 <label class="form-label">Merchandiser <span class="req">*</span></label>
                 <select class="form-select">
                   <option value="">Select merchandiser...</option>
-                  <option>Faruq Hossain</option>
-                  <option>Rashida Begum</option>
-                  <option>Anwar Hossain</option>
-                  <option value="new">+ Add New Person</option>
+                  <option selected>Faruq Hossain &mdash; Senior Merch.</option>
+                  <option>Rashida Begum &mdash; Merch.</option>
+                  <option>Anwar Hossain &mdash; Merch.</option>
+                  <option value="new">+ Add New Person &#8595; (form below)</option>
                 </select>
                 <div class="form-hint">Person who visited and placed the order</div>
               </div>
@@ -136,12 +129,12 @@
                 <select class="form-select">
                   <option>Normal</option>
                   <option>Urgent</option>
-                  <option>Rush</option>
+                  <option selected>Rush</option>
                 </select>
               </div>
               <div class="form-group">
                 <label class="form-label">Expected Delivery</label>
-                <input class="form-input" type="date">
+                <input class="form-input" type="date" value="2026-04-25">
               </div>
             </div>
           </div>
@@ -175,38 +168,41 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Season / Collection</label>
-                <input class="form-input" type="text" placeholder="e.g. SS2026, AW2026">
+                <input class="form-input" type="text" value="SS2026" placeholder="e.g. SS2026, AW2026">
               </div>
             </div>
             <div class="form-row-3">
               <div class="form-group">
                 <label class="form-label">Quantity (pcs) <span class="req">*</span></label>
-                <input class="form-input" type="number" placeholder="e.g. 150000">
+                <input class="form-input" type="number" value="150000">
               </div>
               <div class="form-group">
                 <label class="form-label">Unit Price (&#2547;)</label>
                 <div class="input-group">
-                  <input class="form-input" type="number" step="0.01" placeholder="0.00">
+                  <input class="form-input" type="number" step="0.01" value="0.85">
                   <span class="input-addon">/ pc</span>
                 </div>
               </div>
               <div class="form-group">
                 <label class="form-label">Est. Total Value</label>
-                <div class="form-input" style="background:var(--bg4);color:var(--text3);cursor:default">Auto-calculated</div>
+                <div class="form-input" style="background:var(--green-bg);color:var(--green);font-weight:700;border-color:var(--green-border);cursor:default">&#2547; 1,27,500</div>
               </div>
             </div>
             <div class="form-group">
               <label class="form-label">Product Specification / Description <span class="req">*</span></label>
-              <textarea class="form-textarea" rows="3" placeholder="Describe size, color ref (Pantone), material, finishing, special requirements..."></textarea>
+              <textarea class="form-textarea" rows="3">4-hole polyester button, 18L, Black. Color ref: Pantone 19-0303 TPX. Hole diameter 1.2mm. Flat attachment shank. No burrs or sharp edges. Must match buyer-supplied swatch (attached).</textarea>
             </div>
             <div class="form-group">
               <label class="form-label">Tech Pack / Spec Sheet</label>
-              <div class="dropzone">
-                <div class="dz-icon">&#128196;</div>
-                <div class="dz-title">Drop tech pack here or click to upload</div>
-                <div class="dz-sub">PDF, JPG, PNG &middot; max 10 MB</div>
+              <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius-sm);margin-bottom:8px">
+                <span style="font-size:20px">&#128196;</span>
+                <div style="flex:1"><div style="font-size:13px;font-weight:600">TechPack_Noman_Button_SS2026.pdf</div><div style="font-size:11px;color:var(--text3)">Uploaded 8 Apr 2026 &middot; 2.4 MB</div></div>
+                <button class="btn btn-ghost btn-xs">&#128065; View</button>
+                <button class="btn btn-ghost btn-xs" style="color:var(--red)">&#10005; Remove</button>
               </div>
-              <div class="form-hint">Optional but recommended &mdash; buyer often provides this during visit</div>
+              <div class="dropzone" style="padding:14px">
+                <div class="dz-title" style="font-size:12px">+ Upload another file (JPG, PNG, PDF &middot; max 10 MB)</div>
+              </div>
             </div>
           </div>
         </div>
@@ -222,38 +218,42 @@
           <div class="fs-body">
             <div class="form-group">
               <label class="form-label">Where will the sample be made? <span class="req">*</span></label>
-              <div class="radio-cards">
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
                 <label class="radio-card selected">
                   <input type="radio" name="sample_src" value="inhouse" checked>
-                  <div class="rc-icon">&#127981;</div>
+                  <div style="font-size:28px;margin-bottom:10px">&#127981;</div>
                   <div class="rc-title">In-house</div>
-                  <div class="rc-sub">Made at IKON factory. No extra cost.</div>
+                  <div class="rc-sub">Made at IKON factory<br>&#8205;</div>
+                  <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--green)">&#10003; No extra cost</div>
                 </label>
                 <label class="radio-card">
                   <input type="radio" name="sample_src" value="mirpur">
-                  <div class="rc-icon">&#128228;</div>
+                  <div style="font-size:28px;margin-bottom:10px">&#127968;</div>
                   <div class="rc-title">Outsource &mdash; Mirpur</div>
-                  <div class="rc-sub">Send to Mirpur vendor. Costs extra.</div>
+                  <div class="rc-sub">Mirpur vendor area<br>Avg. lead time +1 day</div>
+                  <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--orange)">&#2547; Extra cost applies</div>
                 </label>
                 <label class="radio-card">
                   <input type="radio" name="sample_src" value="gilistan">
-                  <div class="rc-icon">&#128228;</div>
+                  <div style="font-size:28px;margin-bottom:10px">&#127968;</div>
                   <div class="rc-title">Outsource &mdash; Gilistan</div>
-                  <div class="rc-sub">Send to Gilistan area vendor.</div>
+                  <div class="rc-sub">Gilistan area vendor<br>Avg. lead time +2 days</div>
+                  <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--orange)">&#2547; Extra cost applies</div>
                 </label>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Sample Due Date</label>
-                <input class="form-input" type="date">
+                <input class="form-input" type="date" value="2026-04-10">
               </div>
               <div class="form-group">
                 <label class="form-label">Sample Cost (if outsourced)</label>
                 <div class="input-group">
                   <span class="input-addon">&#2547;</span>
-                  <input class="form-input" type="number" placeholder="0">
+                  <input class="form-input" type="number" value="0" placeholder="0">
                 </div>
+                <div class="form-hint">&#2547; 0 for in-house. Enter cost if outsourcing.</div>
               </div>
             </div>
             <div class="form-group">
@@ -263,9 +263,37 @@
           </div>
         </div>
 
-        <div class="form-footer">
-          <button class="btn btn-outline">Save as Draft</button>
-          <button class="btn btn-primary">Create Order &amp; Start Sample &#8594;</button>
+        <!-- STEP 4: Review & Create -->
+        <div class="form-section" style="border-color:var(--green)">
+          <div class="fs-header" style="background:var(--green-bg);border-bottom-color:var(--green-border)">
+            <div style="display:flex;align-items:center">
+              <div class="fs-num" style="background:var(--green)">4</div>
+              <div class="fs-title" style="color:var(--green)">Review &amp; Create Order</div>
+            </div>
+            <span style="font-size:11px;color:var(--text3)">Check everything before submitting</span>
+          </div>
+          <div class="fs-body">
+            <table class="review-table">
+              <tr><td>Company</td><td style="font-weight:700;color:var(--accent)">Noman Group</td></tr>
+              <tr><td>Merchandiser</td><td>Faruq Hossain &mdash; Senior Merchandiser</td></tr>
+              <tr><td>Visit Date</td><td>8 April 2026</td></tr>
+              <tr><td>Product Type</td><td>Button &mdash; 4-hole polyester, 18L, Black</td></tr>
+              <tr><td>Season</td><td>SS2026</td></tr>
+              <tr><td>Quantity</td><td style="font-weight:700">1,50,000 pcs</td></tr>
+              <tr><td>Unit Price</td><td>&#2547; 0.85 / pc</td></tr>
+              <tr><td>Est. Total Value</td><td style="font-weight:800;font-size:15px;color:var(--green)">&#2547; 1,27,500</td></tr>
+              <tr><td>Priority</td><td><span class="badge urgent" style="font-size:10px">Rush</span></td></tr>
+              <tr><td>Expected Delivery</td><td style="color:var(--orange);font-weight:600">25 April 2026</td></tr>
+              <tr><td>Sample Source</td><td>In-house (IKON factory)</td></tr>
+              <tr><td>Sample Due</td><td>10 April 2026</td></tr>
+              <tr><td>Revision Cost</td><td style="color:var(--green)">&#2547; 0 (in-house)</td></tr>
+              <tr><td>Tech Pack</td><td style="color:var(--green)">&#10003; TechPack_Noman_Button_SS2026.pdf (1 file)</td></tr>
+            </table>
+            <div style="display:flex;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
+              <button class="btn btn-outline">Save as Draft</button>
+              <button class="btn btn-primary" style="flex:1;justify-content:center;padding:12px 24px;font-size:14px;font-weight:700">&#10003; Create Order &amp; Start Sample Making</button>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -273,32 +301,114 @@
       <!-- Right summary panel -->
       <div>
         <div class="card" style="position:sticky;top:80px">
-          <div class="card-header"><span class="ctitle">Order Summary</span></div>
+          <div class="card-header"><span class="ctitle">Order Summary</span><span class="badge approved" style="font-size:10px">Ready</span></div>
           <div class="card-body">
-            <div style="font-size:11px;color:var(--text3);margin-bottom:14px">Fill the form to see a live preview</div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div class="info-item"><div class="label">Company</div><div class="value" style="color:var(--text3)">Not selected</div></div>
-              <div class="info-item"><div class="label">Merchandiser</div><div class="value" style="color:var(--text3)">Not selected</div></div>
-              <div class="info-item"><div class="label">Product</div><div class="value" style="color:var(--text3)">Not selected</div></div>
-              <div class="info-item"><div class="label">Quantity</div><div class="value" style="color:var(--text3)">&mdash;</div></div>
-              <div class="info-item"><div class="label">Est. Value</div><div class="value" style="color:var(--text3)">&mdash;</div></div>
-              <div class="info-item"><div class="label">Priority</div><div class="value" style="color:var(--text3)">Normal</div></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-size:11px;color:var(--text3)">Company</div>
+                <div style="font-size:13px;font-weight:700;color:var(--accent)">Noman Group</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-size:11px;color:var(--text3)">Merchandiser</div>
+                <div style="font-size:13px">Faruq Hossain</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-size:11px;color:var(--text3)">Product</div>
+                <div style="font-size:13px">Button (18L, Black)</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-size:11px;color:var(--text3)">Quantity</div>
+                <div style="font-size:14px;font-weight:700">1,50,000 pcs</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-size:11px;color:var(--text3)">Est. Value</div>
+                <div style="font-size:20px;font-weight:800;color:var(--green)">&#2547;1,27,500</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-size:11px;color:var(--text3)">Priority</div>
+                <span class="badge urgent" style="font-size:10px">Rush</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-size:11px;color:var(--text3)">Delivery</div>
+                <div style="font-size:13px;font-weight:600;color:var(--orange)">25 Apr 2026</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-size:11px;color:var(--text3)">Sample</div>
+                <div style="font-size:12px;color:var(--green)">In-house · Due 10 Apr</div>
+              </div>
             </div>
             <hr class="divider">
-            <div style="font-size:11px;color:var(--text3)">
-              <strong style="color:var(--text2)">What happens next?</strong><br><br>
-              1. Order is created with status <em>Sample Making</em><br>
-              2. Sample is produced (in-house or outsourced)<br>
-              3. Sample is sent to buyer &mdash; log under Revisions<br>
-              4. Repeat until <em>Approved</em><br>
-              5. Move to Bulk Production
+            <div style="font-size:11px;color:var(--text3);line-height:1.8">
+              <strong style="color:var(--text2)">After creating:</strong><br>
+              1. Status &rarr; <em>Sample Making</em><br>
+              2. Log revisions until approved<br>
+              3. Move &rarr; Bulk Production<br>
+              4. Issue Challan &rarr; PI &rarr; LC
             </div>
           </div>
         </div>
       </div>
     </div>
 
-  </div>
-</div>
+    <!-- ────────────────────────────────────────── -->
+    <!-- ADD NEW COMPANY (inline form, visible)   -->
+    <!-- ────────────────────────────────────────── -->
+    <div class="inline-form-card">
+      <div class="ifc-header">
+        <span class="ifc-icon">&#127970;</span>
+        <div>
+          <div class="ifc-title">Add New Company</div>
+          <div class="ifc-sub">New buyer company not in the system yet? Add them here and they'll appear in the dropdown above.</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Company Name <span class="req">*</span></label><input class="form-input" placeholder="e.g. Palmal Garments Ltd."></div>
+        <div class="form-group"><label class="form-label">Industry / Type</label><select class="form-select"><option>Garments Manufacturer</option><option>Buying House</option><option>Export House</option><option>Retailer</option><option>Other</option></select></div>
+      </div>
+      <div class="form-row-3">
+        <div class="form-group"><label class="form-label">Location / Area</label><input class="form-input" placeholder="e.g. Ashulia, Savar"></div>
+        <div class="form-group"><label class="form-label">Phone</label><input class="form-input" placeholder="+88 01..."></div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="accounts@company.com"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Full Address</label><textarea class="form-textarea" rows="2" placeholder="House/Plot, Road, Area, Dhaka-XXXX"></textarea></div>
+        <div class="form-group"><label class="form-label">Notes</label><textarea class="form-textarea" rows="2" placeholder="Payment behaviour, special requirements, etc."></textarea></div>
+      </div>
+      <div class="form-footer" style="padding:0">
+        <button class="btn btn-primary">&#10003; Save Company &amp; Select Above</button>
+        <button class="btn btn-ghost btn-sm">Cancel</button>
+      </div>
+    </div>
+
+    <!-- ────────────────────────────────────────── -->
+    <!-- ADD NEW MERCHANDISER (inline form, visible)-->
+    <!-- ────────────────────────────────────────── -->
+    <div class="inline-form-card">
+      <div class="ifc-header">
+        <span class="ifc-icon">&#128100;</span>
+        <div>
+          <div class="ifc-title">Add New Merchandiser</div>
+          <div class="ifc-sub">Person (buyer-side) who visits and places orders. Will appear in the Merchandiser dropdown above.</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Full Name <span class="req">*</span></label><input class="form-input" placeholder="e.g. Rashid Ahmed"></div>
+        <div class="form-group"><label class="form-label">Company <span class="req">*</span></label><select class="form-select"><option selected>Noman Group</option><option>Bay Group</option><option>KDS Accessories Ltd.</option><option>Grameen Check Ltd.</option></select></div>
+      </div>
+      <div class="form-row-3">
+        <div class="form-group"><label class="form-label">Title / Position</label><input class="form-input" placeholder="e.g. Senior Merchandiser"></div>
+        <div class="form-group"><label class="form-label">Phone <span class="req">*</span></label><input class="form-input" placeholder="+88 01..."></div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="name@company.com"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Department</label><input class="form-input" placeholder="e.g. Woven, Knit, Denim"></div>
+        <div class="form-group"><label class="form-label">Notes</label><textarea class="form-textarea" rows="1" placeholder="How they prefer to communicate, availability, etc."></textarea></div>
+      </div>
+      <div class="form-footer" style="padding:0">
+        <button class="btn btn-primary">&#10003; Save Merchandiser &amp; Select Above</button>
+        <button class="btn btn-ghost btn-sm">Cancel</button>
+      </div>
+    </div>
 <script src="_theme.js"></script>
+<script src="_sticky.js"></script>
 </body></html>
