@@ -337,6 +337,14 @@ tbody td.mono  { font-family: 'Fira Code', monospace; font-size: 12px; }
 .breadcrumb .sep  { color: var(--text4); }
 .breadcrumb .current { color: var(--text2); }
 
+/* ── CONTEXT BAR ─────────────────────────────── */
+.ctx-bar        { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; margin-bottom: 20px; }
+.ctx-items      { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ctx-item       { display: flex; align-items: center; gap: 5px; }
+.ctx-label      { font-size: 11px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: .4px; white-space: nowrap; }
+.ctx-val        { font-size: 12px; color: var(--text1); font-weight: 500; white-space: nowrap; }
+.ctx-sep        { color: var(--text4); font-size: 14px; user-select: none; }
+
 .page-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
 .page-header h1  { font-size: 22px; font-weight: 700; line-height: 1.2; }
 .page-header .ph-sub { font-size: 13px; color: var(--text2); margin-top: 3px; }
