@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Vehicles — IKON GAS</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+.veh-kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px; }
+.veh-kpi { border-radius:var(--radius); padding:16px 18px; border:1px solid var(--border); }
+.veh-kpi .vk-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; color:var(--text3); margin-bottom:6px; }
+.veh-kpi .vk-value { font-size:24px; font-weight:900; }
+.veh-kpi .vk-sub { font-size:11px; color:var(--text3); margin-top:4px; }
+
+.veh-card { border:1px solid var(--border); border-radius:var(--radius); padding:0; overflow:hidden; }
+.veh-card-head { padding:14px 16px; background:var(--bg3); display:flex; align-items:center; gap:12px; border-bottom:1px solid var(--border); }
+.veh-icon { width:44px; height:44px; border-radius:12px; background:var(--accent-bg); display:flex; align-items:center; justify-content:center; }
+.veh-reg { font-size:16px; font-weight:900; letter-spacing:.5px; color:var(--text1); }
+.veh-model { font-size:11px; color:var(--text3); }
+.veh-status { display:inline-block; padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700; }
+.vs-active   { background:var(--green-bg); color:var(--green); }
+.vs-service  { background:var(--orange-bg); color:var(--orange); }
+.vs-offroad  { background:var(--red-bg); color:var(--red); }
+
+.veh-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:20px; }
+.veh-info-row { display:flex; padding:10px 16px; justify-content:space-between; border-bottom:1px solid var(--border); font-size:12px; }
+.veh-info-row:last-child { border-bottom:none; }
+.vi-label { color:var(--text3); font-weight:500; }
+.vi-value { font-weight:700; }
+
+.trip-table { width:100%; border-collapse:collapse; }
+.trip-table th { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text3); padding:10px 14px; text-align:left; border-bottom:2px solid var(--border); background:var(--bg3); }
+.trip-table td { padding:11px 14px; border-bottom:1px solid var(--border); font-size:12px; vertical-align:middle; }
+.trip-table tr:last-child td { border-bottom:none; }
+.trip-table tr:hover td { background:var(--bg3); }
+
+.expiry-ok  { color:var(--green); font-weight:700; }
+.expiry-warn{ color:var(--orange); font-weight:700; }
+.expiry-exp { color:var(--red); font-weight:700; }
+
+.driver-card { display:flex; align-items:center; gap:12px; padding:14px 16px; border-bottom:1px solid var(--border); }
+.driver-card:last-child { border-bottom:none; }
+.driver-av { width:40px; height:40px; border-radius:50%; background:#0fc6e8; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:#0a0d14; flex-shrink:0; }
+</style>
+</head>
+<body>
+<div id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">I</div>
+      <div class="logo-text"><div class="brand">IKON GAS</div><div class="sub">Garments Accessories</div></div>
+    </div>
+    <div class="badge-proto" style="margin-top:8px">PROTOTYPE V2</div>
+  </div>
+  <nav>
+    <div class="nav-section">Workspace</div>
+    <a href="01-dashboard.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+    <a href="02-companies.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Companies</a>
+    <div class="nav-section">Orders</div>
+    <a href="03-order-detail.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>All Orders</a>
+    <a href="04-new-order.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Order</a>
+    <a href="05-sample-revision.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/></svg>Sample Revision</a>
+    <div class="nav-section">Finance</div>
+    <a href="06-pi.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/></svg>Proforma Invoice</a>
+    <a href="07-lc-tracker.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>LC Tracker</a>
+    <a href="08-challan.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>Delivery Challan</a>
+    <div class="nav-section">Operations</div>
+    <a href="10-inventory.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>Inventory</a>
+    <a href="11-accounts.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Accounts</a>
+    <a href="12-hr-payroll.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>HR &amp; Payroll</a>
+    <a href="13-vehicles.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Vehicles</a>
+    <div class="nav-section">Vision</div>
+    <a href="09-future-vision.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Future Vision ✨</a>
+  </nav>
+</div>
+
+<div id="main">
+  <div id="topbar">
+    <div class="topbar-title">Vehicles &amp; Drivers</div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-sub">3 vehicles · 2 drivers registered</div>
+    <div class="topbar-right">
+      <button class="btn btn-outline btn-sm" onclick="document.getElementById('add-driver-form').style.display='block';document.getElementById('add-driver-form').scrollIntoView({behavior:'smooth'})">+ Add Driver</button>
+      <button class="btn btn-outline btn-sm" onclick="document.getElementById('log-trip-form').style.display='block';document.getElementById('log-trip-form').scrollIntoView({behavior:'smooth'})">+ Log Trip</button>
+      <button class="btn btn-primary btn-sm" onclick="document.getElementById('add-vehicle-form').style.display='block';document.getElementById('add-vehicle-form').scrollIntoView({behavior:'smooth'})">+ Add Vehicle</button>
+    </div>
+  </div>
+  <div id="content">
+
+    <!-- KPIs -->
+    <div class="veh-kpi-row">
+      <div class="veh-kpi">
+        <div class="vk-label">Total Vehicles</div>
+        <div class="vk-value">3</div>
+        <div class="vk-sub">2 active · 1 servicing</div>
+      </div>
+      <div class="veh-kpi" style="background:var(--accent-bg);border-color:var(--accent)">
+        <div class="vk-label">Total Trips (MTD)</div>
+        <div class="vk-value" style="color:var(--accent)">18</div>
+        <div class="vk-sub">April 2026 · 2,340 km total</div>
+      </div>
+      <div class="veh-kpi" style="background:var(--orange-bg);border-color:var(--orange)">
+        <div class="vk-label">Fuel Cost (MTD)</div>
+        <div class="vk-value" style="color:var(--orange)">৳ 32,400</div>
+        <div class="vk-sub">April 2026</div>
+      </div>
+      <div class="veh-kpi" style="background:var(--red-bg);border-color:var(--red)">
+        <div class="vk-label">Expiry Alerts</div>
+        <div class="vk-value" style="color:var(--red)">1</div>
+        <div class="vk-sub">Insurance expiring soon</div>
+      </div>
+    </div>
+
+    <!-- Vehicle cards -->
+    <div class="veh-grid">
+
+      <!-- Vehicle 1 — Toyota Hiace -->
+      <div class="veh-card">
+        <div class="veh-card-head">
+          <div class="veh-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" width="22" height="22"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div style="flex:1">
+            <div class="veh-reg">DHAKA-GA-11-2847</div>
+            <div class="veh-model">Toyota Hiace · 2020 · White</div>
+          </div>
+          <span class="veh-status vs-active">Active</span>
+        </div>
+        <div class="veh-info-row"><span class="vi-label">Type</span><span class="vi-value">Minivan / Delivery</span></div>
+        <div class="veh-info-row"><span class="vi-label">Driver Assigned</span><span class="vi-value" style="color:var(--accent)">Jalal Ibrahim</span></div>
+        <div class="veh-info-row"><span class="vi-label">Insurance Expiry</span><span class="vi-value expiry-warn">⚠ 15 Jun 2026 (67 days)</span></div>
+        <div class="veh-info-row"><span class="vi-label">Fitness Expiry</span><span class="vi-value expiry-ok">✓ 30 Nov 2026</span></div>
+        <div class="veh-info-row"><span class="vi-label">Last Service</span><span class="vi-value">12 Feb 2026</span></div>
+        <div class="veh-info-row"><span class="vi-label">Odometer</span><span class="vi-value mono">78,420 km</span></div>
+        <div style="padding:12px 16px;display:flex;gap:8px">
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('log-trip-form').style.display='block';document.getElementById('log-trip-form').scrollIntoView({behavior:'smooth'})">+ Log Trip</button>
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('maintenance-form').style.display='block';document.getElementById('maintenance-form').scrollIntoView({behavior:'smooth'})">Maintenance</button>
+        </div>
+      </div>
+
+      <!-- Vehicle 2 — Toyota Noah -->
+      <div class="veh-card">
+        <div class="veh-card-head">
+          <div class="veh-icon" style="background:rgba(139,92,246,.1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" width="22" height="22"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v9a2 2 0 01-2 2h-3"/><circle cx="9" cy="17" r="2"/><circle cx="15" cy="17" r="2"/></svg>
+          </div>
+          <div style="flex:1">
+            <div class="veh-reg">DHAKA-GA-11-5513</div>
+            <div class="veh-model">Toyota Noah · 2019 · Silver</div>
+          </div>
+          <span class="veh-status vs-active">Active</span>
+        </div>
+        <div class="veh-info-row"><span class="vi-label">Type</span><span class="vi-value">Staff / Office Car</span></div>
+        <div class="veh-info-row"><span class="vi-label">Driver Assigned</span><span class="vi-value" style="color:var(--accent)">Arif Khan</span></div>
+        <div class="veh-info-row"><span class="vi-label">Insurance Expiry</span><span class="vi-value expiry-ok">✓ 18 Dec 2026</span></div>
+        <div class="veh-info-row"><span class="vi-label">Fitness Expiry</span><span class="vi-value expiry-ok">✓ 25 Sep 2026</span></div>
+        <div class="veh-info-row"><span class="vi-label">Last Service</span><span class="vi-value">01 Mar 2026</span></div>
+        <div class="veh-info-row"><span class="vi-label">Odometer</span><span class="vi-value mono">54,870 km</span></div>
+        <div style="padding:12px 16px;display:flex;gap:8px">
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('log-trip-form').style.display='block';document.getElementById('log-trip-form').scrollIntoView({behavior:'smooth'})">+ Log Trip</button>
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('maintenance-form').style.display='block';document.getElementById('maintenance-form').scrollIntoView({behavior:'smooth'})">Maintenance</button>
+        </div>
+      </div>
+
+      <!-- Vehicle 3 — Pickup (servicing) -->
+      <div class="veh-card" style="opacity:.75">
+        <div class="veh-card-head">
+          <div class="veh-icon" style="background:var(--orange-bg)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" width="22" height="22"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div style="flex:1">
+            <div class="veh-reg">DHAKA-GA-12-7741</div>
+            <div class="veh-model">Tata Pickup · 2018 · Blue</div>
+          </div>
+          <span class="veh-status vs-service">In Service</span>
+        </div>
+        <div class="veh-info-row"><span class="vi-label">Type</span><span class="vi-value">Delivery Pickup</span></div>
+        <div class="veh-info-row"><span class="vi-label">Driver Assigned</span><span class="vi-value" style="color:var(--text3)">Unassigned</span></div>
+        <div class="veh-info-row"><span class="vi-label">Insurance Expiry</span><span class="vi-value expiry-ok">✓ 09 Aug 2026</span></div>
+        <div class="veh-info-row"><span class="vi-label">Fitness Expiry</span><span class="vi-value expiry-warn">⚠ 05 Jun 2026 (57 days)</span></div>
+        <div class="veh-info-row"><span class="vi-label">In Workshop Since</span><span class="vi-value" style="color:var(--orange)">03 Apr 2026</span></div>
+        <div class="veh-info-row"><span class="vi-label">Odometer</span><span class="vi-value mono">1,12,300 km</span></div>
+        <div style="padding:12px 16px;display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm" style="font-size:11px;color:var(--green);border-color:var(--green)">Mark Ready</button>
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('maintenance-form').style.display='block';document.getElementById('maintenance-form').scrollIntoView({behavior:'smooth'})">Repair Log</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Drivers + Trip Log -->
+    <div style="display:grid;grid-template-columns:280px 1fr;gap:20px;margin-bottom:20px">
+
+      <!-- Drivers -->
+      <div class="card">
+        <div class="card-header"><span class="ctitle">Drivers</span><button class="btn btn-ghost btn-sm" onclick="document.getElementById('add-driver-form').style.display='block';document.getElementById('add-driver-form').scrollIntoView({behavior:'smooth'})">+ Add</button></div>
+        <div class="card-body" style="padding:0">
+          <div class="driver-card">
+            <div class="driver-av">JI</div>
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:700">Jalal Ibrahim</div>
+              <div style="font-size:11px;color:var(--text3)">Toyota Hiace · Assigned</div>
+              <div style="font-size:10px;color:var(--text3);margin-top:2px">License: DRV-041-2025 · Exp: Dec 2027</div>
+            </div>
+            <span class="veh-status vs-active" style="font-size:9px">Active</span>
+          </div>
+          <div class="driver-card">
+            <div class="driver-av">AK</div>
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:700">Arif Khan</div>
+              <div style="font-size:11px;color:var(--text3)">Toyota Noah · Assigned</div>
+              <div style="font-size:10px;color:var(--text3);margin-top:2px">License: DRV-039-2024 · Exp: Aug 2026</div>
+            </div>
+            <span class="veh-status vs-active" style="font-size:9px">Active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trip log -->
+      <div class="card">
+        <div class="card-header"><span class="ctitle">Recent Trips</span><button class="btn btn-ghost btn-sm" onclick="document.getElementById('log-trip-form').style.display='block';document.getElementById('log-trip-form').scrollIntoView({behavior:'smooth'})">+ Log</button></div>
+        <div class="card-body" style="padding:0;overflow-x:auto">
+          <table class="trip-table">
+            <thead>
+              <tr><th>Date</th><th>Vehicle</th><th>Driver</th><th>Route</th><th>Purpose</th><th>KM</th><th>Fuel Cost (৳)</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="white-space:nowrap;color:var(--text3);font-size:11px">08 Apr 2026</td>
+                <td class="mono" style="font-size:11px;color:var(--accent)">GA-11-2847</td>
+                <td style="font-size:12px;font-weight:600">Jalal Ibrahim</td>
+                <td style="font-size:12px">Uttara → Gazipur</td>
+                <td style="font-size:11px;color:var(--text3)">Order delivery — Reza Garments</td>
+                <td class="mono" style="font-weight:700">84 km</td>
+                <td class="mono" style="color:var(--orange)">৳ 980</td>
+              </tr>
+              <tr>
+                <td style="white-space:nowrap;color:var(--text3);font-size:11px">07 Apr 2026</td>
+                <td class="mono" style="font-size:11px;color:var(--text3)">GA-11-5513</td>
+                <td style="font-size:12px;font-weight:600">Arif Khan</td>
+                <td style="font-size:12px">Uttara → Motijheel</td>
+                <td style="font-size:11px;color:var(--text3)">Meeting — Noman Group HQ</td>
+                <td class="mono" style="font-weight:700">42 km</td>
+                <td class="mono" style="color:var(--orange)">৳ 490</td>
+              </tr>
+              <tr>
+                <td style="white-space:nowrap;color:var(--text3);font-size:11px">05 Apr 2026</td>
+                <td class="mono" style="font-size:11px;color:var(--accent)">GA-11-2847</td>
+                <td style="font-size:12px;font-weight:600">Jalal Ibrahim</td>
+                <td style="font-size:12px">Dhaka → Chittagong</td>
+                <td style="font-size:11px;color:var(--text3)">Bulk delivery — Elite Fashion</td>
+                <td class="mono" style="font-weight:700">340 km</td>
+                <td class="mono" style="color:var(--orange)">৳ 4,200</td>
+              </tr>
+              <tr>
+                <td style="white-space:nowrap;color:var(--text3);font-size:11px">03 Apr 2026</td>
+                <td class="mono" style="font-size:11px;color:var(--text3)">GA-11-5513</td>
+                <td style="font-size:12px;font-weight:600">Arif Khan</td>
+                <td style="font-size:12px">Uttara → Ashulia</td>
+                <td style="font-size:11px;color:var(--text3)">Sample delivery — Apex Clothing</td>
+                <td class="mono" style="font-weight:700">58 km</td>
+                <td class="mono" style="color:var(--orange)">৳ 680</td>
+              </tr>
+              <tr>
+                <td style="white-space:nowrap;color:var(--text3);font-size:11px">01 Apr 2026</td>
+                <td class="mono" style="font-size:11px;color:var(--accent)">GA-11-2847</td>
+                <td style="font-size:12px;font-weight:600">Jalal Ibrahim</td>
+                <td style="font-size:12px">Uttara → Narsingdi</td>
+                <td style="font-size:11px;color:var(--text3)">Stock pickup — Supplier warehouse</td>
+                <td class="mono" style="font-weight:700">96 km</td>
+                <td class="mono" style="color:var(--orange)">৳ 1,120</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Maintenance log -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-header"><span class="ctitle">Maintenance &amp; Repair Log</span></div>
+      <div class="card-body" style="padding:0;overflow-x:auto">
+        <table class="trip-table">
+          <thead>
+            <tr><th>Date</th><th>Vehicle</th><th>Work Done</th><th>Workshop</th><th>Cost (৳)</th><th>Next Due</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--text3);font-size:11px">03 Apr 2026</td>
+              <td class="mono" style="font-size:11px;color:var(--orange)">GA-12-7741</td>
+              <td style="font-weight:600">Engine overhaul + clutch replacement</td>
+              <td style="font-size:11px;color:var(--text3)">Rakib Motors, Uttara</td>
+              <td class="mono" style="font-weight:700;color:var(--red)">৳ 28,000</td>
+              <td style="font-size:11px;color:var(--text3)">After 5,000 km</td>
+            </tr>
+            <tr>
+              <td style="color:var(--text3);font-size:11px">01 Mar 2026</td>
+              <td class="mono" style="font-size:11px;color:var(--text3)">GA-11-5513</td>
+              <td style="font-weight:600">Oil change + tyre rotation</td>
+              <td style="font-size:11px;color:var(--text3)">Toyota Service Centre, Tejgaon</td>
+              <td class="mono" style="font-weight:700;color:var(--orange)">৳ 4,500</td>
+              <td style="font-size:11px;color:var(--green)">Sep 2026</td>
+            </tr>
+            <tr>
+              <td style="color:var(--text3);font-size:11px">12 Feb 2026</td>
+              <td class="mono" style="font-size:11px;color:var(--accent)">GA-11-2847</td>
+              <td style="font-weight:600">Full service + brake pad replacement</td>
+              <td style="font-size:11px;color:var(--text3)">Toyota Service Centre, Tejgaon</td>
+              <td class="mono" style="font-weight:700;color:var(--orange)">৳ 8,200</td>
+              <td style="font-size:11px;color:var(--green)">Aug 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Forms -->
+    <!-- Add Vehicle -->
+    <div class="inline-form-card" id="add-vehicle-form" style="display:none;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:700;margin-bottom:14px">+ Register New Vehicle</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+        <div><label class="form-label">Registration Number *</label><input class="form-input" placeholder="e.g. DHAKA-GA-11-XXXX"></div>
+        <div><label class="form-label">Make &amp; Model *</label><input class="form-input" placeholder="e.g. Toyota Hiace"></div>
+        <div><label class="form-label">Year</label><input class="form-input" type="number" placeholder="2020"></div>
+        <div><label class="form-label">Type</label><select class="form-select"><option>Delivery Van</option><option>Staff Car</option><option>Pickup Truck</option><option>Motorcycle</option></select></div>
+        <div><label class="form-label">Color</label><input class="form-input" placeholder="White / Silver / Blue..."></div>
+        <div><label class="form-label">Insurance Expiry</label><input class="form-input" type="date"></div>
+        <div><label class="form-label">Fitness Expiry</label><input class="form-input" type="date"></div>
+        <div><label class="form-label">Current Odometer (km)</label><input class="form-input" type="number" placeholder="0"></div>
+        <div><label class="form-label">Assign Driver</label><select class="form-select"><option>—</option><option>Jalal Ibrahim</option><option>Arif Khan</option><option>Add new driver</option></select></div>
+      </div>
+      <div style="display:flex;gap:8px"><button class="btn btn-primary btn-sm">Register Vehicle</button><button class="btn btn-ghost btn-sm" onclick="document.getElementById('add-vehicle-form').style.display='none'">Cancel</button></div>
+    </div>
+
+    <!-- Add Driver -->
+    <div class="inline-form-card" id="add-driver-form" style="display:none;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:700;margin-bottom:14px">+ Add Driver</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+        <div><label class="form-label">Full Name *</label><input class="form-input" placeholder="Driver full name"></div>
+        <div><label class="form-label">Phone *</label><input class="form-input" type="tel" placeholder="01XXXXXXXXX"></div>
+        <div><label class="form-label">License Number *</label><input class="form-input" placeholder="e.g. DRV-041-2025"></div>
+        <div><label class="form-label">License Expiry</label><input class="form-input" type="date"></div>
+        <div><label class="form-label">Assign Vehicle</label><select class="form-select"><option>—</option><option>GA-11-2847 — Hiace</option><option>GA-11-5513 — Noah</option><option>GA-12-7741 — Pickup</option></select></div>
+        <div><label class="form-label">NID Number</label><input class="form-input" placeholder="National ID"></div>
+      </div>
+      <div style="display:flex;gap:8px"><button class="btn btn-primary btn-sm">Save Driver</button><button class="btn btn-ghost btn-sm" onclick="document.getElementById('add-driver-form').style.display='none'">Cancel</button></div>
+    </div>
+
+    <!-- Log Trip -->
+    <div class="inline-form-card" id="log-trip-form" style="display:none;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:700;margin-bottom:14px">+ Log Trip</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+        <div><label class="form-label">Date *</label><input class="form-input" type="date" value="2026-04-08"></div>
+        <div><label class="form-label">Vehicle *</label><select class="form-select"><option>GA-11-2847 — Hiace</option><option>GA-11-5513 — Noah</option></select></div>
+        <div><label class="form-label">Driver *</label><select class="form-select"><option>Jalal Ibrahim</option><option>Arif Khan</option></select></div>
+        <div><label class="form-label">From</label><input class="form-input" placeholder="Departure location"></div>
+        <div><label class="form-label">To</label><input class="form-input" placeholder="Destination"></div>
+        <div><label class="form-label">Purpose</label><input class="form-input" placeholder="Delivery / Meeting / Pickup..."></div>
+        <div><label class="form-label">Distance (km)</label><input class="form-input" type="number" placeholder="0"></div>
+        <div><label class="form-label">Fuel Cost (৳)</label><input class="form-input" type="number" placeholder="0"></div>
+        <div><label class="form-label">Note</label><input class="form-input" placeholder="Optional note"></div>
+      </div>
+      <div style="display:flex;gap:8px"><button class="btn btn-primary btn-sm">Save Trip</button><button class="btn btn-ghost btn-sm" onclick="document.getElementById('log-trip-form').style.display='none'">Cancel</button></div>
+    </div>
+
+    <!-- Maintenance form -->
+    <div class="inline-form-card" id="maintenance-form" style="display:none">
+      <div style="font-size:13px;font-weight:700;margin-bottom:14px">+ Log Maintenance / Repair</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+        <div><label class="form-label">Date *</label><input class="form-input" type="date" value="2026-04-08"></div>
+        <div><label class="form-label">Vehicle *</label><select class="form-select"><option>GA-11-2847 — Hiace</option><option>GA-11-5513 — Noah</option><option>GA-12-7741 — Pickup</option></select></div>
+        <div><label class="form-label">Work Done *</label><input class="form-input" placeholder="e.g. Oil change + tyre rotation"></div>
+        <div><label class="form-label">Workshop</label><input class="form-input" placeholder="Workshop name / location"></div>
+        <div><label class="form-label">Cost (৳)</label><input class="form-input" type="number" placeholder="0"></div>
+        <div><label class="form-label">Next Service Due</label><input class="form-input" placeholder="Date or km milestone"></div>
+      </div>
+      <div style="display:flex;gap:8px"><button class="btn btn-primary btn-sm">Save Record</button><button class="btn btn-ghost btn-sm" onclick="document.getElementById('maintenance-form').style.display='none'">Cancel</button></div>
+    </div>
+
+  </div>
+</div>
+<script src="_theme.js"></script>
+<script src="_sticky.js"></script>
+</body>
+</html>

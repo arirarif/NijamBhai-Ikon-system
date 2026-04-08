@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HR & Payroll — IKON GAS</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+.hr-kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px; }
+.hr-kpi { border-radius:var(--radius); padding:16px 18px; border:1px solid var(--border); }
+.hr-kpi .hk-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; color:var(--text3); margin-bottom:6px; }
+.hr-kpi .hk-value { font-size:24px; font-weight:900; }
+.hr-kpi .hk-sub { font-size:11px; color:var(--text3); margin-top:4px; }
+
+.emp-card { display:flex; align-items:center; gap:14px; padding:14px 16px; border-bottom:1px solid var(--border); }
+.emp-card:last-child { border-bottom:none; }
+.emp-card:hover { background:var(--bg3); }
+.emp-av { width:40px; height:40px; border-radius:50%; background:var(--bg4); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; flex-shrink:0; }
+.emp-name { font-size:13px; font-weight:700; }
+.emp-role { font-size:11px; color:var(--text3); }
+.emp-dept { display:inline-block; padding:2px 8px; border-radius:20px; font-size:10px; font-weight:600; }
+.dept-admin  { background:rgba(139,92,246,.15); color:#8b5cf6; }
+.dept-sales  { background:var(--accent-bg); color:var(--accent); }
+.dept-ops    { background:var(--green-bg); color:var(--green); }
+.dept-account{ background:var(--orange-bg); color:var(--orange); }
+.dept-driver { background:rgba(15,198,232,.12); color:#0fc6e8; }
+
+.pay-table { width:100%; border-collapse:collapse; }
+.pay-table th { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text3); padding:10px 14px; text-align:left; border-bottom:2px solid var(--border); background:var(--bg3); }
+.pay-table td { padding:11px 14px; border-bottom:1px solid var(--border); font-size:12px; vertical-align:middle; }
+.pay-table tr:last-child td { border-bottom:none; }
+.pay-table tr:hover td { background:var(--bg3); }
+.pstatus { display:inline-block; padding:2px 8px; border-radius:20px; font-size:10px; font-weight:700; }
+.ps-paid    { background:var(--green-bg); color:var(--green); }
+.ps-pending { background:var(--orange-bg); color:var(--orange); }
+.ps-advance { background:rgba(139,92,246,.15); color:#8b5cf6; }
+
+.salary-dot { width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:4px; }
+</style>
+</head>
+<body>
+<div id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">I</div>
+      <div class="logo-text"><div class="brand">IKON GAS</div><div class="sub">Garments Accessories</div></div>
+    </div>
+    <div class="badge-proto" style="margin-top:8px">PROTOTYPE V2</div>
+  </div>
+  <nav>
+    <div class="nav-section">Workspace</div>
+    <a href="01-dashboard.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+    <a href="02-companies.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Companies</a>
+    <div class="nav-section">Orders</div>
+    <a href="03-order-detail.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>All Orders</a>
+    <a href="04-new-order.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Order</a>
+    <a href="05-sample-revision.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/></svg>Sample Revision</a>
+    <div class="nav-section">Finance</div>
+    <a href="06-pi.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/></svg>Proforma Invoice</a>
+    <a href="07-lc-tracker.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>LC Tracker</a>
+    <a href="08-challan.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>Delivery Challan</a>
+    <div class="nav-section">Operations</div>
+    <a href="10-inventory.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>Inventory</a>
+    <a href="11-accounts.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Accounts</a>
+    <a href="12-hr-payroll.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>HR &amp; Payroll</a>
+    <a href="13-vehicles.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Vehicles</a>
+    <div class="nav-section">Vision</div>
+    <a href="09-future-vision.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Future Vision ✨</a>
+  </nav>
+</div>
+
+<div id="main">
+  <div id="topbar">
+    <div class="topbar-title">HR &amp; Payroll</div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-sub">8 Employees · April 2026 payroll cycle</div>
+    <div class="topbar-right">
+      <select class="form-select" style="height:30px;font-size:12px;width:130px"><option>April 2026</option><option>March 2026</option><option>February 2026</option></select>
+      <button class="btn btn-outline btn-sm" onclick="document.getElementById('add-emp-form').style.display='block';document.getElementById('add-emp-form').scrollIntoView({behavior:'smooth'})">+ Add Employee</button>
+      <button class="btn btn-primary btn-sm" onclick="document.getElementById('process-salary-form').style.display='block';document.getElementById('process-salary-form').scrollIntoView({behavior:'smooth'})">💰 Process Salary</button>
+    </div>
+  </div>
+  <div id="content">
+
+    <!-- KPIs -->
+    <div class="hr-kpi-row">
+      <div class="hr-kpi">
+        <div class="hk-label">Total Staff</div>
+        <div class="hk-value">8</div>
+        <div class="hk-sub">7 active · 1 on leave</div>
+      </div>
+      <div class="hr-kpi" style="background:var(--accent-bg);border-color:var(--accent)">
+        <div class="hk-label">Monthly Payroll</div>
+        <div class="hk-value" style="color:var(--accent)">৳ 1,90,000</div>
+        <div class="hk-sub">April 2026 total</div>
+      </div>
+      <div class="hr-kpi" style="background:var(--orange-bg);border-color:var(--orange)">
+        <div class="hk-label">Salary Pending</div>
+        <div class="hk-value" style="color:var(--orange)">2</div>
+        <div class="hk-sub">employees not paid yet</div>
+      </div>
+      <div class="hr-kpi" style="background:var(--green-bg);border-color:var(--green)">
+        <div class="hk-label">Leave Requests</div>
+        <div class="hk-value" style="color:var(--green)">1</div>
+        <div class="hk-sub">1 pending approval</div>
+      </div>
+    </div>
+
+    <!-- Employees + Salary side by side -->
+    <div style="display:grid;grid-template-columns:340px 1fr;gap:20px;margin-bottom:20px">
+
+      <!-- Employee directory -->
+      <div class="card">
+        <div class="card-header"><span class="ctitle">Employees</span><button class="btn btn-ghost btn-sm" onclick="document.getElementById('add-emp-form').style.display='block';document.getElementById('add-emp-form').scrollIntoView({behavior:'smooth'})">+ Add</button></div>
+        <div class="card-body" style="padding:0">
+
+          <div class="emp-card">
+            <div class="emp-av" style="background:var(--accent);color:#fff">MN</div>
+            <div style="flex:1">
+              <div class="emp-name">Md. Nezam Uddin</div>
+              <div class="emp-role">Owner / Director</div>
+            </div>
+            <span class="emp-dept dept-admin">Admin</span>
+          </div>
+
+          <div class="emp-card">
+            <div class="emp-av" style="background:#8b5cf6;color:#fff">SK</div>
+            <div style="flex:1">
+              <div class="emp-name">Salma Khatun</div>
+              <div class="emp-role">Accounts Manager</div>
+            </div>
+            <span class="emp-dept dept-account">Accounts</span>
+          </div>
+
+          <div class="emp-card">
+            <div class="emp-av" style="background:var(--green);color:#fff">RH</div>
+            <div style="flex:1">
+              <div class="emp-name">Rafiqul Hasan</div>
+              <div class="emp-role">Sr. Merchandiser</div>
+            </div>
+            <span class="emp-dept dept-sales">Sales</span>
+          </div>
+
+          <div class="emp-card">
+            <div class="emp-av" style="background:var(--orange);color:#fff">NB</div>
+            <div style="flex:1">
+              <div class="emp-name">Nasreen Begum</div>
+              <div class="emp-role">Merchandiser</div>
+            </div>
+            <span class="emp-dept dept-sales">Sales</span>
+          </div>
+
+          <div class="emp-card">
+            <div class="emp-av" style="background:var(--green);color:#fff">KA</div>
+            <div style="flex:1">
+              <div class="emp-name">Karim Ahmed</div>
+              <div class="emp-role">Warehouse In-charge</div>
+            </div>
+            <span class="emp-dept dept-ops">Operations</span>
+          </div>
+
+          <div class="emp-card">
+            <div class="emp-av" style="background:#0fc6e8;color:#0a0d14">JI</div>
+            <div style="flex:1">
+              <div class="emp-name">Jalal Ibrahim</div>
+              <div class="emp-role">Driver</div>
+            </div>
+            <span class="emp-dept dept-driver">Driver</span>
+          </div>
+
+          <div class="emp-card">
+            <div class="emp-av" style="background:#0fc6e8;color:#0a0d14">AK</div>
+            <div style="flex:1">
+              <div class="emp-name">Arif Khan</div>
+              <div class="emp-role">Driver</div>
+            </div>
+            <span class="emp-dept dept-driver">Driver</span>
+          </div>
+
+          <div class="emp-card" style="opacity:.6">
+            <div class="emp-av">FR</div>
+            <div style="flex:1">
+              <div class="emp-name">Fatema Rahman</div>
+              <div class="emp-role" style="color:var(--orange)">Office Assistant · On Leave</div>
+            </div>
+            <span class="emp-dept" style="background:var(--orange-bg);color:var(--orange)">Leave</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- April salary table -->
+      <div class="card">
+        <div class="card-header"><span class="ctitle">April 2026 — Salary Register</span><span style="font-size:11px;color:var(--text3)">Total: ৳ 1,90,000</span></div>
+        <div class="card-body" style="padding:0;overflow-x:auto">
+          <table class="pay-table">
+            <thead>
+              <tr><th>Employee</th><th>Role</th><th>Gross Salary</th><th>Deduction</th><th>Net Pay</th><th>Mode</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div style="font-weight:700;font-size:13px">Md. Nezam Uddin</div><div style="font-size:10px;color:var(--text3)">Director</div></td>
+                <td><span class="emp-dept dept-admin">Admin</span></td>
+                <td class="mono" style="font-weight:700">৳ 50,000</td>
+                <td class="mono" style="color:var(--text3)">—</td>
+                <td class="mono" style="font-weight:700;color:var(--green)">৳ 50,000</td>
+                <td style="font-size:11px">Transfer</td>
+                <td><span class="pstatus ps-paid">✓ Paid</span></td>
+                <td><button class="btn btn-ghost btn-sm" style="font-size:10px">Slip</button></td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:700;font-size:13px">Salma Khatun</div><div style="font-size:10px;color:var(--text3)">Accounts Mgr.</div></td>
+                <td><span class="emp-dept dept-account">Accounts</span></td>
+                <td class="mono" style="font-weight:700">৳ 35,000</td>
+                <td class="mono" style="color:var(--red)">৳ 1,500</td>
+                <td class="mono" style="font-weight:700;color:var(--green)">৳ 33,500</td>
+                <td style="font-size:11px">Transfer</td>
+                <td><span class="pstatus ps-paid">✓ Paid</span></td>
+                <td><button class="btn btn-ghost btn-sm" style="font-size:10px">Slip</button></td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:700;font-size:13px">Rafiqul Hasan</div><div style="font-size:10px;color:var(--text3)">Sr. Merchandiser</div></td>
+                <td><span class="emp-dept dept-sales">Sales</span></td>
+                <td class="mono" style="font-weight:700">৳ 30,000</td>
+                <td class="mono" style="color:var(--text3)">—</td>
+                <td class="mono" style="font-weight:700;color:var(--green)">৳ 30,000</td>
+                <td style="font-size:11px">Cash</td>
+                <td><span class="pstatus ps-paid">✓ Paid</span></td>
+                <td><button class="btn btn-ghost btn-sm" style="font-size:10px">Slip</button></td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:700;font-size:13px">Nasreen Begum</div><div style="font-size:10px;color:var(--text3)">Merchandiser</div></td>
+                <td><span class="emp-dept dept-sales">Sales</span></td>
+                <td class="mono" style="font-weight:700">৳ 22,000</td>
+                <td class="mono" style="color:var(--text3)">—</td>
+                <td class="mono" style="font-weight:700;color:var(--green)">৳ 22,000</td>
+                <td style="font-size:11px">Transfer</td>
+                <td><span class="pstatus ps-paid">✓ Paid</span></td>
+                <td><button class="btn btn-ghost btn-sm" style="font-size:10px">Slip</button></td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:700;font-size:13px">Karim Ahmed</div><div style="font-size:10px;color:var(--text3)">Warehouse</div></td>
+                <td><span class="emp-dept dept-ops">Operations</span></td>
+                <td class="mono" style="font-weight:700">৳ 18,000</td>
+                <td class="mono" style="color:var(--text3)">—</td>
+                <td class="mono" style="font-weight:700;color:var(--orange)">৳ 18,000</td>
+                <td style="font-size:11px">Cash</td>
+                <td><span class="pstatus ps-pending">⚠ Pending</span></td>
+                <td><button class="btn btn-primary btn-sm" style="font-size:10px">Pay Now</button></td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:700;font-size:13px">Jalal Ibrahim</div><div style="font-size:10px;color:var(--text3)">Driver</div></td>
+                <td><span class="emp-dept dept-driver">Driver</span></td>
+                <td class="mono" style="font-weight:700">৳ 15,000</td>
+                <td class="mono" style="color:var(--text3)">—</td>
+                <td class="mono" style="font-weight:700;color:var(--green)">৳ 15,000</td>
+                <td style="font-size:11px">Cash</td>
+                <td><span class="pstatus ps-paid">✓ Paid</span></td>
+                <td><button class="btn btn-ghost btn-sm" style="font-size:10px">Slip</button></td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:700;font-size:13px">Arif Khan</div><div style="font-size:10px;color:var(--text3)">Driver</div></td>
+                <td><span class="emp-dept dept-driver">Driver</span></td>
+                <td class="mono" style="font-weight:700">৳ 14,000</td>
+                <td class="mono" style="color:var(--text3)">—</td>
+                <td class="mono" style="font-weight:700;color:var(--orange)">৳ 14,000</td>
+                <td style="font-size:11px">Cash</td>
+                <td><span class="pstatus ps-pending">⚠ Pending</span></td>
+                <td><button class="btn btn-primary btn-sm" style="font-size:10px">Pay Now</button></td>
+              </tr>
+              <tr style="opacity:.55">
+                <td><div style="font-weight:700;font-size:13px">Fatema Rahman</div><div style="font-size:10px;color:var(--orange)">On Leave</div></td>
+                <td><span class="emp-dept" style="background:var(--orange-bg);color:var(--orange)">Leave</span></td>
+                <td class="mono" style="font-weight:700">৳ 12,000</td>
+                <td class="mono" style="color:var(--red)">৳ 4,000</td>
+                <td class="mono" style="font-weight:700">৳ 8,000</td>
+                <td style="font-size:11px">Transfer</td>
+                <td><span class="pstatus ps-advance">Advance</span></td>
+                <td><button class="btn btn-ghost btn-sm" style="font-size:10px">Slip</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6-month salary summary table -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-header"><span class="ctitle">6-Month Payroll Summary</span></div>
+      <div class="card-body" style="padding:0;overflow-x:auto">
+        <table class="pay-table">
+          <thead>
+            <tr><th>Employee</th><th>Nov 2025</th><th>Dec 2025</th><th>Jan 2026</th><th>Feb 2026</th><th>Mar 2026</th><th>Apr 2026</th><th>Total Paid</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:700">Md. Nezam Uddin</td>
+              <td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td>
+              <td class="mono" style="font-weight:700;color:var(--green)">৳ 3,00,000</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700">Salma Khatun</td>
+              <td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td>
+              <td class="mono" style="font-weight:700;color:var(--green)">৳ 2,01,000</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700">Rafiqul Hasan</td>
+              <td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td>
+              <td class="mono" style="font-weight:700;color:var(--green)">৳ 1,80,000</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700">Nasreen Begum</td>
+              <td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td>
+              <td class="mono" style="font-weight:700;color:var(--green)">৳ 1,32,000</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700">Karim Ahmed</td>
+              <td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-pending">⚠</span></td>
+              <td class="mono" style="font-weight:700;color:var(--orange)">৳ 90,000</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700">Jalal Ibrahim</td>
+              <td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td>
+              <td class="mono" style="font-weight:700;color:var(--green)">৳ 90,000</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700">Arif Khan</td>
+              <td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-paid">✓</span></td><td><span class="pstatus ps-pending">⚠</span></td>
+              <td class="mono" style="font-weight:700;color:var(--orange)">৳ 83,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Leave Requests -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-header"><span class="ctitle">Leave Requests</span><span class="badge at-risk">1 pending approval</span></div>
+      <div class="card-body">
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--orange-bg);border:1px solid rgba(251,146,60,.25);border-radius:var(--radius-sm)">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px">FR</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700">Fatema Rahman — Medical Leave</div>
+            <div style="font-size:11px;color:var(--text3)">Requested: 01 Apr 2026 → 14 Apr 2026 · 14 days · Reason: Medical / illness</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-primary btn-sm" style="background:var(--green);border-color:var(--green)">Approve</button>
+            <button class="btn btn-outline btn-sm" style="color:var(--red);border-color:var(--red)">Reject</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Employee form -->
+    <div class="inline-form-card" id="add-emp-form" style="display:none;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:700;margin-bottom:14px">+ Add Employee</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+        <div><label class="form-label">Full Name *</label><input class="form-input" placeholder="Employee full name"></div>
+        <div><label class="form-label">Role / Designation *</label><input class="form-input" placeholder="e.g. Merchandiser"></div>
+        <div><label class="form-label">Department</label><select class="form-select"><option>Admin</option><option>Sales</option><option>Operations</option><option>Accounts</option><option>Driver</option></select></div>
+        <div><label class="form-label">Join Date</label><input class="form-input" type="date" value="2026-04-08"></div>
+        <div><label class="form-label">Monthly Salary (৳) *</label><input class="form-input" type="number" placeholder="e.g. 20000"></div>
+        <div><label class="form-label">Phone</label><input class="form-input" type="tel" placeholder="01XXXXXXXXX"></div>
+        <div><label class="form-label">National ID</label><input class="form-input" placeholder="NID number"></div>
+        <div><label class="form-label">Payment Mode</label><select class="form-select"><option>Cash</option><option>Bank Transfer</option><option>bKash</option></select></div>
+        <div><label class="form-label">Bank Account (if transfer)</label><input class="form-input" placeholder="Bank account or bKash number"></div>
+      </div>
+      <div style="display:flex;gap:8px"><button class="btn btn-primary btn-sm">Save Employee</button><button class="btn btn-ghost btn-sm" onclick="document.getElementById('add-emp-form').style.display='none'">Cancel</button></div>
+    </div>
+
+    <!-- Process Salary form -->
+    <div class="inline-form-card" id="process-salary-form" style="display:none">
+      <div style="font-size:13px;font-weight:700;margin-bottom:14px">💰 Process Salary Payment</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+        <div><label class="form-label">Employee *</label><select class="form-select"><option>Karim Ahmed</option><option>Arif Khan</option><option>All pending</option></select></div>
+        <div><label class="form-label">Month *</label><select class="form-select"><option>April 2026</option><option>March 2026</option></select></div>
+        <div><label class="form-label">Amount (৳)</label><input class="form-input" type="number" placeholder="Auto-calculated"></div>
+        <div><label class="form-label">Payment Mode</label><select class="form-select"><option>Cash</option><option>Bank Transfer</option><option>bKash</option></select></div>
+        <div><label class="form-label">Payment Date</label><input class="form-input" type="date" value="2026-04-08"></div>
+        <div><label class="form-label">Note</label><input class="form-input" placeholder="Optional remark"></div>
+      </div>
+      <div style="display:flex;gap:8px"><button class="btn btn-primary btn-sm">Confirm Payment</button><button class="btn btn-ghost btn-sm" onclick="document.getElementById('process-salary-form').style.display='none'">Cancel</button></div>
+    </div>
+
+  </div>
+</div>
+<script src="_theme.js"></script>
+<script src="_sticky.js"></script>
+</body>
+</html>
