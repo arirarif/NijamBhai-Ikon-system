@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+import os
+BASE = r'c:\Users\arira\Desktop\NijamVhai\mockups\v2'
+
+SIDEBAR = open(os.path.join(BASE,'_write_01_02.py')).read().split('SIDEBAR = """')[1].split('"""')[0]
+
+def sidebar(active):
+    keys = dict(d='',c='',o='',n='',s='',p='',l='',ch='')
+    keys[active] = 'active'
+    return SIDEBAR.format(**keys)
+
+# ─── 05 SAMPLE REVISION ──────────────────────────────────────────────────
+sample_revision = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -6,58 +17,7 @@
 <link rel="stylesheet" href="_shared.css">
 </head>
 <body>
-
-<div id="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-mark">
-      <div class="logo-icon">I</div>
-      <div class="logo-text"><div class="brand">IKON GAS</div><div class="sub">Garments Accessories</div></div>
-    </div>
-    <div class="badge-proto" style="margin-top:8px">PROTOTYPE V2</div>
-  </div>
-  <nav>
-    <div class="nav-section">Workspace</div>
-    <a href="01-dashboard.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      Dashboard
-    </a>
-    <a href="02-companies.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
-      Companies <span class="nav-badge neutral">4</span>
-    </a>
-    <div class="nav-section">Orders</div>
-    <a href="03-order-detail.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-      All Orders <span class="nav-badge neutral">23</span>
-    </a>
-    <a href="04-new-order.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-      New Order
-    </a>
-    <a href="05-sample-revision.html" class="nav-item active">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><polyline points="1,20 1,14 7,14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-      Sample / Revisions <span class="nav-badge orange">3</span>
-    </a>
-    <div class="nav-section">Finance</div>
-    <a href="06-pi.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-      Proforma Invoice <span class="nav-badge blue">2</span>
-    </a>
-    <a href="07-lc-tracker.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-      LC Tracker <span class="nav-badge orange">1</span>
-    </a>
-    <a href="08-challan.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16,8 20,8 23,11 23,16 16,16 16,8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-      Delivery Challan
-    </a>
-  </nav>
-  <div class="sidebar-footer">
-    <div class="sf-avatar">N</div>
-    <div class="sf-info"><div class="name">Nezam Uddin</div><div class="role">Proprietor</div></div>
-  </div>
-</div>
-
+""" + sidebar('s') + """
 <div id="main">
   <div id="topbar">
     <div class="topbar-title">Sample &amp; Revisions</div>
@@ -265,4 +225,202 @@
 
   </div>
 </div>
-</body></html>
+</body></html>"""
+
+# ─── 06 PI ───────────────────────────────────────────────────────────────
+pi = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Proforma Invoice — IKON GAS</title>
+<link rel="stylesheet" href="_shared.css">
+</head>
+<body>
+""" + sidebar('p') + """
+<div id="main">
+  <div id="topbar">
+    <div class="topbar-title">Proforma Invoice</div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-sub">3 issued &middot; 1 draft</div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm">+ Create PI</button>
+    </div>
+  </div>
+  <div id="content">
+
+    <!-- PI LIST -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-header">
+        <span class="ctitle">All Proforma Invoices</span>
+        <div style="display:flex;gap:8px">
+          <input class="form-input" style="width:200px;height:30px;font-size:12px" placeholder="Search PI number or company...">
+          <select class="form-select" style="width:130px;height:30px;font-size:12px">
+            <option>All Status</option>
+            <option>Draft</option>
+            <option>Issued</option>
+            <option>Accepted</option>
+            <option>LC Opened</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-body" style="padding:0">
+        <table class="data-table">
+          <thead>
+            <tr><th>PI Number</th><th>Order Ref</th><th>Buyer Company</th><th>Value (&#2547;)</th><th>Issue Date</th><th>Delivery</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="mono" style="color:var(--accent)">PI-2026/05</span></td>
+              <td><span class="mono">BG-2026-041</span></td>
+              <td>Bay Group</td>
+              <td style="color:var(--green);font-weight:600">&#2547; 2,10,000</td>
+              <td>7 Apr 2026</td>
+              <td>30 Apr 2026</td>
+              <td><span class="badge approved">LC Opened</span></td>
+              <td><button class="btn btn-ghost btn-xs">View</button></td>
+            </tr>
+            <tr>
+              <td><span class="mono" style="color:var(--accent)">PI-2026/04</span></td>
+              <td><span class="mono">KD-2026-039</span></td>
+              <td>KDS Accessories</td>
+              <td style="color:var(--green);font-weight:600">&#2547; 88,500</td>
+              <td>2 Apr 2026</td>
+              <td>20 Apr 2026</td>
+              <td><span class="badge at-risk">Accepted</span></td>
+              <td><button class="btn btn-ghost btn-xs">View</button></td>
+            </tr>
+            <tr>
+              <td><span class="mono" style="color:var(--accent)">PI-2026/03</span></td>
+              <td><span class="mono">NM-2026-033</span></td>
+              <td>Noman Group</td>
+              <td style="color:var(--green);font-weight:600">&#2547; 3,40,000</td>
+              <td>18 Mar 2026</td>
+              <td>10 Apr 2026</td>
+              <td><span class="badge approved">LC Opened</span></td>
+              <td><button class="btn btn-ghost btn-xs">View</button></td>
+            </tr>
+            <tr style="opacity:.6">
+              <td><span class="mono" style="color:var(--text3)">PI-2026/06 (Draft)</span></td>
+              <td><span class="mono">F-2026-038</span></td>
+              <td>Noman Group</td>
+              <td style="color:var(--text3)">TBD</td>
+              <td style="color:var(--text3)">Not issued</td>
+              <td style="color:var(--text3)">&mdash;</td>
+              <td><span class="badge waiting">Draft</span></td>
+              <td><button class="btn btn-outline btn-xs">Edit</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRINT PREVIEW -->
+    <div style="font-size:11px;color:var(--text3);margin-bottom:10px;text-align:right">
+      Below: PI-2026/03 print preview &mdash; <button class="btn btn-ghost btn-xs" onclick="window.print()">&#128424; Print</button>
+    </div>
+    <div class="pi-doc">
+      <div class="pi-header">
+        <div class="pi-brand">
+          <div class="pi-company">IKON GARMENTS ACCESSORIES</div>
+          <div class="pi-addr">House 18, Road 10, Sector 09, Uttara, Dhaka-1230, Bangladesh</div>
+          <div class="pi-addr">Tel: +8801730214607 &nbsp;|&nbsp; Email: ikongas@gmail.com</div>
+          <div class="pi-addr">BIN/VAT: 003543528-0102</div>
+          <div class="pi-addr">Bank: Community Bank Ltd, Uttara &nbsp;|&nbsp; Swift: COYMBDDD &nbsp;|&nbsp; A/C: 0100310654101</div>
+        </div>
+        <div class="pi-meta">
+          <div><strong>PROFORMA INVOICE</strong></div>
+          <div class="pi-num">PI-2026/03</div>
+          <div style="font-size:11px;margin-top:6px"><strong>Date:</strong> 18 March 2026</div>
+        </div>
+      </div>
+      <div class="pi-parties">
+        <div class="pi-buyer">
+          <div class="pi-blabel">BUYER / CONSIGNEE</div>
+          <div class="pi-bname">Noman Group</div>
+          <div class="pi-baddr">Plot 12, Block B, Mirpur DOHS, Dhaka-1216</div>
+          <div class="pi-baddr">Attn: Tariq — Senior Merchandiser</div>
+          <div class="pi-baddr">Tel: +88 01711-334455</div>
+        </div>
+        <div class="pi-buyer">
+          <div class="pi-blabel">DELIVERY DETAILS</div>
+          <div class="pi-baddr"><strong>Order Ref:</strong> NM-2026-033</div>
+          <div class="pi-baddr"><strong>Delivery Date:</strong> 10 April 2026</div>
+          <div class="pi-baddr"><strong>Payment Terms:</strong> 90-Day LC at sight</div>
+          <div class="pi-baddr"><strong>Country of Origin:</strong> Bangladesh</div>
+          <div class="pi-baddr"><strong>Currency:</strong> BDT</div>
+        </div>
+      </div>
+      <table class="pi-table">
+        <thead>
+          <tr><th>SL</th><th>Description of Goods</th><th>Style / Ref</th><th>Qty (pcs)</th><th>Unit Price</th><th>Amount (&#2547;)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td>4-Hole Polyester Button, 18L, Black<br><small>Pantone 19-0303 TPX &middot; Hole dia 1.2mm</small></td>
+            <td class="mono">MT-301</td>
+            <td style="text-align:right">2,00,000</td>
+            <td style="text-align:right">&#2547; 1.70</td>
+            <td style="text-align:right;font-weight:600">&#2547; 3,40,000</td>
+          </tr>
+          <tr>
+            <td>02</td>
+            <td>Woven Label, 40mm, Heat Seal Back<br><small>Brand: Noman &middot; Thread: White on Black</small></td>
+            <td class="mono">LBL-WV-09</td>
+            <td style="text-align:right">50,000</td>
+            <td style="text-align:right">—</td>
+            <td style="text-align:right;font-weight:600">Included</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="5" style="text-align:right;font-weight:600;padding:8px 12px">Sub-Total</td><td style="text-align:right;font-weight:700;padding:8px 12px">&#2547; 3,40,000</td></tr>
+          <tr><td colspan="5" style="text-align:right;font-weight:600;padding:4px 12px">VAT (0% — Export)</td><td style="text-align:right;padding:4px 12px">&#2547; 0</td></tr>
+          <tr class="pi-total-row"><td colspan="5" style="text-align:right;font-weight:700;padding:8px 12px;font-size:14px">TOTAL</td><td style="text-align:right;font-weight:800;padding:8px 12px;font-size:14px">&#2547; 3,40,000</td></tr>
+        </tfoot>
+      </table>
+      <div class="pi-words">Amount in Words: <em>Bangladeshi Taka Three Lakh Forty Thousand Only</em></div>
+      <div class="pi-terms">
+        <div class="pi-terms-title">Terms &amp; Conditions</div>
+        <ol>
+          <li>Payment by irrevocable LC at 90 days sight, in favour of IKON Garments Accessories.</li>
+          <li>Goods remain property of seller until full payment received.</li>
+          <li>Partial shipment: not allowed unless agreed in writing.</li>
+          <li>Inspection at buyer's facility accepted within 3 days of delivery.</li>
+          <li>Disputes to be settled under Bangladesh jurisdiction.</li>
+        </ol>
+      </div>
+      <div class="pi-sign">
+        <div class="pi-sign-box">
+          <div class="pi-sign-line"></div>
+          <div class="pi-sign-name">Prepared By</div>
+          <div class="pi-sign-role">IKON Garments Accessories</div>
+        </div>
+        <div class="pi-sign-box">
+          <div class="pi-sign-line"></div>
+          <div class="pi-sign-name">Authorized By</div>
+          <div class="pi-sign-role">Muhammad Nezam Uddin</div>
+        </div>
+        <div class="pi-sign-box">
+          <div class="pi-sign-line"></div>
+          <div class="pi-sign-name">Buyer Acknowledgment</div>
+          <div class="pi-sign-role">Noman Group</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body></html>"""
+
+files = {
+    '05-sample-revision.html': sample_revision,
+    '06-pi.html': pi,
+}
+
+for fname, content in files.items():
+    path = os.path.join(BASE, fname)
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(content)
+    print(f'Written: {fname}')
+
+print('DONE batch 3')

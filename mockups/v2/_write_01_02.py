@@ -1,4 +1,67 @@
-<!DOCTYPE html>
+import os
+BASE = r'c:\Users\arira\Desktop\NijamVhai\mockups\v2'
+
+# ─── SHARED SIDEBAR ─────────────────────────────────────────────────────
+SIDEBAR = """
+<div id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">I</div>
+      <div class="logo-text"><div class="brand">IKON GAS</div><div class="sub">Garments Accessories</div></div>
+    </div>
+    <div class="badge-proto" style="margin-top:8px">PROTOTYPE V2</div>
+  </div>
+  <nav>
+    <div class="nav-section">Workspace</div>
+    <a href="01-dashboard.html" class="nav-item {d}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="02-companies.html" class="nav-item {c}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+      Companies <span class="nav-badge neutral">4</span>
+    </a>
+    <div class="nav-section">Orders</div>
+    <a href="03-order-detail.html" class="nav-item {o}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+      All Orders <span class="nav-badge neutral">23</span>
+    </a>
+    <a href="04-new-order.html" class="nav-item {n}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      New Order
+    </a>
+    <a href="05-sample-revision.html" class="nav-item {s}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><polyline points="1,20 1,14 7,14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+      Sample / Revisions <span class="nav-badge orange">3</span>
+    </a>
+    <div class="nav-section">Finance</div>
+    <a href="06-pi.html" class="nav-item {p}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+      Proforma Invoice <span class="nav-badge blue">2</span>
+    </a>
+    <a href="07-lc-tracker.html" class="nav-item {l}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+      LC Tracker <span class="nav-badge orange">1</span>
+    </a>
+    <a href="08-challan.html" class="nav-item {ch}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16,8 20,8 23,11 23,16 16,16 16,8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      Delivery Challan
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sf-avatar">N</div>
+    <div class="sf-info"><div class="name">Nezam Uddin</div><div class="role">Proprietor</div></div>
+  </div>
+</div>
+"""
+
+def sidebar(active):
+    keys = dict(d='',c='',o='',n='',s='',p='',l='',ch='')
+    keys[active] = 'active'
+    return SIDEBAR.format(**keys)
+
+# ─── 01 DASHBOARD ────────────────────────────────────────────────────────
+dashboard = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -34,58 +97,7 @@
 </style>
 </head>
 <body>
-
-<div id="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-mark">
-      <div class="logo-icon">I</div>
-      <div class="logo-text"><div class="brand">IKON GAS</div><div class="sub">Garments Accessories</div></div>
-    </div>
-    <div class="badge-proto" style="margin-top:8px">PROTOTYPE V2</div>
-  </div>
-  <nav>
-    <div class="nav-section">Workspace</div>
-    <a href="01-dashboard.html" class="nav-item active">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      Dashboard
-    </a>
-    <a href="02-companies.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
-      Companies <span class="nav-badge neutral">4</span>
-    </a>
-    <div class="nav-section">Orders</div>
-    <a href="03-order-detail.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-      All Orders <span class="nav-badge neutral">23</span>
-    </a>
-    <a href="04-new-order.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-      New Order
-    </a>
-    <a href="05-sample-revision.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><polyline points="1,20 1,14 7,14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-      Sample / Revisions <span class="nav-badge orange">3</span>
-    </a>
-    <div class="nav-section">Finance</div>
-    <a href="06-pi.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-      Proforma Invoice <span class="nav-badge blue">2</span>
-    </a>
-    <a href="07-lc-tracker.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-      LC Tracker <span class="nav-badge orange">1</span>
-    </a>
-    <a href="08-challan.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16,8 20,8 23,11 23,16 16,16 16,8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-      Delivery Challan
-    </a>
-  </nav>
-  <div class="sidebar-footer">
-    <div class="sf-avatar">N</div>
-    <div class="sf-info"><div class="name">Nezam Uddin</div><div class="role">Proprietor</div></div>
-  </div>
-</div>
-
+""" + sidebar('d') + """
 <div id="main">
   <div id="topbar">
     <div class="topbar-title">Dashboard</div>
@@ -318,4 +330,296 @@
 const d=new Date();
 document.getElementById('tdate').textContent=d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
 </script>
-</body></html>
+</body></html>"""
+
+# ─── 02 COMPANIES ────────────────────────────────────────────────────────
+companies = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Companies — IKON GAS</title>
+<link rel="stylesheet" href="_shared.css">
+</head>
+<body>
+""" + sidebar('c') + """
+<div id="main">
+  <div id="topbar">
+    <div class="topbar-title">Companies</div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-sub">Buyer companies &amp; merchandiser directory</div>
+    <div class="topbar-right">
+      <button class="btn btn-outline btn-sm">Export CSV</button>
+      <button class="btn btn-primary btn-sm">+ Add Company</button>
+    </div>
+  </div>
+  <div id="content">
+
+    <div class="panel" style="margin-bottom:22px">
+      <div class="panel-header">
+        <span class="ph-title">All Companies</span>
+        <span class="ph-count">4 total</span>
+        <div class="panel-filters">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="search-input" type="text" placeholder="Search companies...">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Noman Group -->
+    <div class="company-card">
+      <div class="company-card-header">
+        <div class="company-initial" style="background:linear-gradient(135deg,#4f8ef7,#6366f1)">N</div>
+        <div class="info">
+          <div class="name">Noman Group</div>
+          <div class="meta">
+            <span>&#128205; Mirpur, Dhaka</span>
+            <span>&#128222; +88 01711-000111</span>
+            <span>&#9993; buying@nomangroup.com.bd</span>
+            <span>Since: Jan 2021</span>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+            <span class="badge approved">Active</span>
+            <span class="badge bulk" style="font-size:10px">Export Buyer</span>
+            <span class="badge in-progress" style="font-size:10px">H&amp;M Supplier</span>
+          </div>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px">Total Value Transacted</div>
+          <div style="font-size:22px;font-weight:800;color:var(--accent)">&#2547; 1.2 Cr</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">Last order: 3 days ago</div>
+          <a href="03-order-detail.html" class="btn btn-outline btn-sm" style="margin-top:8px">View Orders</a>
+        </div>
+      </div>
+      <div class="company-stats">
+        <div class="cs-stat"><div class="cs-val">8</div><div class="cs-lbl">Active Orders</div></div>
+        <div class="cs-stat"><div class="cs-val orange">3</div><div class="cs-lbl">In Sample</div></div>
+        <div class="cs-stat"><div class="cs-val yellow">2</div><div class="cs-lbl">Bulk Prod.</div></div>
+        <div class="cs-stat"><div class="cs-val teal">2</div><div class="cs-lbl">Doc/PI Stage</div></div>
+        <div class="cs-stat"><div class="cs-val red">1</div><div class="cs-lbl">Overdue</div></div>
+        <div class="cs-stat"><div class="cs-val">47</div><div class="cs-lbl">Total Orders</div></div>
+      </div>
+      <div style="padding:14px 20px 0;border-top:1px solid var(--border)">
+        <div class="section-title" style="margin-bottom:10px">Merchandisers <span style="font-weight:400;color:var(--text3)">(4)</span></div>
+      </div>
+      <div class="merch-grid">
+        <div class="merch-card">
+          <div class="merch-avatar" style="background:linear-gradient(135deg,#4f8ef7,#818cf8)">F</div>
+          <div class="mname">Faruq Hossain</div>
+          <div class="mtitle">Senior Merchandiser</div>
+          <div class="mcontact">&#128222; +88 01811-222333</div>
+          <div class="morders"><span>12 orders total</span><span style="color:var(--orange)">3 active</span></div>
+          <div class="merch-tags">
+            <span class="merch-tag c">Correction pending</span>
+            <span class="merch-tag b">Bulk x2</span>
+          </div>
+        </div>
+        <div class="merch-card">
+          <div class="merch-avatar" style="background:linear-gradient(135deg,#34d399,#059669)">R</div>
+          <div class="mname">Rashida Begum</div>
+          <div class="mtitle">Merchandiser</div>
+          <div class="mcontact">&#128222; +88 01711-444555</div>
+          <div class="morders"><span>8 orders total</span><span style="color:var(--yellow)">2 active</span></div>
+          <div class="merch-tags">
+            <span class="merch-tag b">Bulk prod.</span>
+          </div>
+        </div>
+        <div class="merch-card">
+          <div class="merch-avatar" style="background:linear-gradient(135deg,#c084fc,#7c3aed)">A</div>
+          <div class="mname">Anwar Hossain</div>
+          <div class="mtitle">Junior Merchandiser</div>
+          <div class="mcontact">&#128222; +88 01611-666777</div>
+          <div class="morders"><span>5 orders total</span><span>1 active</span></div>
+          <div class="merch-tags"><span class="merch-tag pi">PI stage</span></div>
+        </div>
+        <div class="merch-card">
+          <div class="merch-avatar" style="background:linear-gradient(135deg,#fb923c,#dc2626)">S</div>
+          <div class="mname">Salma Khatun</div>
+          <div class="mtitle">Merchandiser</div>
+          <div class="mcontact">&#128222; +88 01511-888999</div>
+          <div class="morders"><span>10 orders total</span><span>2 active</span></div>
+          <div class="merch-tags"><span class="merch-tag lc">LC tracking</span></div>
+        </div>
+        <div class="merch-card add-card" onclick="alert('Add merchandiser form')">
+          <div style="font-size:22px">+</div>
+          <div style="font-size:12px;font-weight:600">Add Merchandiser</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bay Group -->
+    <div class="company-card">
+      <div class="company-card-header">
+        <div class="company-initial" style="background:linear-gradient(135deg,#34d399,#059669)">B</div>
+        <div class="info">
+          <div class="name">Bay Group</div>
+          <div class="meta">
+            <span>&#128205; Gazipur, Dhaka</span>
+            <span>&#128222; +88 01811-100200</span>
+            <span>&#9993; merch@baygroup.com.bd</span>
+            <span>Since: Mar 2022</span>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:8px">
+            <span class="badge approved">Active</span>
+            <span class="badge lc-open" style="font-size:10px">LC Pending</span>
+          </div>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px">Total Value Transacted</div>
+          <div style="font-size:22px;font-weight:800;color:var(--accent)">&#2547; 68 L</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">Last order: 5 days ago</div>
+          <a href="03-order-detail.html" class="btn btn-outline btn-sm" style="margin-top:8px">View Orders</a>
+        </div>
+      </div>
+      <div class="company-stats">
+        <div class="cs-stat"><div class="cs-val">6</div><div class="cs-lbl">Active Orders</div></div>
+        <div class="cs-stat"><div class="cs-val orange">2</div><div class="cs-lbl">In Sample</div></div>
+        <div class="cs-stat"><div class="cs-val yellow">1</div><div class="cs-lbl">Bulk Prod.</div></div>
+        <div class="cs-stat"><div class="cs-val teal">2</div><div class="cs-lbl">Doc/PI Stage</div></div>
+        <div class="cs-stat"><div class="cs-val red">0</div><div class="cs-lbl">Overdue</div></div>
+        <div class="cs-stat"><div class="cs-val">28</div><div class="cs-lbl">Total Orders</div></div>
+      </div>
+      <div style="padding:14px 20px 0;border-top:1px solid var(--border)">
+        <div class="section-title" style="margin-bottom:10px">Merchandisers <span style="font-weight:400;color:var(--text3)">(3)</span></div>
+      </div>
+      <div class="merch-grid">
+        <div class="merch-card">
+          <div class="merch-avatar" style="background:linear-gradient(135deg,#2dd4bf,#0f766e)">N</div>
+          <div class="mname">Nipa Akter</div>
+          <div class="mtitle">Lead Merchandiser</div>
+          <div class="mcontact">&#128222; +88 01911-111222</div>
+          <div class="morders"><span>9 orders total</span><span style="color:var(--teal)">3 active</span></div>
+          <div class="merch-tags"><span class="merch-tag pi">PI issued</span><span class="merch-tag lc">LC open</span></div>
+        </div>
+        <div class="merch-card">
+          <div class="merch-avatar" style="background:linear-gradient(135deg,#818cf8,#4f46e5)">M</div>
+          <div class="mname">Mizan Hossain</div>
+          <div class="mtitle">Merchandiser</div>
+          <div class="mcontact">&#128222; +88 01711-333444</div>
+          <div class="morders"><span>7 orders total</span><span>2 active</span></div>
+          <div class="merch-tags"><span class="merch-tag b">Bulk prod.</span></div>
+        </div>
+        <div class="merch-card add-card" onclick="alert('Add merchandiser form')">
+          <div style="font-size:22px">+</div>
+          <div style="font-size:12px;font-weight:600">Add Merchandiser</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KDS Accessories -->
+    <div class="company-card">
+      <div class="company-card-header">
+        <div class="company-initial" style="background:linear-gradient(135deg,#fb923c,#dc2626)">K</div>
+        <div class="info">
+          <div class="name">KDS Accessories Ltd.</div>
+          <div class="meta">
+            <span>&#128205; Ashulia, Savar</span>
+            <span>&#128222; +88 01611-200300</span>
+            <span>&#9993; order@kdsacc.com</span>
+            <span>Since: Aug 2023</span>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:8px">
+            <span class="badge at-risk">At Risk</span>
+          </div>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px">Total Value Transacted</div>
+          <div style="font-size:22px;font-weight:800;color:var(--accent)">&#2547; 42 L</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">Last order: 8 days ago</div>
+          <a href="03-order-detail.html" class="btn btn-outline btn-sm" style="margin-top:8px">View Orders</a>
+        </div>
+      </div>
+      <div class="company-stats">
+        <div class="cs-stat"><div class="cs-val">5</div><div class="cs-lbl">Active Orders</div></div>
+        <div class="cs-stat"><div class="cs-val orange">3</div><div class="cs-lbl">In Sample</div></div>
+        <div class="cs-stat"><div class="cs-val yellow">2</div><div class="cs-lbl">Bulk Prod.</div></div>
+        <div class="cs-stat"><div class="cs-val teal">0</div><div class="cs-lbl">Doc/PI Stage</div></div>
+        <div class="cs-stat"><div class="cs-val red">1</div><div class="cs-lbl">Overdue</div></div>
+        <div class="cs-stat"><div class="cs-val">19</div><div class="cs-lbl">Total Orders</div></div>
+      </div>
+      <div style="padding:14px 20px 0;border-top:1px solid var(--border)">
+        <div class="section-title" style="margin-bottom:10px">Merchandisers <span style="font-weight:400;color:var(--text3)">(2)</span></div>
+      </div>
+      <div class="merch-grid">
+        <div class="merch-card">
+          <div class="merch-avatar" style="background:linear-gradient(135deg,#fb923c,#ef4444)">K</div>
+          <div class="mname">Karim Mia</div>
+          <div class="mtitle">Senior Merchandiser</div>
+          <div class="mcontact">&#128222; +88 01811-500600</div>
+          <div class="morders"><span>8 orders total</span><span style="color:var(--red)">2 active</span></div>
+          <div class="merch-tags"><span class="merch-tag c">Correction pending</span></div>
+        </div>
+        <div class="merch-card add-card" onclick="alert('Add merchandiser form')">
+          <div style="font-size:22px">+</div>
+          <div style="font-size:12px;font-weight:600">Add Merchandiser</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grameen Check -->
+    <div class="company-card">
+      <div class="company-card-header">
+        <div class="company-initial" style="background:linear-gradient(135deg,#c084fc,#7c3aed)">G</div>
+        <div class="info">
+          <div class="name">Grameen Check Ltd.</div>
+          <div class="meta">
+            <span>&#128205; Dhamrai, Dhaka</span>
+            <span>&#128222; +88 01711-700800</span>
+            <span>Since: Feb 2022</span>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:8px">
+            <span class="badge approved">Active</span>
+          </div>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px">Total Value Transacted</div>
+          <div style="font-size:22px;font-weight:800;color:var(--accent)">&#2547; 31 L</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">Last order: 11 days ago</div>
+          <a href="03-order-detail.html" class="btn btn-outline btn-sm" style="margin-top:8px">View Orders</a>
+        </div>
+      </div>
+      <div class="company-stats">
+        <div class="cs-stat"><div class="cs-val">4</div><div class="cs-lbl">Active Orders</div></div>
+        <div class="cs-stat"><div class="cs-val orange">1</div><div class="cs-lbl">In Sample</div></div>
+        <div class="cs-stat"><div class="cs-val yellow">2</div><div class="cs-lbl">Bulk Prod.</div></div>
+        <div class="cs-stat"><div class="cs-val teal">1</div><div class="cs-lbl">Doc/PI Stage</div></div>
+        <div class="cs-stat"><div class="cs-val red">0</div><div class="cs-lbl">Overdue</div></div>
+        <div class="cs-stat"><div class="cs-val">22</div><div class="cs-lbl">Total Orders</div></div>
+      </div>
+      <div style="padding:14px 20px 0;border-top:1px solid var(--border)">
+        <div class="section-title" style="margin-bottom:10px">Merchandisers <span style="font-weight:400;color:var(--text3)">(2)</span></div>
+      </div>
+      <div class="merch-grid">
+        <div class="merch-card">
+          <div class="merch-avatar" style="background:linear-gradient(135deg,#818cf8,#6366f1)">A</div>
+          <div class="mname">Abul Kalam</div>
+          <div class="mtitle">Merchandiser</div>
+          <div class="mcontact">&#128222; +88 01611-900100</div>
+          <div class="morders"><span>10 orders total</span><span style="color:var(--yellow)">2 active</span></div>
+          <div class="merch-tags"><span class="merch-tag b">Bulk prod.</span></div>
+        </div>
+        <div class="merch-card add-card" onclick="alert('Add merchandiser form')">
+          <div style="font-size:22px">+</div>
+          <div style="font-size:12px;font-weight:600">Add Merchandiser</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body></html>"""
+
+# Write files
+files = {
+    '01-dashboard.html': dashboard,
+    '02-companies.html': companies,
+}
+
+for fname, content in files.items():
+    path = os.path.join(BASE, fname)
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(content)
+    print(f"Written: {fname}")
+
+print("DONE batch 1")

@@ -1,182 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>IKON · New Order</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>New Order — IKON GAS</title>
 <link rel="stylesheet" href="_shared.css">
-<style>
-  .form-section { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; overflow: hidden; }
-  .form-section-header { padding: 12px 16px; background: var(--bg3); border-bottom: 1px solid var(--border); font-size: 13px; font-weight: 600; }
-  .form-section-body { padding: 18px; }
-  .image-drop { border: 2px dashed var(--border); border-radius: var(--radius); padding: 32px; text-align: center; color: var(--text3); cursor: pointer; transition: all .15s; }
-  .image-drop:hover { border-color: var(--accent); color: var(--accent); }
-  .image-drop .icon { font-size: 28px; margin-bottom: 8px; }
-  .image-drop .hint { font-size: 12px; margin-top: 4px; }
-  .form-footer { display: flex; justify-content: flex-end; gap: 10px; padding: 16px 0 0; }
-  .step-indicator { display: flex; gap: 0; margin-bottom: 24px; }
-  .step { flex: 1; padding: 10px 16px; background: var(--bg3); border: 1px solid var(--border); font-size: 12px; color: var(--text3); position: relative; }
-  .step:not(:last-child)::after { content: '›'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); z-index: 1; color: var(--text3); font-size: 16px; }
-  .step.active { background: rgba(59,130,246,.12); border-color: var(--accent); color: var(--accent); font-weight: 600; }
-  .step.done   { background: rgba(34,197,94,.08); border-color: #166534; color: var(--green); }
-  .step .snum  { display: block; font-size: 10px; opacity: .7; }
-</style>
 </head>
 <body>
 
-<aside id="sidebar">
+<div id="sidebar">
   <div class="sidebar-logo">
-    <div class="brand">IKON G.A.</div>
-    <div class="sub">Garments Accessories</div>
-    <span class="badge-proto">PROTOTYPE</span>
+    <div class="logo-mark">
+      <div class="logo-icon">I</div>
+      <div class="logo-text"><div class="brand">IKON GAS</div><div class="sub">Garments Accessories</div></div>
+    </div>
+    <div class="badge-proto" style="margin-top:8px">PROTOTYPE V2</div>
   </div>
   <nav>
-    <div class="nav-section">Main</div>
-    <a class="nav-item" href="01-dashboard.html"><i class="icon">⊞</i> Dashboard</a>
-    <a class="nav-item active" href="#"><i class="icon">☰</i> All Orders <span class="nav-badge blue">114</span></a>
-    <div class="nav-section">Clients</div>
-    <a class="nav-item" href="02-companies.html"><i class="icon">🏢</i> Companies</a>
-    <div class="nav-section">Documents</div>
-    <a class="nav-item" href="06-pi.html"><i class="icon">📄</i> Proforma Invoice</a>
-    <a class="nav-item" href="07-lc-tracker.html"><i class="icon">🏦</i> LC Tracker <span class="nav-badge">3</span></a>
-    <a class="nav-item" href="08-challan.html"><i class="icon">📦</i> Delivery Challan</a>
-    <div class="nav-section">More</div>
-    <a class="nav-item" href="#"><i class="icon">⚙</i> Settings</a>
+    <div class="nav-section">Workspace</div>
+    <a href="01-dashboard.html" class="nav-item ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="02-companies.html" class="nav-item ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+      Companies <span class="nav-badge neutral">4</span>
+    </a>
+    <div class="nav-section">Orders</div>
+    <a href="03-order-detail.html" class="nav-item ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+      All Orders <span class="nav-badge neutral">23</span>
+    </a>
+    <a href="04-new-order.html" class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      New Order
+    </a>
+    <a href="05-sample-revision.html" class="nav-item ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><polyline points="1,20 1,14 7,14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+      Sample / Revisions <span class="nav-badge orange">3</span>
+    </a>
+    <div class="nav-section">Finance</div>
+    <a href="06-pi.html" class="nav-item ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+      Proforma Invoice <span class="nav-badge blue">2</span>
+    </a>
+    <a href="07-lc-tracker.html" class="nav-item ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+      LC Tracker <span class="nav-badge orange">1</span>
+    </a>
+    <a href="08-challan.html" class="nav-item ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16,8 20,8 23,11 23,16 16,16 16,8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      Delivery Challan
+    </a>
   </nav>
   <div class="sidebar-footer">
-    <div class="user"><strong>Nezam Uddin</strong>Owner · IKON G.A.</div>
+    <div class="sf-avatar">N</div>
+    <div class="sf-info"><div class="name">Nezam Uddin</div><div class="role">Proprietor</div></div>
   </div>
-</aside>
+</div>
 
 <div id="main">
   <div id="topbar">
-    <span class="topbar-title">New Order</span>
+    <div class="topbar-title">New Order</div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-sub">Create a new order from a buyer visit</div>
+    <div class="topbar-right">
+      <a href="01-dashboard.html" class="btn btn-ghost btn-sm">Cancel</a>
+    </div>
   </div>
-
   <div id="content">
 
-    <!-- Breadcrumb -->
     <div class="breadcrumb">
-      <a href="01-dashboard.html">Dashboard</a><span class="sep">›</span>
-      New Order
+      <a href="01-dashboard.html">Dashboard</a><span class="sep">/</span>
+      <span class="current">New Order</span>
     </div>
 
-    <!-- Step indicator -->
-    <div class="step-indicator">
-      <div class="step done"><span class="snum">Step 1</span>Buyer Info</div>
-      <div class="step active"><span class="snum">Step 2</span>Order Details</div>
-      <div class="step"><span class="snum">Step 3</span>Sample Info</div>
-      <div class="step"><span class="snum">Step 4</span>Confirm</div>
-    </div>
-
-    <!-- Buyer info (pre-filled, step 1 done) -->
-    <div class="form-section">
-      <div class="form-section-header" style="display:flex;align-items:center;justify-content:space-between">
-        <span>Buyer Info <span class="badge approved" style="margin-left:8px">✓ Filled</span></span>
-        <button class="btn btn-outline btn-sm">Edit</button>
+    <!-- Step Wizard -->
+    <div class="step-wizard">
+      <div class="step-item active">
+        <div class="step-box"><div class="step-num">1</div>Company &amp; Buyer</div>
       </div>
-      <div class="form-section-body">
-        <div class="form-row">
-          <div>
-            <div class="form-label">Company</div>
-            <div style="font-size:13px;color:var(--text);font-weight:600">ABC Ltd.</div>
-            <div style="font-size:11px;color:var(--text3)">Tejgaon, Dhaka</div>
+      <div class="step-item">
+        <div class="step-box"><div class="step-num">2</div>Product Details</div>
+      </div>
+      <div class="step-item">
+        <div class="step-box"><div class="step-num">3</div>Sample Plan</div>
+      </div>
+      <div class="step-item">
+        <div class="step-box"><div class="step-num">4</div>Review &amp; Create</div>
+      </div>
+    </div>
+
+    <div class="two-col" style="grid-template-columns:1fr 320px">
+      <div>
+
+        <!-- Step 1 -->
+        <div class="form-section focus-section">
+          <div class="fs-header">
+            <div style="display:flex;align-items:center">
+              <div class="fs-num">1</div>
+              <div class="fs-title">Company &amp; Buyer Information</div>
+            </div>
           </div>
-          <div>
-            <div class="form-label">Merchandiser</div>
-            <div style="font-size:13px;color:var(--text);font-weight:600">Karim Ahmed</div>
-            <div style="font-size:11px;color:var(--text3)">Senior Merchandiser</div>
+          <div class="fs-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Buyer Company <span class="req">*</span></label>
+                <select class="form-select">
+                  <option value="">Select company...</option>
+                  <option>Noman Group</option>
+                  <option>Bay Group</option>
+                  <option>KDS Accessories Ltd.</option>
+                  <option>Grameen Check Ltd.</option>
+                  <option value="new">+ Add New Company</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Merchandiser <span class="req">*</span></label>
+                <select class="form-select">
+                  <option value="">Select merchandiser...</option>
+                  <option>Faruq Hossain</option>
+                  <option>Rashida Begum</option>
+                  <option>Anwar Hossain</option>
+                  <option value="new">+ Add New Person</option>
+                </select>
+                <div class="form-hint">Person who visited and placed the order</div>
+              </div>
+            </div>
+            <div class="form-row-3">
+              <div class="form-group">
+                <label class="form-label">Visit Date <span class="req">*</span></label>
+                <input class="form-input" type="date" value="2026-04-08">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Priority</label>
+                <select class="form-select">
+                  <option>Normal</option>
+                  <option>Urgent</option>
+                  <option>Rush</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Expected Delivery</label>
+                <input class="form-input" type="date">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="form-section">
+          <div class="fs-header">
+            <div style="display:flex;align-items:center">
+              <div class="fs-num">2</div>
+              <div class="fs-title">Product Details</div>
+            </div>
+          </div>
+          <div class="fs-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Product Type <span class="req">*</span></label>
+                <select class="form-select">
+                  <option value="">Select type...</option>
+                  <option>Button</option>
+                  <option>Zipper Pull</option>
+                  <option>Hang Tag</option>
+                  <option>Woven Label</option>
+                  <option>Printed Label</option>
+                  <option>Elastic Band</option>
+                  <option>Ribbon</option>
+                  <option>Buckle</option>
+                  <option>Thread</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Season / Collection</label>
+                <input class="form-input" type="text" placeholder="e.g. SS2026, AW2026">
+              </div>
+            </div>
+            <div class="form-row-3">
+              <div class="form-group">
+                <label class="form-label">Quantity (pcs) <span class="req">*</span></label>
+                <input class="form-input" type="number" placeholder="e.g. 150000">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Unit Price (&#2547;)</label>
+                <div class="input-group">
+                  <input class="form-input" type="number" step="0.01" placeholder="0.00">
+                  <span class="input-addon">/ pc</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Est. Total Value</label>
+                <div class="form-input" style="background:var(--bg4);color:var(--text3);cursor:default">Auto-calculated</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Product Specification / Description <span class="req">*</span></label>
+              <textarea class="form-textarea" rows="3" placeholder="Describe size, color ref (Pantone), material, finishing, special requirements..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tech Pack / Spec Sheet</label>
+              <div class="dropzone">
+                <div class="dz-icon">&#128196;</div>
+                <div class="dz-title">Drop tech pack here or click to upload</div>
+                <div class="dz-sub">PDF, JPG, PNG &middot; max 10 MB</div>
+              </div>
+              <div class="form-hint">Optional but recommended &mdash; buyer often provides this during visit</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="form-section">
+          <div class="fs-header">
+            <div style="display:flex;align-items:center">
+              <div class="fs-num">3</div>
+              <div class="fs-title">Sample Plan</div>
+            </div>
+          </div>
+          <div class="fs-body">
+            <div class="form-group">
+              <label class="form-label">Where will the sample be made? <span class="req">*</span></label>
+              <div class="radio-cards">
+                <label class="radio-card selected">
+                  <input type="radio" name="sample_src" value="inhouse" checked>
+                  <div class="rc-icon">&#127981;</div>
+                  <div class="rc-title">In-house</div>
+                  <div class="rc-sub">Made at IKON factory. No extra cost.</div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="sample_src" value="mirpur">
+                  <div class="rc-icon">&#128228;</div>
+                  <div class="rc-title">Outsource &mdash; Mirpur</div>
+                  <div class="rc-sub">Send to Mirpur vendor. Costs extra.</div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="sample_src" value="gilistan">
+                  <div class="rc-icon">&#128228;</div>
+                  <div class="rc-title">Outsource &mdash; Gilistan</div>
+                  <div class="rc-sub">Send to Gilistan area vendor.</div>
+                </label>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Sample Due Date</label>
+                <input class="form-input" type="date">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Sample Cost (if outsourced)</label>
+                <div class="input-group">
+                  <span class="input-addon">&#2547;</span>
+                  <input class="form-input" type="number" placeholder="0">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Internal Notes</label>
+              <textarea class="form-textarea" rows="2" placeholder="Any special instructions for the production team..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <button class="btn btn-outline">Save as Draft</button>
+          <button class="btn btn-primary">Create Order &amp; Start Sample &#8594;</button>
+        </div>
+
+      </div>
+
+      <!-- Right summary panel -->
+      <div>
+        <div class="card" style="position:sticky;top:80px">
+          <div class="card-header"><span class="ctitle">Order Summary</span></div>
+          <div class="card-body">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:14px">Fill the form to see a live preview</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div class="info-item"><div class="label">Company</div><div class="value" style="color:var(--text3)">Not selected</div></div>
+              <div class="info-item"><div class="label">Merchandiser</div><div class="value" style="color:var(--text3)">Not selected</div></div>
+              <div class="info-item"><div class="label">Product</div><div class="value" style="color:var(--text3)">Not selected</div></div>
+              <div class="info-item"><div class="label">Quantity</div><div class="value" style="color:var(--text3)">&mdash;</div></div>
+              <div class="info-item"><div class="label">Est. Value</div><div class="value" style="color:var(--text3)">&mdash;</div></div>
+              <div class="info-item"><div class="label">Priority</div><div class="value" style="color:var(--text3)">Normal</div></div>
+            </div>
+            <hr class="divider">
+            <div style="font-size:11px;color:var(--text3)">
+              <strong style="color:var(--text2)">What happens next?</strong><br><br>
+              1. Order is created with status <em>Sample Making</em><br>
+              2. Sample is produced (in-house or outsourced)<br>
+              3. Sample is sent to buyer &mdash; log under Revisions<br>
+              4. Repeat until <em>Approved</em><br>
+              5. Move to Bulk Production
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Order details — active step -->
-    <div class="form-section" style="border-color:var(--accent)">
-      <div class="form-section-header" style="background:rgba(59,130,246,.08);border-color:var(--accent)">
-        Order Details
-      </div>
-      <div class="form-section-body">
-        <div class="form-row-3">
-          <div class="form-group">
-            <label class="form-label">Style Name / Code *</label>
-            <input class="form-input" type="text" placeholder="e.g. SH-204">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Item Type *</label>
-            <select class="form-select">
-              <option>— Select type —</option>
-              <option>Elastic Band</option>
-              <option>Button</option>
-              <option>Zipper</option>
-              <option>Label / Tag</option>
-              <option>Thread</option>
-              <option>Lace</option>
-              <option>Interlining</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Quantity *</label>
-            <input class="form-input" type="text" placeholder="e.g. 50,000 pcs">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Order Received Date *</label>
-            <input class="form-input" type="date" value="2026-04-08">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Expected Sample Delivery</label>
-            <input class="form-input" type="date">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Description / Buyer Specs</label>
-          <textarea class="form-textarea" placeholder="Describe the item: color, size, material, special instructions, certifications required..."></textarea>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sample info (locked until step 2 done) -->
-    <div class="form-section" style="opacity:.5;pointer-events:none">
-      <div class="form-section-header" style="display:flex;align-items:center;justify-content:space-between">
-        <span>Sample Info</span>
-        <span class="lock-badge">Complete Step 2 first</span>
-      </div>
-      <div class="form-section-body">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Sample Made By</label>
-            <select class="form-select"><option>In-house</option><option>Outsourced</option></select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Vendor (if outsourced)</label>
-            <select class="form-select"><option>— None —</option></select>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Reference image upload -->
-    <div class="form-section">
-      <div class="form-section-header">Reference Images (optional)</div>
-      <div class="form-section-body">
-        <div class="image-drop">
-          <div class="icon">🖼</div>
-          <div>Drag &amp; drop images here</div>
-          <div class="hint">or click to browse — PNG, JPG up to 5MB each</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-footer">
-      <a class="btn btn-outline" href="01-dashboard.html">Cancel</a>
-      <button class="btn btn-outline">← Back</button>
-      <button class="btn btn-primary">Next: Sample Info →</button>
-    </div>
-
-  </div><!-- end content -->
-</div><!-- end main -->
-
-</body>
-</html>
+  </div>
+</div>
+</body></html>

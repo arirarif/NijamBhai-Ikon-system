@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+import os
+BASE = r'c:\Users\arira\Desktop\NijamVhai\mockups\v2'
+
+SIDEBAR = open(os.path.join(BASE,'_write_01_02.py')).read().split('SIDEBAR = """')[1].split('"""')[0]
+
+def sidebar(active):
+    keys = dict(d='',c='',o='',n='',s='',p='',l='',ch='')
+    keys[active] = 'active'
+    return SIDEBAR.format(**keys)
+
+# ─── 07 LC TRACKER ───────────────────────────────────────────────────────
+lc_tracker = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -6,58 +17,7 @@
 <link rel="stylesheet" href="_shared.css">
 </head>
 <body>
-
-<div id="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-mark">
-      <div class="logo-icon">I</div>
-      <div class="logo-text"><div class="brand">IKON GAS</div><div class="sub">Garments Accessories</div></div>
-    </div>
-    <div class="badge-proto" style="margin-top:8px">PROTOTYPE V2</div>
-  </div>
-  <nav>
-    <div class="nav-section">Workspace</div>
-    <a href="01-dashboard.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      Dashboard
-    </a>
-    <a href="02-companies.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
-      Companies <span class="nav-badge neutral">4</span>
-    </a>
-    <div class="nav-section">Orders</div>
-    <a href="03-order-detail.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-      All Orders <span class="nav-badge neutral">23</span>
-    </a>
-    <a href="04-new-order.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-      New Order
-    </a>
-    <a href="05-sample-revision.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><polyline points="1,20 1,14 7,14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-      Sample / Revisions <span class="nav-badge orange">3</span>
-    </a>
-    <div class="nav-section">Finance</div>
-    <a href="06-pi.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-      Proforma Invoice <span class="nav-badge blue">2</span>
-    </a>
-    <a href="07-lc-tracker.html" class="nav-item active">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-      LC Tracker <span class="nav-badge orange">1</span>
-    </a>
-    <a href="08-challan.html" class="nav-item ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16,8 20,8 23,11 23,16 16,16 16,8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-      Delivery Challan
-    </a>
-  </nav>
-  <div class="sidebar-footer">
-    <div class="sf-avatar">N</div>
-    <div class="sf-info"><div class="name">Nezam Uddin</div><div class="role">Proprietor</div></div>
-  </div>
-</div>
-
+""" + sidebar('l') + """
 <div id="main">
   <div id="topbar">
     <div class="topbar-title">LC Tracker</div>
@@ -248,4 +208,196 @@
 
   </div>
 </div>
-</body></html>
+</body></html>"""
+
+# ─── 08 CHALLAN ──────────────────────────────────────────────────────────
+challan = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Delivery Challan — IKON GAS</title>
+<link rel="stylesheet" href="_shared.css">
+</head>
+<body>
+""" + sidebar('ch') + """
+<div id="main">
+  <div id="topbar">
+    <div class="topbar-title">Delivery Challan</div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-sub">Issue &amp; track delivery challans</div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm">+ Issue Challan</button>
+    </div>
+  </div>
+  <div id="content">
+
+    <!-- Challan LIST -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-header">
+        <span class="ctitle">All Delivery Challans</span>
+        <div style="display:flex;gap:8px">
+          <input class="form-input" style="width:220px;height:30px;font-size:12px" placeholder="Search challan or order ref...">
+          <select class="form-select" style="width:130px;height:30px;font-size:12px">
+            <option>All Status</option>
+            <option>Issued</option>
+            <option>Delivered</option>
+            <option>Returned</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-body" style="padding:0">
+        <table class="data-table">
+          <thead>
+            <tr><th>Challan No.</th><th>Order Ref</th><th>Company</th><th>Items / Qty</th><th>Delivery Date</th><th>Vehicle</th><th>Status</th><th>Linked PI</th><th></th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="mono" style="color:var(--accent)">DC-2026-041</span></td>
+              <td><span class="mono">BG-2026-041</span></td>
+              <td>Bay Group</td>
+              <td>Button &middot; 1,50,000 pcs</td>
+              <td>7 Apr 2026</td>
+              <td>Dhaka Metro GA-7711</td>
+              <td><span class="badge approved">Delivered</span></td>
+              <td><span class="mono" style="color:var(--accent)">PI-2026/05</span></td>
+              <td><button class="btn btn-ghost btn-xs">View</button></td>
+            </tr>
+            <tr>
+              <td><span class="mono" style="color:var(--accent)">DC-2026-039</span></td>
+              <td><span class="mono">KD-2026-039</span></td>
+              <td>KDS Accessories</td>
+              <td>Zipper Pull &middot; 80,000 pcs</td>
+              <td>1 Apr 2026</td>
+              <td>Hired Van</td>
+              <td><span class="badge approved">Delivered</span></td>
+              <td><span class="mono" style="color:var(--accent)">PI-2026/04</span></td>
+              <td><button class="btn btn-ghost btn-xs">View</button></td>
+            </tr>
+            <tr>
+              <td><span class="mono" style="color:var(--accent)">DC-2026-033</span></td>
+              <td><span class="mono">NM-2026-033</span></td>
+              <td>Noman Group</td>
+              <td>Button &middot; 2,00,000 pcs</td>
+              <td>9 Apr 2026</td>
+              <td>Dhaka Metro GA-1234</td>
+              <td><span class="badge at-risk">Scheduled</span></td>
+              <td><span class="mono" style="color:var(--accent)">PI-2026/03</span></td>
+              <td><button class="btn btn-ghost btn-xs">View</button></td>
+            </tr>
+            <tr>
+              <td><span class="mono" style="color:var(--accent)">DC-2026-012</span></td>
+              <td><span class="mono">GC-2025-088</span></td>
+              <td>Grameen Check</td>
+              <td>Woven Label &middot; 50,000 pcs</td>
+              <td>10 Jan 2026</td>
+              <td>Sundarban Courier</td>
+              <td><span class="badge approved">Delivered</span></td>
+              <td><span class="mono" style="color:var(--text3)">PI-2025/12</span></td>
+              <td><button class="btn btn-ghost btn-xs">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CHALLAN PRINT PREVIEW -->
+    <div style="font-size:11px;color:var(--text3);margin-bottom:10px;text-align:right">
+      Print preview: DC-2026-041 &mdash; <button class="btn btn-ghost btn-xs" onclick="window.print()">&#128424; Print</button>
+    </div>
+    <div class="pi-doc">
+      <div class="pi-header">
+        <div class="pi-brand">
+          <div class="pi-company">IKON GARMENTS ACCESSORIES</div>
+          <div style="font-size:13px;font-weight:700;color:#222;margin-top:4px">DELIVERY CHALLAN</div>
+          <div class="pi-addr">House 18, Road 10, Sector 09, Uttara, Dhaka-1230, Bangladesh</div>
+          <div class="pi-addr">Tel: +8801730214607 &nbsp;|&nbsp; Email: ikongas@gmail.com</div>
+        </div>
+        <div class="pi-meta">
+          <div class="pi-num">DC-2026-041</div>
+          <div style="font-size:11px;margin-top:6px"><strong>Date:</strong> 7 April 2026</div>
+          <div style="font-size:11px"><strong>Order Ref:</strong> BG-2026-041</div>
+          <div style="font-size:11px"><strong>PI Ref:</strong> PI-2026/05</div>
+        </div>
+      </div>
+      <div class="pi-parties">
+        <div class="pi-buyer">
+          <div class="pi-blabel">DELIVER TO</div>
+          <div class="pi-bname">Bay Group</div>
+          <div class="pi-baddr">Plot 45, Block A, Ashulia, Savar, Dhaka</div>
+          <div class="pi-baddr">Attn: Rashida Begum — Senior Merchandiser</div>
+          <div class="pi-baddr">Tel: +88 01812-445566</div>
+        </div>
+        <div class="pi-buyer">
+          <div class="pi-blabel">TRANSPORT DETAILS</div>
+          <div class="pi-baddr"><strong>Vehicle No:</strong> Dhaka Metro GA-7711</div>
+          <div class="pi-baddr"><strong>Driver:</strong> Md. Karim, +88 01911-223344</div>
+          <div class="pi-baddr"><strong>Dispatch Time:</strong> 7 Apr 2026, 9:00 AM</div>
+          <div class="pi-baddr"><strong>Route:</strong> Uttara &rarr; Ashulia</div>
+        </div>
+      </div>
+      <table class="pi-table">
+        <thead>
+          <tr><th>SL</th><th>Description of Goods</th><th>Style / Ref</th><th>Carton</th><th>Qty (pcs)</th><th>Unit</th><th>Remarks</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td>4-Hole Polyester Button, 18L, Black<br><small>Pantone 19-0303 TPX</small></td>
+            <td class="mono">MT-301</td>
+            <td>15 ctns</td>
+            <td style="text-align:right;font-weight:600">1,50,000</td>
+            <td>pcs</td>
+            <td>&#10003; Approved sample</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="pi-total-row">
+            <td colspan="4" style="text-align:right;font-weight:700;padding:8px 12px">Total Cartons: 15</td>
+            <td style="text-align:right;font-weight:800;padding:8px 12px">1,50,000</td>
+            <td colspan="2" style="padding:8px 12px">pcs</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="pi-words">Goods dispatched in good condition. Buyer to verify on receipt.</div>
+      <div class="pi-terms">
+        <div class="pi-terms-title">Delivery Terms</div>
+        <ol>
+          <li>Buyer must inspect goods within 24 hours of delivery and report any discrepancy.</li>
+          <li>No return accepted after 3 days unless quality issue proven with documentation.</li>
+          <li>Carton count verified by driver before dispatch.</li>
+        </ol>
+      </div>
+      <div class="pi-sign">
+        <div class="pi-sign-box">
+          <div class="pi-sign-line"></div>
+          <div class="pi-sign-name">Dispatched By</div>
+          <div class="pi-sign-role">IKON Garments Accessories</div>
+        </div>
+        <div class="pi-sign-box">
+          <div class="pi-sign-line"></div>
+          <div class="pi-sign-name">Driver Signature</div>
+          <div class="pi-sign-role">Vehicle: GA-7711</div>
+        </div>
+        <div class="pi-sign-box">
+          <div class="pi-sign-line"></div>
+          <div class="pi-sign-name">Received By</div>
+          <div class="pi-sign-role">Bay Group — Signature &amp; Stamp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>"""
+
+files = {
+    '07-lc-tracker.html': lc_tracker,
+    '08-challan.html': challan,
+}
+
+for fname, content in files.items():
+    path = os.path.join(BASE, fname)
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(content)
+    print(f'Written: {fname}')
+
+print('DONE batch 4')
