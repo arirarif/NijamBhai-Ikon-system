@@ -103,21 +103,21 @@ body {
 
 nav { flex: 1; padding: 10px 0; }
 .nav-section {
-  font-size: 10px; font-weight: 600; color: var(--text4);
+  font-size: 10px; font-weight: 600; color: var(--text3);
   letter-spacing: 1.2px; padding: 14px 18px 5px;
   text-transform: uppercase;
 }
 .nav-item {
   display: flex; align-items: center; gap: 10px;
   padding: 9px 18px;
-  color: var(--text3); font-size: 13px; font-weight: 500;
+  color: var(--text2); font-size: 13px; font-weight: 500;
   transition: all .15s;
   border-left: 2px solid transparent;
   text-decoration: none;
   border-radius: 0;
   position: relative;
 }
-.nav-item:hover { color: var(--text2); background: var(--bg3); border-left-color: var(--border2); }
+.nav-item:hover { color: var(--text); background: var(--bg3); border-left-color: var(--border2); }
 .nav-item.active {
   color: var(--text); background: var(--accent-bg);
   border-left-color: var(--accent);
@@ -859,3 +859,87 @@ tbody td.mono  { font-family: 'Fira Code', monospace; font-size: 12px; }
 .mb-8 { margin-bottom: 8px; }
 .mb-16 { margin-bottom: 16px; }
 .mb-24 { margin-bottom: 24px; }
+
+/* ── THEME TOGGLE BUTTON ─────────────────────── */
+.theme-toggle-btn {
+  display: flex; align-items: center; gap: 8px;
+  width: calc(100% - 36px); margin: 0 18px 14px;
+  padding: 8px 12px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: var(--bg3);
+  color: var(--text2); font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: all .15s;
+}
+.theme-toggle-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.theme-toggle-btn .ttb-icon { font-size: 14px; flex-shrink: 0; }
+
+/* ================================================================
+   LIGHT THEME — Warm Biscuit / Off-White
+   Applied when <body data-theme="light">
+   ================================================================ */
+body[data-theme="light"] {
+  /* Backgrounds — warm biscuit */
+  --bg:        #f4efe6;
+  --bg2:       #ede7db;
+  --bg3:       #e4ddd0;
+  --bg4:       #d9d1c3;
+  --bg5:       #cdc5b5;
+  /* Borders */
+  --border:    #c5bdb0;
+  --border2:   #b8ae9f;
+  /* Text — warm dark brown */
+  --text:      #1a1510;
+  --text2:     #453d30;
+  --text3:     #7a6e5d;
+  --text4:     #a99e8d;
+  /* Accent */
+  --accent:    #1d4ed8;
+  --accent2:   #1e40af;
+  --accent-bg: #dbeafe;
+  --accent-glow: rgba(29,78,216,.1);
+  /* Status — light-mode variants */
+  --green:        #047857;  --green-bg:     #d1fae5;  --green-border:  #6ee7b7;
+  --red:          #b91c1c;  --red-bg:       #fee2e2;  --red-border:    #fca5a5;
+  --orange:       #c2410c;  --orange-bg:    #ffedd5;  --orange-border: #fdba74;
+  --yellow:       #92400e;  --yellow-bg:    #fef3c7;  --yellow-border: #fde68a;
+  --purple:       #7e22ce;  --purple-bg:    #f3e8ff;  --purple-border: #d8b4fe;
+  --teal:         #0f766e;  --teal-bg:      #ccfbf1;  --teal-border:   #5eead4;
+  --indigo:       #3730a3;  --indigo-bg:    #e0e7ff;  --indigo-border: #a5b4fc;
+  /* Shadows */
+  --shadow:    0 4px 20px rgba(0,0,0,.10);
+  --shadow-sm: 0 2px 8px  rgba(0,0,0,.07);
+}
+
+/* Light mode — sidebar slightly darker biscuit for contrast */
+body[data-theme="light"] #sidebar { background: #e0d9cc; border-right-color: var(--border); }
+body[data-theme="light"] .sidebar-logo { border-bottom-color: var(--border); }
+body[data-theme="light"] .nav-item { color: var(--text2); }
+body[data-theme="light"] .nav-item:hover { background: #d9d2c5; color: var(--text); }
+body[data-theme="light"] .nav-item.active { background: var(--accent-bg); color: var(--accent); border-left-color: var(--accent); }
+body[data-theme="light"] .nav-section { color: var(--text3); }
+body[data-theme="light"] .sidebar-footer { border-top-color: var(--border); }
+
+/* Light mode — topbar */
+body[data-theme="light"] #topbar { background: var(--bg2); border-bottom-color: var(--border); }
+
+/* Light mode — scrollbar */
+body[data-theme="light"] ::-webkit-scrollbar-thumb { background: var(--border2); }
+
+/* Light mode — form selects arrow icon (re-tint) */
+body[data-theme="light"] .form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a6e5d' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+
+/* Light mode — stat cards gentle border lift */
+body[data-theme="light"] .stat-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.10); }
+
+/* Light mode — pipeline kanban */
+body[data-theme="light"] .order-card { background: var(--bg3); }
+body[data-theme="light"] .order-card:hover { background: var(--bg4); }
+
+/* Light mode — badges need slightly stronger backgrounds */
+body[data-theme="light"] .badge.waiting { background: var(--bg4); color: var(--text3); border-color: var(--border); }
+body[data-theme="light"] .badge.waiting::before { background: var(--text3); }
+
+/* PI doc stays white always */
+.pi-doc { background: #fff !important; color: #111 !important; }
