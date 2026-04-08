@@ -231,18 +231,86 @@
             <span class="badge correction" style="font-size:10px">5 of 10 done</span>
           </div>
           <div class="card-body" style="display:flex;flex-direction:column;gap:6px">
-            <div class="chk done"><div class="chk-icon">&#10003;</div><div><div class="chk-title">Commercial Invoice / PI</div><div class="chk-sub">PI-2026/05 &middot; uploaded</div></div></div>
-            <div class="chk done"><div class="chk-icon">&#10003;</div><div><div class="chk-title">Packing List</div><div class="chk-sub">Signed &amp; uploaded</div></div></div>
-            <div class="chk done"><div class="chk-icon">&#10003;</div><div><div class="chk-title">Delivery Challan</div><div class="chk-sub">DC-2026-041 &middot; uploaded</div></div></div>
-            <div class="chk done"><div class="chk-icon">&#10003;</div><div><div class="chk-title">Sample Approval Record</div><div class="chk-sub">R1 approved</div></div></div>
-            <div class="chk done"><div class="chk-icon">&#10003;</div><div><div class="chk-title">Insurance Certificate</div><div class="chk-sub">Uploaded</div></div></div>
-            <div class="chk warn"><div class="chk-icon">!</div><div><div class="chk-title">Bill of Lading</div><div class="chk-sub">Pending from freight agent</div></div></div>
-            <div class="chk err"><div class="chk-icon">&#10007;</div><div><div class="chk-title">Certificate of Origin</div><div class="chk-sub">Not submitted — required for Bangladesh export</div></div></div>
-            <div class="chk err"><div class="chk-icon">&#10007;</div><div><div class="chk-title">Beneficiary's Certificate</div><div class="chk-sub">Not yet prepared</div></div></div>
-            <div class="chk err"><div class="chk-icon">&#10007;</div><div><div class="chk-title">Inspection Certificate</div><div class="chk-sub">Awaiting 3rd-party QC agency</div></div></div>
-            <div class="chk err"><div class="chk-icon">&#10007;</div><div><div class="chk-title">Bank Forwarding Letter</div><div class="chk-sub">Not submitted to Community Bank</div></div></div>
+            <div class="chk-row"><div class="chk-icon-box done">✓</div><div class="chk-info"><div class="chk-title">Commercial Invoice / PI</div><div class="chk-sub">PI-2026/05 &middot; uploaded</div></div></div>
+            <div class="chk-row"><div class="chk-icon-box done">✓</div><div class="chk-info"><div class="chk-title">Packing List</div><div class="chk-sub">Signed &amp; uploaded</div></div></div>
+            <div class="chk-row"><div class="chk-icon-box done">✓</div><div class="chk-info"><div class="chk-title">Delivery Challan</div><div class="chk-sub">DC-2026-041 &middot; uploaded</div></div></div>
+            <div class="chk-row"><div class="chk-icon-box done">✓</div><div class="chk-info"><div class="chk-title">Sample Approval Record</div><div class="chk-sub">R1 approved</div></div></div>
+            <div class="chk-row"><div class="chk-icon-box done">✓</div><div class="chk-info"><div class="chk-title">Insurance Certificate</div><div class="chk-sub">Uploaded</div></div></div>
+            <div class="chk-row"><div class="chk-icon-box warn">!</div><div class="chk-info"><div class="chk-title">Bill of Lading</div><div class="chk-sub">Pending from freight agent</div></div></div>
+            <div class="chk-row"><div class="chk-icon-box err">×</div><div class="chk-info"><div class="chk-title">Certificate of Origin</div><div class="chk-sub">Not submitted — required for Bangladesh export</div></div></div>
+            <div class="chk-row"><div class="chk-icon-box err">×</div><div class="chk-info"><div class="chk-title">Beneficiary's Certificate</div><div class="chk-sub">Not yet prepared</div></div></div>
+            <div class="chk-row"><div class="chk-icon-box err">×</div><div class="chk-info"><div class="chk-title">Inspection Certificate</div><div class="chk-sub">Awaiting 3rd-party QC agency</div></div></div>
+            <div class="chk-row"><div class="chk-icon-box err">×</div><div class="chk-info"><div class="chk-title">Bank Forwarding Letter</div><div class="chk-sub">Not submitted to Community Bank</div></div></div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- REGISTER LC INLINE FORM -->
+    <div class="inline-form-card" style="margin-top:20px">
+      <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:14px">+ Register New LC</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+        <div>
+          <label class="form-label">LC Number *</label>
+          <input class="form-input" placeholder="e.g. LC/2026/00042">
+        </div>
+        <div>
+          <label class="form-label">PI Reference *</label>
+          <select class="form-select">
+            <option>— Select PI —</option>
+            <option>PI-2026/05 · Noman Group</option>
+            <option>PI-2026/06 · Reza Garments</option>
+            <option>PI-2026/07 · Elite Fashion</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">Buyer / Company *</label>
+          <select class="form-select">
+            <option>— Select company —</option>
+            <option>Noman Group</option>
+            <option>Reza Garments</option>
+            <option>Elite Fashion</option>
+            <option>Apex Clothing</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">Issuing Bank</label>
+          <input class="form-input" placeholder="e.g. Community Bank, Uttara">
+        </div>
+        <div>
+          <label class="form-label">LC Value (BDT)</label>
+          <input class="form-input" type="number" placeholder="e.g. 850000">
+        </div>
+        <div>
+          <label class="form-label">Payment Terms</label>
+          <select class="form-select">
+            <option>At Sight</option>
+            <option>30 Days DP</option>
+            <option>60 Days DP</option>
+            <option>90 Days Usance</option>
+            <option>120 Days Usance</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">Issue Date</label>
+          <input class="form-input" type="date" value="2026-04-08">
+        </div>
+        <div>
+          <label class="form-label">Maturity Date</label>
+          <input class="form-input" type="date" value="2026-07-08">
+        </div>
+        <div>
+          <label class="form-label">Port of Loading</label>
+          <input class="form-input" placeholder="e.g. Chittagong Port">
+        </div>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="form-label">Notes / Instructions</label>
+        <textarea class="form-input" rows="2" style="resize:none;font-size:12px" placeholder="Any special LC conditions, partial shipment allowed, transhipment details…"></textarea>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-primary btn-sm">Register LC</button>
+        <button class="btn btn-ghost btn-sm">Cancel</button>
       </div>
     </div>
 

@@ -64,8 +64,8 @@
     <div class="topbar-sep"></div>
     <div class="topbar-sub">F-2026-038 &middot; Noman Group</div>
     <div class="topbar-right">
-      <a href="05-sample-revision.html" class="btn btn-outline btn-sm">View Revisions</a>
-      <button class="btn btn-primary btn-sm">Update Stage</button>
+      <a href="05-sample-revision.html" class="btn btn-outline btn-sm">📋 View Revisions <span style="background:var(--accent);color:#fff;border-radius:20px;padding:1px 7px;font-size:10px;margin-left:4px">3</span></a>
+      <button class="btn btn-primary btn-sm">⬆ Update Stage</button>
     </div>
   </div>
   <div id="content">
@@ -99,17 +99,49 @@
     </div>
 
     <!-- PIPELINE STAGE BAR -->
-    <div class="stage-wrap">
-      <div class="stage-bar">
-        <div class="stage done"><span class="snum">01</span>Order Created</div>
-        <div class="stage done"><span class="snum">02</span>Sample Making</div>
-        <div class="stage current"><span class="snum">03</span>Sample Revision</div>
-        <div class="stage"><span class="snum">04</span>Approved</div>
-        <div class="stage"><span class="snum">05</span>Bulk Production</div>
-        <div class="stage"><span class="snum">06</span>QC &amp; Packing</div>
-        <div class="stage"><span class="snum">07</span>Delivery Challan</div>
-        <div class="stage"><span class="snum">08</span>PI Issued</div>
-        <div class="stage"><span class="snum">09</span>LC &amp; Payment</div>
+    <div class="stage-wrap" style="padding:20px 24px 16px;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto">
+      <div class="stage-dots-bar">
+        <div class="sdot done"><div class="sdot-circle">✓</div><div class="sdot-label">Order Created</div></div>
+        <div class="sdot-conn done"></div>
+        <div class="sdot done"><div class="sdot-circle">✓</div><div class="sdot-label">Sample Making</div></div>
+        <div class="sdot-conn done"></div>
+        <div class="sdot current"><div class="sdot-circle">3</div><div class="sdot-label">Sample Revision</div></div>
+        <div class="sdot-conn"></div>
+        <div class="sdot"><div class="sdot-circle">4</div><div class="sdot-label">Approved</div></div>
+        <div class="sdot-conn"></div>
+        <div class="sdot"><div class="sdot-circle">5</div><div class="sdot-label">Bulk Prod.</div></div>
+        <div class="sdot-conn"></div>
+        <div class="sdot"><div class="sdot-circle">6</div><div class="sdot-label">QC &amp; Pack</div></div>
+        <div class="sdot-conn"></div>
+        <div class="sdot"><div class="sdot-circle">7</div><div class="sdot-label">Challan</div></div>
+        <div class="sdot-conn"></div>
+        <div class="sdot"><div class="sdot-circle">8</div><div class="sdot-label">PI Issued</div></div>
+        <div class="sdot-conn"></div>
+        <div class="sdot"><div class="sdot-circle">9</div><div class="sdot-label">LC &amp; Pay</div></div>
+      </div>
+    </div>
+
+    <!-- UPDATE STAGE PANEL (shown open) -->
+    <div class="us-panel" style="display:flex">
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px">Update Order Stage</div>
+      <div class="us-opts">
+        <div class="us-opt">✓ Order Created</div>
+        <div class="us-opt">✓ Sample Making</div>
+        <div class="us-opt active">◉ Sample Revision <span style="font-size:10px;opacity:.6;margin-left:4px">(current)</span></div>
+        <div class="us-opt">◯ Approved</div>
+        <div class="us-opt">◯ Bulk Production</div>
+        <div class="us-opt">◯ QC &amp; Packing</div>
+        <div class="us-opt">◯ Delivery Challan</div>
+        <div class="us-opt">◯ PI Issued</div>
+        <div class="us-opt">◯ LC &amp; Payment</div>
+      </div>
+      <div style="margin-top:12px">
+        <label style="font-size:11px;font-weight:600;color:var(--text3);display:block;margin-bottom:4px">Stage Note (optional)</label>
+        <textarea class="form-input" rows="2" style="resize:none;font-size:12px" placeholder="e.g. R2 sample dispatched to buyer on 08 Apr…"></textarea>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button class="btn btn-primary btn-sm">Confirm Stage Update</button>
+        <button class="btn btn-ghost btn-sm">Cancel</button>
       </div>
     </div>
 
