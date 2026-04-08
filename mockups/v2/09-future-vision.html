@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Future Vision — IKON GAS</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+/* ── PAGE STYLES ── */
+.fv-hero {
+  background: linear-gradient(135deg, #0d1b2a 0%, #0a0d14 60%, #1a0d2e 100%);
+  border-radius: var(--radius-lg); padding: 56px 48px; margin-bottom: 32px;
+  position: relative; overflow: hidden; border: 1px solid var(--border);
+  text-align: center;
+}
+.fv-hero::before {
+  content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 300px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(99,179,237,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.fv-hero-label {
+  display: inline-block; background: var(--accent-bg); color: var(--accent);
+  border: 1px solid var(--accent); border-radius: 20px; padding: 4px 14px;
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.fv-hero-title { font-size: 40px; font-weight: 900; line-height: 1.15; margin-bottom: 16px; }
+.fv-hero-title span { color: var(--accent); }
+.fv-hero-sub { font-size: 16px; color: var(--text2); max-width: 560px; margin: 0 auto 32px; line-height: 1.7; }
+.fv-hero-stats { display: flex; justify-content: center; gap: 48px; }
+.fhs { text-align: center; }
+.fhs-num { font-size: 32px; font-weight: 900; color: var(--accent); }
+.fhs-label { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+/* ── SECTION HEADERS ── */
+.fv-section-header { display: flex; align-items: center; gap: 12px; margin: 40px 0 20px; }
+.fv-section-pill {
+  padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800;
+  letter-spacing: .5px; text-transform: uppercase;
+}
+.pill-gold { background: rgba(245,158,11,.15); color: #f59e0b; border: 1px solid rgba(245,158,11,.3); }
+.pill-silver { background: rgba(148,163,184,.12); color: #94a3b8; border: 1px solid rgba(148,163,184,.25); }
+.pill-bronze { background: rgba(180,120,60,.15); color: #c97b30; border: 1px solid rgba(180,120,60,.3); }
+.fv-section-title { font-size: 20px; font-weight: 800; }
+.fv-section-sub { font-size: 13px; color: var(--text3); margin-left: auto; }
+
+/* ── FEATURE CARDS ── */
+.fv-feature-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px; margin-bottom: 16px;
+  position: relative; overflow: hidden;
+}
+.fv-feature-card.priority-1 { border-color: rgba(245,158,11,.35); }
+.fv-feature-card.priority-1::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #f59e0b, #f97316);
+}
+.fv-feature-card.priority-2 { border-color: rgba(148,163,184,.25); }
+.fv-feature-card.priority-2::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #64748b, #94a3b8);
+}
+.fv-feature-card.priority-3 { border-color: rgba(180,120,60,.2); }
+.fv-feature-card.priority-3::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #92400e, #c97b30);
+}
+
+.fv-card-top { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 24px; }
+.fv-card-icon {
+  width: 56px; height: 56px; border-radius: 16px; display: flex;
+  align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0;
+  background: var(--bg3); border: 1px solid var(--border);
+}
+.fv-card-meta { flex: 1; }
+.fv-card-title { font-size: 18px; font-weight: 800; margin-bottom: 5px; }
+.fv-card-tagline { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.fv-card-saving {
+  display: inline-block; background: var(--green-bg); color: var(--green);
+  border: 1px solid var(--green-border, rgba(34,197,94,.25));
+  border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 700; margin-top: 6px;
+}
+
+/* ── FLOW DIAGRAM ── */
+.fv-flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; }
+.fv-flow-step {
+  flex: 1; min-width: 130px; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 14px; text-align: center;
+  position: relative;
+}
+.fv-flow-step .fs-icon { font-size: 28px; margin-bottom: 8px; }
+.fv-flow-step .fs-label { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.fv-flow-step .fs-sub { font-size: 11px; color: var(--text3); line-height: 1.4; }
+.fv-flow-step.fs-highlight {
+  background: var(--accent-bg); border-color: var(--accent);
+}
+.fv-flow-step.fs-highlight .fs-label { color: var(--accent); }
+.fv-flow-step.fs-highlight .fs-icon-wrap {
+  background: var(--accent); border-radius: 50%; width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin: 0 auto 10px;
+}
+.fv-flow-arrow {
+  width: 36px; flex-shrink: 0; display: flex; align-items: center;
+  justify-content: center; font-size: 18px; color: var(--text3);
+}
+.fv-flow-arrow.arrow-accent { color: var(--accent); font-size: 22px; }
+
+/* ── WHATSAPP MOCKUP ── */
+.wa-phone {
+  background: #111b21; border-radius: 20px; padding: 0; overflow: hidden;
+  max-width: 340px; border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 16px 48px rgba(0,0,0,.6);
+}
+.wa-topbar {
+  background: #1f2c34; padding: 12px 16px; display: flex; align-items: center; gap: 10px;
+}
+.wa-avatar {
+  width: 36px; height: 36px; border-radius: 50%; background: #25d366;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 800; color: #111;
+}
+.wa-contact-name { font-size: 13px; font-weight: 700; color: #e9edef; }
+.wa-contact-status { font-size: 11px; color: #8696a0; }
+.wa-body { padding: 12px; background: #0b141a; min-height: 260px; display: flex; flex-direction: column; gap: 8px; }
+.wa-msg {
+  max-width: 78%; border-radius: 8px; padding: 8px 12px; font-size: 12px;
+  line-height: 1.5; position: relative;
+}
+.wa-msg.incoming {
+  background: #202c33; color: #e9edef; align-self: flex-start; border-top-left-radius: 2px;
+}
+.wa-msg.outgoing {
+  background: #005c4b; color: #e9edef; align-self: flex-end; border-top-right-radius: 2px;
+}
+.wa-msg .wa-time { font-size: 10px; color: #8696a0; text-align: right; margin-top: 3px; }
+.wa-msg .wa-tick { color: #53bdeb; }
+.wa-typing { padding: 0 12px 12px; display: flex; align-items: center; gap: 6px; }
+.wa-typing-bubble {
+  background: #202c33; border-radius: 20px; padding: 8px 14px;
+  display: flex; align-items: center; gap: 3px;
+}
+.wa-dot { width: 6px; height: 6px; border-radius: 50%; background: #8696a0; animation: waDot 1.2s infinite; }
+.wa-dot:nth-child(2) { animation-delay: .2s; }
+.wa-dot:nth-child(3) { animation-delay: .4s; }
+@keyframes waDot { 0%,60%,100%{opacity:.3;transform:scale(.8)} 30%{opacity:1;transform:scale(1)} }
+.wa-reply-bar {
+  background: #1f2c34; padding: 8px 12px; display: flex; align-items: center; gap: 8px;
+}
+.wa-reply-input {
+  flex: 1; background: #2a3942; border-radius: 20px; padding: 8px 14px;
+  font-size: 12px; color: #8696a0; border: none;
+}
+
+/* ── QR DEMO ── */
+.qr-demo {
+  display: flex; align-items: center; gap: 20px;
+}
+.qr-box {
+  width: 80px; height: 80px; background: #fff; border-radius: 8px;
+  padding: 8px; display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 3px; flex-shrink: 0;
+}
+.qr-cell {
+  background: #000; border-radius: 2px;
+}
+.qr-cell.w { background: #fff; }
+
+/* ── VOICE DEMO ── */
+.voice-demo {
+  display: flex; align-items: center; gap: 20px; padding: 16px;
+  background: var(--bg3); border-radius: var(--radius); border: 1px solid var(--border);
+}
+.voice-bubble {
+  background: var(--bg4); border-radius: 12px; padding: 12px 16px;
+  border: 1px solid var(--border); font-size: 13px; color: var(--text2);
+  font-style: italic; flex: 1; line-height: 1.6;
+}
+.voice-mic {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+  box-shadow: 0 0 0 8px rgba(239,68,68,.12);
+}
+.voice-arrow { font-size: 20px; color: var(--accent); }
+.voice-form-preview {
+  background: var(--bg4); border-radius: 12px; padding: 12px 16px;
+  border: 1px solid var(--green); flex: 1;
+}
+.vfp-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.vfp-label { font-size: 10px; color: var(--text3); font-weight: 600; text-transform: uppercase; }
+.vfp-val { font-size: 12px; color: var(--green); font-weight: 700; }
+
+/* ── BEFORE / AFTER ── */
+.ba-wrap { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center; margin-top: 16px; }
+.ba-side { border-radius: var(--radius); padding: 16px 20px; }
+.ba-before { background: rgba(239,68,68,.06); border: 1px solid rgba(239,68,68,.2); }
+.ba-after  { background: var(--green-bg); border: 1px solid var(--green-border, rgba(34,197,94,.25)); }
+.ba-label  { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.ba-before .ba-label { color: var(--red); }
+.ba-after  .ba-label { color: var(--green); }
+.ba-step { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 12px; color: var(--text2); }
+.ba-step-icon { font-size: 14px; flex-shrink: 0; }
+.ba-vs {
+  width: 48px; text-align: center; font-size: 13px; font-weight: 800;
+  color: var(--text3); letter-spacing: 1px;
+}
+
+/* ── PRIORITY TABLE ── */
+.priority-table {
+  width: 100%; border-collapse: collapse; margin-top: 8px;
+}
+.priority-table th {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  color: var(--text3); padding: 10px 16px; text-align: left;
+  border-bottom: 2px solid var(--border); background: var(--bg3);
+}
+.priority-table td {
+  padding: 14px 16px; border-bottom: 1px solid var(--border);
+  font-size: 13px; vertical-align: top;
+}
+.priority-table tr:last-child td { border-bottom: none; }
+.priority-table td:first-child { width: 32px; font-size: 18px; }
+.p-feature-name { font-weight: 700; margin-bottom: 2px; }
+.p-feature-why { font-size: 11px; color: var(--text3); }
+.p-effort { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 10px; font-weight: 700; }
+.effort-easy   { background: var(--green-bg); color: var(--green); }
+.effort-medium { background: var(--orange-bg); color: var(--orange); }
+.effort-hard   { background: var(--red-bg); color: var(--red); }
+.p-impact-bar {
+  height: 6px; border-radius: 3px; background: var(--bg4);
+  margin-top: 5px; overflow: hidden;
+}
+.p-impact-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--green)); }
+
+/* ── LIGHT THEME ADJUSTMENTS ── */
+body[data-theme="light"] .fv-hero { background: linear-gradient(135deg, #1e3a5f 0%, #0f2942 60%, #2d1b5e 100%); }
+body[data-theme="light"] .wa-phone { border-color: #ccc; }
+body[data-theme="light"] .fv-flow-step { background: #f8f5ef; }
+body[data-theme="light"] .fv-feature-card { background: #faf7f2; }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">I</div>
+      <div class="logo-text"><div class="brand">IKON GAS</div><div class="sub">Garments Accessories</div></div>
+    </div>
+    <div class="badge-proto" style="margin-top:8px">PROTOTYPE V2</div>
+  </div>
+  <nav>
+    <div class="nav-section">Workspace</div>
+    <a href="01-dashboard.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="02-companies.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      Companies
+    </a>
+    <div class="nav-section">Orders</div>
+    <a href="03-order-detail.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>
+      All Orders
+    </a>
+    <a href="04-new-order.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      New Order
+    </a>
+    <a href="05-sample-revision.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/></svg>
+      Sample Revision
+    </a>
+    <div class="nav-section">Finance</div>
+    <a href="06-pi.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/></svg>
+      Proforma Invoice
+    </a>
+    <a href="07-lc-tracker.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      LC Tracker
+    </a>
+    <a href="08-challan.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>
+      Delivery Challan
+    </a>
+    <div class="nav-section">Vision</div>
+    <a href="09-future-vision.html" class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Future Vision ✨
+    </a>
+  </nav>
+</div>
+
+<div id="main">
+  <div id="topbar">
+    <div class="topbar-title">Future Vision</div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-sub">IKON 2.0 — Smart Ideas, Plain Language</div>
+    <div class="topbar-right">
+      <span class="badge success" style="font-size:11px">9 ideas inside</span>
+    </div>
+  </div>
+
+  <div id="content">
+
+    <!-- HERO -->
+    <div class="fv-hero">
+      <div class="fv-hero-label">IKON 2.0 Roadmap</div>
+      <div class="fv-hero-title">The System That Works<br><span>While You're Talking</span></div>
+      <div class="fv-hero-sub">
+        Right now, orders are created <em>after</em> the conversation. These ideas make the system capture everything
+        <strong style="color:var(--accent)">during</strong> the conversation — in WhatsApp, with your voice, or with a phone camera.
+      </div>
+      <div class="fv-hero-stats">
+        <div class="fhs"><div class="fhs-num">70%</div><div class="fhs-label">Less manual typing</div></div>
+        <div class="fhs"><div class="fhs-num">9</div><div class="fhs-label">New ideas below</div></div>
+        <div class="fhs"><div class="fhs-num">4</div><div class="fhs-label">High priority features</div></div>
+      </div>
+    </div>
+
+
+    <!-- ───── TIER 1 ───── -->
+    <div class="fv-section-header">
+      <span class="fv-section-pill pill-gold">🥇 Build First</span>
+      <span class="fv-section-title">Highest Value — Easiest to Use</span>
+      <span class="fv-section-sub">These save the most time immediately</span>
+    </div>
+
+    <!-- FEATURE 1: WhatsApp Bot -->
+    <div class="fv-feature-card priority-1">
+      <div class="fv-card-top">
+        <div class="fv-card-icon">💬</div>
+        <div class="fv-card-meta">
+          <div class="fv-card-title">WhatsApp Bot — Order from Chat</div>
+          <div class="fv-card-tagline">You already do business in WhatsApp. This makes WhatsApp the system.<br>Send a message → order is created. No screen, no logging in, no typing.</div>
+          <span class="fv-card-saving">⏱ Saves ~15 minutes per order</span>
+        </div>
+      </div>
+
+      <!-- How it works flow -->
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:12px">How It Works</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+
+        <!-- WhatsApp mockup -->
+        <div class="wa-phone">
+          <div class="wa-topbar">
+            <div class="wa-avatar">F</div>
+            <div>
+              <div class="wa-contact-name">Faruq Hossain</div>
+              <div class="wa-contact-status">Noman Group Merchandiser · online</div>
+            </div>
+          </div>
+          <div class="wa-body">
+            <div class="wa-msg incoming">
+              bhai 1.5 lakh button lagbe, 18L black, Pantone 19-0303, 25 tarikher moddhe
+              <div class="wa-time">10:32 AM</div>
+            </div>
+            <div class="wa-msg outgoing">
+              ✅ Order draft ready!<br><br>
+              <strong>F-2026-039</strong><br>
+              Noman Group · Faruq Hossain<br>
+              1,50,000 pcs · 18L Button<br>
+              Colour: Pantone 19-0303<br>
+              Delivery: 25 April 2026<br><br>
+              Confirm? Reply <strong>YES</strong> to save
+              <div class="wa-time">10:32 AM <span class="wa-tick">✓✓</span></div>
+            </div>
+            <div class="wa-msg incoming">
+              YES
+              <div class="wa-time">10:33 AM</div>
+            </div>
+            <div class="wa-msg outgoing">
+              ✅ Order saved! F-2026-039 created.<br>Sample due: 10 Apr. I'll remind you 2 days before.
+              <div class="wa-time">10:33 AM <span class="wa-tick">✓✓</span></div>
+            </div>
+          </div>
+          <div class="wa-reply-bar">
+            <div class="wa-reply-input">Type a message…</div>
+            <span style="font-size:18px">🎙️</span>
+          </div>
+        </div>
+
+        <!-- Flow steps beside the phone -->
+        <div style="flex:1;min-width:220px">
+          <div style="font-size:13px;font-weight:700;margin-bottom:16px;color:var(--text2)">Just 3 steps:</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0">1</div>
+              <div><div style="font-size:13px;font-weight:700">Buyer sends WhatsApp message</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Same way they always talk to you — nothing new for them</div></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0">2</div>
+              <div><div style="font-size:13px;font-weight:700">Bot reads it, creates draft order</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Reads product, quantity, colour, date from natural Bangla/English</div></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0">3</div>
+              <div><div style="font-size:13px;font-weight:700">You reply YES → order saved</div><div style="font-size:11px;color:var(--text3);margin-top:2px">One word. Order is in the system. No screen needed.</div></div>
+            </div>
+            <div style="margin-top:8px;padding:12px 14px;background:var(--accent-bg);border:1px solid var(--accent);border-radius:var(--radius);border-left:3px solid var(--accent)">
+              <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:4px">Also works for:</div>
+              <div style="font-size:11px;color:var(--text2);line-height:1.8">
+                🔁 Revision logs: "R2 sent Faruq bhai"<br>
+                📦 Stage updates: "sample dispatch korsi"<br>
+                📅 Deadline reminders — auto sent by bot
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURE 2: QR Code on samples -->
+    <div class="fv-feature-card priority-1">
+      <div class="fv-card-top">
+        <div class="fv-card-icon">📱</div>
+        <div class="fv-card-meta">
+          <div class="fv-card-title">QR Sticker on Every Sample Pack</div>
+          <div class="fv-card-tagline">Stick a small QR label on each physical sample. When it's ready to send — scan it. Order opens. One tap to update status. Done.</div>
+          <span class="fv-card-saving">⏱ Saves ~8 minutes per sample dispatch</span>
+        </div>
+      </div>
+
+      <div class="ba-wrap">
+        <div class="ba-side ba-before">
+          <div class="ba-label">❌ Currently</div>
+          <div class="ba-step"><span class="ba-step-icon">😤</span> Remember which order this sample is for</div>
+          <div class="ba-step"><span class="ba-step-icon">🖥️</span> Go to computer, open browser</div>
+          <div class="ba-step"><span class="ba-step-icon">🔍</span> Search for the order by name or number</div>
+          <div class="ba-step"><span class="ba-step-icon">✏️</span> Manually type "Sample Sent" update</div>
+          <div class="ba-step"><span class="ba-step-icon">⏱️</span> Total: ~10 minutes</div>
+        </div>
+        <div class="ba-vs">VS</div>
+        <div class="ba-side ba-after">
+          <div class="ba-label">✅ With QR Sticker</div>
+          <div class="ba-step"><span class="ba-step-icon">📷</span> Scan the sticker on the package</div>
+          <div class="ba-step"><span class="ba-step-icon">📋</span> Order opens instantly on your phone</div>
+          <div class="ba-step"><span class="ba-step-icon">👆</span> Tap "Mark Sample Sent"</div>
+          <div class="ba-step"><span class="ba-step-icon">✅</span> Done. System updated.</div>
+          <div class="ba-step"><span class="ba-step-icon">⏱️</span> Total: <strong style="color:var(--green)">~30 seconds</strong></div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:20px;margin-top:16px;padding:14px 16px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border);">
+        <div style="font-size:13px;color:var(--text3)">🏷️ The label looks like this:</div>
+        <div style="background:#fff;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:14px;border:1px solid #ddd">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="56" height="56" fill="white"/>
+            <rect x="4" y="4" width="20" height="20" fill="black"/>
+            <rect x="7" y="7" width="14" height="14" fill="white"/>
+            <rect x="9" y="9" width="10" height="10" fill="black"/>
+            <rect x="32" y="4" width="20" height="20" fill="black"/>
+            <rect x="35" y="7" width="14" height="14" fill="white"/>
+            <rect x="37" y="9" width="10" height="10" fill="black"/>
+            <rect x="4" y="32" width="20" height="20" fill="black"/>
+            <rect x="7" y="35" width="14" height="14" fill="white"/>
+            <rect x="9" y="37" width="10" height="10" fill="black"/>
+            <rect x="32" y="32" width="5" height="5" fill="black"/>
+            <rect x="40" y="32" width="5" height="5" fill="black"/>
+            <rect x="32" y="40" width="5" height="5" fill="black"/>
+            <rect x="40" y="40" width="5" height="5" fill="black"/>
+            <rect x="48" y="32" width="4" height="4" fill="black"/>
+            <rect x="48" y="40" width="4" height="4" fill="black"/>
+          </svg>
+          <div>
+            <div style="font-size:12px;font-weight:800;color:#111">F-2026-038</div>
+            <div style="font-size:10px;color:#555">Noman Group · 1,50,000 pcs</div>
+            <div style="font-size:10px;color:#555">Button · SS2026</div>
+            <div style="font-size:9px;color:#999;margin-top:3px">Scan to open in IKON system</div>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--text3);flex:1">Print from any phone printer or office printer. Cost: <strong style="color:var(--text)">~₹0.50 per label</strong></div>
+      </div>
+    </div>
+
+    <!-- FEATURE 3: Voice to form -->
+    <div class="fv-feature-card priority-1">
+      <div class="fv-card-top">
+        <div class="fv-card-icon">🎙️</div>
+        <div class="fv-card-meta">
+          <div class="fv-card-title">Voice Note → Auto-Fill Form</div>
+          <div class="fv-card-tagline">In the New Order screen, tap the microphone. Speak naturally in Bangla or English. The form fills itself. You just review and hit Save.</div>
+          <span class="fv-card-saving">⏱ Saves ~7 minutes per order</span>
+        </div>
+      </div>
+
+      <div class="voice-demo">
+        <div class="voice-mic">🎙️</div>
+        <div class="voice-bubble">
+          "Button order, Bay Group, Rashida, 80 hajar, unit price ek taka bish poisha, urgent, delivery 20 April"
+        </div>
+        <div class="voice-arrow">→</div>
+        <div class="voice-form-preview">
+          <div style="font-size:10px;font-weight:700;color:var(--green);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">✓ Form filled automatically</div>
+          <div class="vfp-row"><span class="vfp-label">Company</span><span class="vfp-val">Bay Group</span></div>
+          <div class="vfp-row"><span class="vfp-label">Merchandiser</span><span class="vfp-val">Rashida</span></div>
+          <div class="vfp-row"><span class="vfp-label">Quantity</span><span class="vfp-val">80,000 pcs</span></div>
+          <div class="vfp-row"><span class="vfp-label">Unit Price</span><span class="vfp-val">৳ 1.20</span></div>
+          <div class="vfp-row"><span class="vfp-label">Priority</span><span class="vfp-val">Urgent 🔴</span></div>
+          <div class="vfp-row"><span class="vfp-label">Delivery</span><span class="vfp-val">20 Apr 2026</span></div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ───── TIER 2 ───── -->
+    <div class="fv-section-header">
+      <span class="fv-section-pill pill-silver">🥈 Build Next</span>
+      <span class="fv-section-title">Medium Effort — Very Useful</span>
+      <span class="fv-section-sub">After the basics are running well</span>
+    </div>
+
+    <!-- FEATURE 4: LC Document Scan -->
+    <div class="fv-feature-card priority-2">
+      <div class="fv-card-top">
+        <div class="fv-card-icon">📄</div>
+        <div class="fv-card-meta">
+          <div class="fv-card-title">LC Paper Scan → Auto Register</div>
+          <div class="fv-card-tagline">You get a paper LC from the bank. Take a photo with your phone. System reads the LC number, bank name, amount, and dates — fills the LC Tracker automatically.</div>
+          <span class="fv-card-saving">⏱ Saves ~10 minutes per LC</span>
+        </div>
+      </div>
+      <div class="fv-flow">
+        <div class="fv-flow-step">
+          <div class="fs-icon">🏦</div>
+          <div class="fs-label">Bank gives you LC paper</div>
+          <div class="fs-sub">Physical document, printed</div>
+        </div>
+        <div class="fv-flow-arrow arrow-accent">→</div>
+        <div class="fv-flow-step fs-highlight">
+          <div class="fs-icon-wrap">📷</div>
+          <div class="fs-label">Take a photo</div>
+          <div class="fs-sub">Any phone camera</div>
+        </div>
+        <div class="fv-flow-arrow arrow-accent">→</div>
+        <div class="fv-flow-step">
+          <div class="fs-icon">🤖</div>
+          <div class="fs-label">AI reads the text</div>
+          <div class="fs-sub">LC no., bank, amount, date</div>
+        </div>
+        <div class="fv-flow-arrow arrow-accent">→</div>
+        <div class="fv-flow-step">
+          <div class="fs-icon">✅</div>
+          <div class="fs-label">Form fills itself</div>
+          <div class="fs-sub">You just verify &amp; save</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURE 5: Business Card Scan -->
+    <div class="fv-feature-card priority-2">
+      <div class="fv-card-top">
+        <div class="fv-card-icon">🪪</div>
+        <div class="fv-card-meta">
+          <div class="fv-card-title">Business Card Scan → New Merchandiser</div>
+          <div class="fv-card-tagline">New merchandiser visits your office. Scan their card → name, phone number, company auto-filled. Tap save. They're in the system.</div>
+          <span class="fv-card-saving">⏱ 2 seconds instead of 2 minutes</span>
+        </div>
+      </div>
+      <div class="fv-flow">
+        <div class="fv-flow-step"><div class="fs-icon">🪪</div><div class="fs-label">Receive business card</div></div>
+        <div class="fv-flow-arrow arrow-accent">→</div>
+        <div class="fv-flow-step fs-highlight"><div class="fs-icon-wrap">📷</div><div class="fs-label">Scan with phone</div></div>
+        <div class="fv-flow-arrow arrow-accent">→</div>
+        <div class="fv-flow-step"><div class="fs-icon">👤</div><div class="fs-label">Merchandiser profile created</div><div class="fs-sub">Name, phone, company</div></div>
+        <div class="fv-flow-arrow arrow-accent">→</div>
+        <div class="fv-flow-step"><div class="fs-icon">✅</div><div class="fs-label">Tap Save. Done.</div></div>
+      </div>
+    </div>
+
+    <!-- FEATURE 6: Smart Suggestions -->
+    <div class="fv-feature-card priority-2">
+      <div class="fv-card-top">
+        <div class="fv-card-icon">🧠</div>
+        <div class="fv-card-meta">
+          <div class="fv-card-title">Smart Suggestions (System Learns You)</div>
+          <div class="fv-card-tagline">After 3–6 months, the system notices patterns and suggests things before you type them.</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:16px">
+          <div style="font-size:20px;margin-bottom:8px">🏦</div>
+          <div style="font-size:12px;font-weight:700;margin-bottom:4px">Noman Group → 90-day LC</div>
+          <div style="font-size:11px;color:var(--text3)">System knows Noman always does 90-day LC terms. Pre-fills it for you automatically.</div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:16px">
+          <div style="font-size:20px;margin-bottom:8px">🔗</div>
+          <div style="font-size:12px;font-weight:700;margin-bottom:4px">Bay Group → Zipper Pulls</div>
+          <div style="font-size:11px;color:var(--text3)">System knows Rashida usually orders Zipper Pulls. Suggests product when you select Bay Group.</div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:16px">
+          <div style="font-size:20px;margin-bottom:8px">⏰</div>
+          <div style="font-size:12px;font-weight:700;margin-bottom:4px">Auto deadline warning</div>
+          <div style="font-size:11px;color:var(--text3)">Based on your history, Button orders take 22 days average. System warns if deadline is too tight.</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ───── TIER 3 ───── -->
+    <div class="fv-section-header">
+      <span class="fv-section-pill pill-bronze">🥉 Future Vision</span>
+      <span class="fv-section-title">When You're Ready to Go Fully Digital</span>
+      <span class="fv-section-sub">Big ideas for later</span>
+    </div>
+
+    <!-- Features 7-9 in a grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:32px">
+
+      <div class="fv-feature-card priority-3" style="margin-bottom:0">
+        <div style="font-size:32px;margin-bottom:12px">💬</div>
+        <div style="font-size:15px;font-weight:800;margin-bottom:8px">AI Chat in the System</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+          Type or speak in Bangla:<br>
+          <em style="color:var(--text3)">"Noman Group er sob orders ki status e ache?"</em><br><br>
+          System gives a full summary. No navigating menus.
+        </div>
+        <div style="padding:10px 12px;background:var(--bg3);border-radius:var(--radius);font-size:11px;color:var(--text3);border:1px solid var(--border)">
+          🤖 "Noman Group has 3 active orders. F-2026-038 is at Sample Revision, 2 others in Bulk Production. 1 LC maturing in 18 days."
+        </div>
+      </div>
+
+      <div class="fv-feature-card priority-3" style="margin-bottom:0">
+        <div style="font-size:32px;margin-bottom:12px">📲</div>
+        <div style="font-size:15px;font-weight:800;margin-bottom:8px">Auto Reminders to Buyers</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+          Sample sent 3 days ago, no reply from buyer? System automatically sends a polite WhatsApp:
+        </div>
+        <div style="background:#005c4b;border-radius:10px;padding:10px 12px;font-size:11px;color:#e9edef;line-height:1.6">
+          "Faruq bhai, order F-2026-038 er sample pathiye diyechi, feedback dile valo hoto 🙏"
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:8px">Sent automatically. No action needed from you.</div>
+      </div>
+
+      <div class="fv-feature-card priority-3" style="margin-bottom:0">
+        <div style="font-size:32px;margin-bottom:12px">📤</div>
+        <div style="font-size:15px;font-weight:800;margin-bottom:8px">Challan via WhatsApp</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+          Mark delivery done in the system → Delivery Challan PDF automatically sent to buyer's WhatsApp. No printing. No scanning. No email.
+        </div>
+        <div class="fv-flow" style="flex-direction:column;gap:6px">
+          <div style="font-size:11px;color:var(--text3);display:flex;align-items:center;gap:6px"><span>✅</span> Mark delivery in system</div>
+          <div style="font-size:11px;color:var(--text3);display:flex;align-items:center;gap:6px"><span>📄</span> PDF auto-generated</div>
+          <div style="font-size:11px;color:var(--text3);display:flex;align-items:center;gap:6px"><span>💬</span> Sent to buyer WhatsApp</div>
+          <div style="font-size:11px;color:var(--green);display:flex;align-items:center;gap:6px"><span>🎉</span> Buyer confirms receipt</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ───── PRIORITY TABLE ───── -->
+    <div class="card" style="margin-bottom:32px">
+      <div class="card-header">
+        <span class="ctitle">Build Priority Summary</span>
+        <span class="badge neutral" style="font-size:11px">Recommended Order</span>
+      </div>
+      <div class="card-body" style="padding:0">
+        <table class="priority-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Feature</th>
+              <th>Who Benefits Most</th>
+              <th>Effort to Build</th>
+              <th>Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:rgba(245,158,11,.04)">
+              <td>🥇</td>
+              <td><div class="p-feature-name">WhatsApp Bot</div><div class="p-feature-why">Order creation without opening the system</div></td>
+              <td style="font-size:12px;color:var(--text2)">Nezam bhai — zero extra work</td>
+              <td><span class="p-effort effort-medium">Medium</span></td>
+              <td><div class="p-impact-bar"><div class="p-impact-fill" style="width:95%"></div></div><div style="font-size:10px;color:var(--text3);margin-top:3px">95% — biggest single win</div></td>
+            </tr>
+            <tr style="background:rgba(245,158,11,.04)">
+              <td>🥇</td>
+              <td><div class="p-feature-name">QR Sticker on Samples</div><div class="p-feature-why">Scan to open order and update stage</div></td>
+              <td style="font-size:12px;color:var(--text2)">Everyone who handles physical samples</td>
+              <td><span class="p-effort effort-easy">Easy</span></td>
+              <td><div class="p-impact-bar"><div class="p-impact-fill" style="width:80%"></div></div><div style="font-size:10px;color:var(--text3);margin-top:3px">80% — very fast to build</div></td>
+            </tr>
+            <tr style="background:rgba(245,158,11,.04)">
+              <td>🥇</td>
+              <td><div class="p-feature-name">Voice → Form Fill</div><div class="p-feature-why">Speak the order details, form fills itself</div></td>
+              <td style="font-size:12px;color:var(--text2)">Field use, quick entry</td>
+              <td><span class="p-effort effort-easy">Easy</span></td>
+              <td><div class="p-impact-bar"><div class="p-impact-fill" style="width:72%"></div></div><div style="font-size:10px;color:var(--text3);margin-top:3px">72%</div></td>
+            </tr>
+            <tr>
+              <td>🥈</td>
+              <td><div class="p-feature-name">LC Document Scan</div><div class="p-feature-why">Photo of bank LC paper → auto-fill LC Tracker</div></td>
+              <td style="font-size:12px;color:var(--text2)">Finance side — save 10 min/LC</td>
+              <td><span class="p-effort effort-medium">Medium</span></td>
+              <td><div class="p-impact-bar"><div class="p-impact-fill" style="width:65%"></div></div><div style="font-size:10px;color:var(--text3);margin-top:3px">65%</div></td>
+            </tr>
+            <tr>
+              <td>🥈</td>
+              <td><div class="p-feature-name">Business Card Scan</div><div class="p-feature-why">Scan card → new merchandiser profile</div></td>
+              <td style="font-size:12px;color:var(--text2)">Office admin</td>
+              <td><span class="p-effort effort-easy">Easy</span></td>
+              <td><div class="p-impact-bar"><div class="p-impact-fill" style="width:48%"></div></div><div style="font-size:10px;color:var(--text3);margin-top:3px">48%</div></td>
+            </tr>
+            <tr>
+              <td>🥈</td>
+              <td><div class="p-feature-name">Smart Suggestions</div><div class="p-feature-why">System learns patterns, pre-fills known data</div></td>
+              <td style="font-size:12px;color:var(--text2)">Everyone, after 3+ months of data</td>
+              <td><span class="p-effort effort-medium">Medium</span></td>
+              <td><div class="p-impact-bar"><div class="p-impact-fill" style="width:55%"></div></div><div style="font-size:10px;color:var(--text3);margin-top:3px">55%</div></td>
+            </tr>
+            <tr>
+              <td>🥉</td>
+              <td><div class="p-feature-name">AI Chat (Bangla)</div><div class="p-feature-why">Ask the system questions in Bangla</div></td>
+              <td style="font-size:12px;color:var(--text2)">Nezam bhai on phone</td>
+              <td><span class="p-effort effort-hard">Hard</span></td>
+              <td><div class="p-impact-bar"><div class="p-impact-fill" style="width:70%"></div></div><div style="font-size:10px;color:var(--text3);margin-top:3px">70%</div></td>
+            </tr>
+            <tr>
+              <td>🥉</td>
+              <td><div class="p-feature-name">Auto Buyer Reminders</div><div class="p-feature-why">WhatsApp follow-up sent automatically</div></td>
+              <td style="font-size:12px;color:var(--text2)">Follows up on pending approvals</td>
+              <td><span class="p-effort effort-medium">Medium</span></td>
+              <td><div class="p-impact-bar"><div class="p-impact-fill" style="width:60%"></div></div><div style="font-size:10px;color:var(--text3);margin-top:3px">60%</div></td>
+            </tr>
+            <tr>
+              <td>🥉</td>
+              <td><div class="p-feature-name">Challan via WhatsApp</div><div class="p-feature-why">Delivery challan PDF auto-sent to buyer</div></td>
+              <td style="font-size:12px;color:var(--text2)">Removes printing + sending step</td>
+              <td><span class="p-effort effort-medium">Medium</span></td>
+              <td><div class="p-impact-bar"><div class="p-impact-fill" style="width:58%"></div></div><div style="font-size:10px;color:var(--text3);margin-top:3px">58%</div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- BOTTOM CTA -->
+    <div style="background:var(--accent-bg);border:1px solid var(--accent);border-radius:var(--radius-lg);padding:32px;text-align:center;margin-bottom:32px">
+      <div style="font-size:24px;font-weight:900;margin-bottom:8px">Where to start?</div>
+      <div style="font-size:14px;color:var(--text2);max-width:480px;margin:0 auto 20px;line-height:1.7">
+        Start with <strong style="color:var(--accent)">WhatsApp Bot</strong> — it removes the biggest daily frustration.
+        Then add <strong>QR stickers</strong> (cheap and fast to build).
+        Everything else follows naturally.
+      </div>
+      <a href="04-new-order.html" class="btn btn-primary" style="margin-right:12px">← Back to System</a>
+      <a href="01-dashboard.html" class="btn btn-outline">View Dashboard</a>
+    </div>
+
+  </div>
+</div>
+
+<script src="_theme.js"></script>
+<script src="_sticky.js"></script>
+</body>
+</html>
