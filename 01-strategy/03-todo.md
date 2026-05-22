@@ -1,74 +1,117 @@
 # Project Todo Tracker
-**IKON Garments Accessories Software**  
-Updated: April 8, 2026
+**IKON Garments Accessories Software**
+Updated: 2026-05-22
 
 ---
 
-## PHASE 0 — Strategy & Design Decisions
+## PHASE 0 — Strategy & Design Decisions ✅ done
 
-### Discussions to complete
-- [ ] **D-01** — UI language: English only? Bangla only? Both (bilingual toggle)?
-- [ ] **D-02** — UI aesthetic: Dark professional / Light clean / Mixed?
-- [ ] **D-03** — Who uses this software? Owner only? Staff also? Multiple user roles?
-- [ ] **D-04** — Tech stack decision (see `decisions/tech-stack.md`)
-- [ ] **D-05** — Should the software generate printable PDFs of PI, Challan, LC docs?
-- [ ] **D-06** — Any existing data to import? (Excel files, notebooks?)
-- [ ] **D-07** — Does vendor/outsource management need its own screen?
-- [ ] **D-08** — Mobile access needed? (phone/tablet friendly?)
-- [ ] **D-09** — Product/item catalogue — do you have fixed item types or free text?
-- [ ] **D-10** — Notifications/alerts needed? (LC maturity, deadlines, etc.)
-
----
-
-## PHASE 1 — UI Mockups (HTML, no backend)
-
-### Screen mockups to build — one by one, discuss after each
-
-| # | Screen | File | Status | Notes |
-|---|---|---|---|---|
-| M-01 | Dashboard | `mockups/01-dashboard.html` | ⬜ Not started | Pipeline view + quick search |
-| M-02 | Companies & Merchandisers | `mockups/02-companies.html` | ⬜ Not started | Company cards + merchandiser sub-cards |
-| M-03 | New Order form | `mockups/03-new-order.html` | ⬜ Not started | Style, description, qty, product type |
-| M-04 | Order Detail page | `mockups/04-order-detail.html` | ⬜ Not started | Full order file + timeline |
-| M-05 | Sample Revision tracker | `mockups/05-sample-revision.html` | ⬜ Not started | Revision history + add new revision |
-| M-06 | Bulk Production tracker | `mockups/06-bulk-production.html` | ⬜ Not started | Unlocks after sample approval |
-| M-07 | Delivery Challan form | `mockups/07-challan.html` | ⬜ Not started | Generate + print challan |
-| M-08 | PI (Proforma Invoice) form | `mockups/08-pi-form.html` | ⬜ Not started | Line items, totals, print view |
-| M-09 | LC Tracker | `mockups/09-lc-tracker.html` | ⬜ Not started | LC docs checklist + maturity countdown |
-| M-10 | Vendor / Outsource management | `mockups/10-vendors.html` | ⬜ Not started | Pending discussion D-07 |
-| M-11 | Reports / Export | `mockups/11-reports.html` | ⬜ Not started | Pending discussion |
-
-### Shared assets
-- [ ] `mockups/_shared.css` — colors, typography, spacing system
-- [ ] `mockups/_components.html` — reusable button, badge, card patterns
+### Discussions
+- [x] **D-01** — UI language → **English only** (2026-05-22)
+- [ ] **D-02** — UI aesthetic *(implicit: mockup style w/ dark+light toggle — needs formal lock)*
+- [x] **D-03** — User roles → **4 roles + Vendor portal** (OWNER/MANAGER/STAFF/VIEWER + later Vendor) (2026-05-22)
+- [x] **D-04** — Tech stack → see `06-docs/03-tech-stack.md` (Next 15 + Prisma + Postgres + NextAuth v5)
+- [x] **D-05** — PDF generation → Puppeteer (locked in tech-stack)
+- [ ] **D-06** — Existing data to import
+- [ ] **D-07** — Vendor/outsource screen
+- [x] **D-08** — Mobile access → yes, responsive done in mockups
+- [x] **D-09** — Product catalogue → **12 fixed items + Other** (locked list in decisions doc) (2026-05-22)
+- [ ] **D-10** — Notifications/alerts (LC maturity, overdue samples)
 
 ---
 
-## PHASE 2 — Tech Stack
+## PHASE 1 — UI Mockups ✅ done
 
-- [ ] Finalize tech stack (after mockups look right)
-- [ ] Document final decision in `decisions/tech-stack.md`
+All 13 screens built in `03-mockups/v2/`. Shared CSS, theme toggle, mobile drawer, sticky notes.
+
+| # | Screen | File | Status |
+|---|---|---|---|
+| M-01 | Dashboard | `03-mockups/v2/01-dashboard.html` | ✅ |
+| M-02 | Companies & Merchandisers | `02-companies.html` | ✅ |
+| M-03 | Order Detail | `03-order-detail.html` | ✅ |
+| M-04 | New Order | `04-new-order.html` | ✅ |
+| M-05 | Sample Revision | `05-sample-revision.html` | ✅ |
+| M-06 | PI | `06-pi.html` | ✅ |
+| M-07 | LC Tracker | `07-lc-tracker.html` | ✅ |
+| M-08 | Challan | `08-challan.html` | ✅ |
+| M-09 | Future Vision | `09-future-vision.html` | ✅ |
+| M-10 | Inventory | `10-inventory.html` | ✅ |
+| M-11 | Accounts | `11-accounts.html` | ✅ |
+| M-12 | HR & Payroll | `12-hr-payroll.html` | ✅ |
+| M-13 | Vehicles | `13-vehicles.html` | ✅ |
 
 ---
 
-## PHASE 3 — Database & Backend
+## PHASE 2 — Tech Stack ✅ done
 
-- [ ] Write final schema SQL
-- [ ] Set up project skeleton
-- [ ] Build API layer
+Locked in `06-docs/03-tech-stack.md`. Next.js 15 + React 19 + Prisma 7 + Postgres 16 + NextAuth v5 + Tailwind 4 + Zod + Puppeteer.
 
 ---
 
-## PHASE 4 — Build (screen by screen)
+## PHASE 3 — Foundation 🟡 in progress
 
-*(Will expand after Phase 1–2 complete)*
+- [x] Prisma schema (12 models) + init migration
+- [x] Seed (4 companies, 8 merch, 25 orders, revisions, bulk, timeline)
+- [x] NextAuth credentials + edge-safe split + middleware
+- [x] Sidebar + Topbar layout
+- [x] UI primitives (Badge, Button, Card, FormField, StatCard)
+- [x] Zod validations: company, order
+- [x] All 9 page.tsx scaffolded (hardcoded demo data, no DB read yet)
+- [ ] **B1** Login page hex → CSS vars
+- [ ] **B2** Verify docker + migrate + seed clean run
+- [ ] **B3** Verify login flow → dashboard
 
 ---
 
-## PHASE 5 — Deployment
+## PHASE 4 — Build sprints (per tech-stack.md)
 
-- [ ] Decide hosting (local server / cloud VPS / shared hosting)
-- [ ] Deploy and test
+### Sprint 1 — Dashboard (read-only from DB)
+- [ ] C1 stat cards from Prisma counts
+- [ ] C2 pipeline kanban from Order.stage groups
+- [ ] C3 recent activity from TimelineEntry
+- [ ] C4 top companies aggregation
+- [ ] C5 overdue list
+
+### Sprint 2 — Companies + Merchandisers CRUD
+- [ ] D1 `GET /api/companies`
+- [ ] D2 `POST /api/companies` (Zod validate)
+- [ ] D3 `PATCH /api/companies/[id]` + soft-delete
+- [ ] D4 `POST /api/companies/[id]/merchandisers`
+- [ ] D5 Wire `companies/page.tsx` (list + add modal)
+- [ ] D6 Integration tests
+
+### Sprint 3 — New Order form wired
+- [ ] E1 `POST /api/orders`
+- [ ] E2 auto orderNo generator
+- [ ] E3 redirect to `/orders/[id]`
+- [ ] E4 integration test
+
+### Sprint 4 — Orders list + detail + stage transitions
+- [ ] F1 `GET /api/orders` filters
+- [ ] F2 `GET /api/orders/[id]` full
+- [ ] F3 `PATCH /api/orders/[id]/stage` + timeline write
+- [ ] F4 wire pages
+
+### Sprint 5 — Sample Revisions
+- [ ] G1 `POST /api/orders/[id]/revisions`
+- [ ] G2 `PATCH /api/revisions/[id]`
+- [ ] G3 APPROVED → auto-advance stage
+- [ ] G4 wire samples page
+
+### Sprint 6 — Bulk Production
+### Sprint 7 — Challan + PDF (Puppeteer)
+### Sprint 8 — PI + PDF
+### Sprint 9 — LC tracker + maturity alert
+### Sprint 10 — Reports
+### Sprint 11 — Settings page
+
+---
+
+## PHASE 5 — Quality & deploy
+- [ ] E2E (Playwright) — login → order → approve → PDF
+- [ ] Security audit (OWASP checklist from tech-stack.md)
+- [ ] Vercel + Railway deploy
+- [ ] Staff training docs (already drafted in `06-docs/05-USER-DOCUMENTATION.md`)
 
 ---
 
@@ -76,7 +119,11 @@ Updated: April 8, 2026
 
 | Date | Topic | Decision |
 |---|---|---|
-| Apr 8 2026 | Business lifecycle | Fully mapped — 5 phases, 10 pipeline stages |
-| Apr 8 2026 | Data model | 8 core entities identified |
-| Apr 8 2026 | Screens | 11 screens identified |
-| Apr 8 2026 | Project structure | Folders created, strategy-first approach confirmed |
+| 2026-04-08 | Business lifecycle | Mapped — 5 phases, 10 pipeline stages |
+| 2026-04-08 | Data model | 8 core entities (grew to 12 in schema) |
+| 2026-04-08 | Screens | 13 screens built |
+| 2026-05-21 | Tech stack | Next 15 + Prisma + Postgres locked |
+| 2026-05-22 | Repo hygiene | Folders renamed to numbered prefixes; ikon-app stays own repo |
+| 2026-05-22 | D-01 | English only |
+| 2026-05-22 | D-03 | 4 roles (OWNER/MANAGER/STAFF/VIEWER) + Vendor portal later |
+| 2026-05-22 | D-09 | 12 fixed product types + Other free text |

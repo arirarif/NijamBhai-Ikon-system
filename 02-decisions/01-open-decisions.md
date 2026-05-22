@@ -17,7 +17,7 @@ These must be answered before or during mockup phase. Some block design. Some bl
 
 **Recommendation:** English UI with English business terms (LC, PI, Style, etc.) — these are already how you use them in real documents. Staff acclimates quickly.
 
-**Decision:** ⬜ Pending
+**Decision:** ✅ **English only** (2026-05-22)
 
 ---
 
@@ -25,7 +25,7 @@ These must be answered before or during mockup phase. Some block design. Some bl
 **Blocks:** Mockup work  
 **Question:** What should the software look and feel like?
 
-Reference screenshots from `sugested ui/` use a **dark theme** with colored status badges.
+Reference screenshots from `04-design-refs/` use a **dark theme** with colored status badges.
 
 | Option | Description | Best for |
 |---|---|---|
@@ -54,7 +54,14 @@ Reference screenshots from `sugested ui/` use a **dark theme** with colored stat
 - Is it just you using this, or do staff members also log in?
 - Do outsource vendors need any visibility?
 
-**Decision:** ⬜ Pending
+**Decision:** ✅ **All 4 roles + Vendor portal** (2026-05-22)
+- `OWNER` — full access (you)
+- `MANAGER` — all operations, no settings/HR/financial admin
+- `STAFF` — orders + sample revisions only, read-only on docs/LC
+- `VIEWER` — read-only dashboard + orders list
+- `Vendor portal` (later phase) — outsource vendors (Mirpur/Gulistan) get read-only view of orders assigned to them. Separate `Vendor` model + scoped queries.
+
+Every API mutation server-side checks role per tech-stack senior rule #2.
 
 ---
 
@@ -152,7 +159,25 @@ From the PI screenshot, product types seen are:
 
 Are these fixed standard items? Or does it vary by buyer?
 
-**Decision:** ⬜ Pending
+**Decision:** ✅ **Fixed 12-item dropdown + "Other" free text** (2026-05-22)
+
+```
+1.  Button           (covers Metal/Snap/Shank/Flat/Horn variants — put variant in styleName/styleCode)
+2.  Zipper Pull
+3.  Hang Tag
+4.  Woven Label
+5.  Printed Label
+6.  Main Label
+7.  Care Label
+8.  Satin Label
+9.  Elastic Band
+10. Ribbon
+11. Buckle
+12. Thread
+13. Other            (selecting reveals free-text input)
+```
+
+Lives as constant in `lib/constants/products.ts`. New Order form + filters read from this list.
 
 ---
 
