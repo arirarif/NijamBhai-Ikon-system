@@ -1,0 +1,15 @@
+# ikon-app is its own git repo — handled separately
+/ikon-app/
+
+# Claude Code session
+/.claude/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local scratch / archives
+*.zip
+node_modules/
