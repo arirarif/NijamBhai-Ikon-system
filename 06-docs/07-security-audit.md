@@ -16,32 +16,43 @@
 | A04 Insecure Design | ✅ OK | Stage transitions guarded by `NEXT_STAGES` allow-list; mutations are transactional. |
 | A05 Security Misconfiguration | ⚠ Action required | Production env vars need rotation; CSP not yet set. |
 | A06 Vulnerable Components | ⚠ Action required | `npm audit` reports 5 moderate severity (run before deploy). |
-| A07 Authentication Failures | ⚠ **Gap** | **No rate limit on `/login`** — see Findings. |
+| A07 Authentication Failures | ✅ Mitigated | In-memory rate limit on `/login` (5 attempts / 5 min). See F-01. |
 | A08 Data Integrity | ✅ OK | Server-side validation on every mutation. Foreign keys + uniqueness enforced at DB level. |
-| A09 Logging & Monitoring | ⚠ Gap | No audit log of mutations or failed logins. |
+| A09 Logging & Monitoring | ✅ Partial | `TimelineEntry.userId` records every order mutation. Failed login attempts still not logged (low risk with F-01 in place). |
 | A10 SSRF | ✅ OK | No outbound URL fetches based on user input. |
 
 ---
 
 ## Detailed findings
 
-### F-01 — No login rate limiting *(Medium → High in production)*
+### F-01 — Login rate limiting ✅ Mitigated (in-memory baseline)
 
-**Where:** `lib/auth.ts` Credentials provider `authorize()`.
-**Impact:** Unlimited password attempts per email. Brute-force feasible on weak passwords.
-**Fix options:**
-1. **In-memory token bucket** (simplest, works for single-instance): map email→attempt count, reset every 5 min, lockout after 5 failures.
-2. **Database-backed** (durable, scales): new `LoginAttempt` table; query last N minutes per email/IP.
-3. **Upstash Redis or Vercel KV** (recommended for production): distributed counter, ~1ms latency.
+**Implemented:** `lib/rate-limit.ts` (sliding-window bucket) + integrated into `lib/auth.ts` Credentials provider.
+- 5 attempts per 5-minute window per email (`LOGIN_RATE_LIMIT`).
+- Successful login calls `rateLimitReset(email)` so legit users aren't penalized.
+- Tested in `tests/integration/rate-limit.test.ts` (5 tests).
 
-Recommend option 3 once deployed. For now, ship option 1 as a baseline.
+**For multi-instance production:** swap the in-memory `Map` with Vercel KV / Upstash Redis. The function signature stays the same.
 
-### F-02 — Audit log missing *(Low)*
+### F-02 — Audit log ✅ Mitigated
 
-**Where:** No table tracking who did what mutation when.
-**Impact:** Cannot answer "who approved the sample on 2026-04-15?" or trace insider data tampering.
-**Note:** `TimelineEntry` covers *what* happened per order but does not record the acting user.
-**Fix:** Add `userId String?` to `TimelineEntry` and populate from `session.user.id`. Cheap, high value.
+**Implemented:** `TimelineEntry.userId String?` added via migration `20260522163749_add_timeline_user` + relation to `User`. Every mutation now records the acting user:
+- `POST /api/orders` (order created)
+- `PATCH /api/orders/[id]/stage` (stage transitions)
+- `POST /api/orders/[id]/revisions` (R# started/sent)
+- `PATCH /api/revisions/[id]` (approve / correction)
+- `POST/PATCH /api/orders/[id]/bulk` (start, progress, complete)
+- `POST /api/orders/[id]/challan` + `PATCH /api/challans/[id]`
+- `POST /api/orders/[id]/pi` + `PATCH /api/pis/[id]`
+- `POST /api/orders/[id]/lc` + `PATCH /api/lcs/[id]`
+
+Query example for "who approved sample R2 on order X?":
+```sql
+SELECT u.name, t.action, t.detail, t."createdAt"
+FROM timeline_entries t
+JOIN users u ON u.id = t."userId"
+WHERE t."orderId" = '<orderId>' AND t.action LIKE 'R% approved';
+```
 
 ### F-03 — `npm audit` advisories *(Medium)*
 
@@ -82,8 +93,8 @@ Pre-deploy: run `npm audit` and fix moderate+ findings. Some are transitive deps
 - [ ] `DATABASE_URL` points to Railway managed Postgres
 - [ ] OWNER password changed from `ikon2026`
 - [ ] `npm audit` clean (or known-acceptable)
-- [ ] F-01 rate limiting addressed (at minimum in-memory)
-- [ ] F-02 audit log: add `userId` to `TimelineEntry`
+- [x] F-01 rate limiting addressed (in-memory baseline, swap to KV/Redis for multi-instance)
+- [x] F-02 audit log: `TimelineEntry.userId` shipped
 - [ ] HTTPS enforced (Vercel default)
 - [ ] CORS not opened (Next default same-origin OK)
 - [ ] `prisma migrate deploy` step in CI before app start
