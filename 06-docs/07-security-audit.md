@@ -54,18 +54,21 @@ JOIN users u ON u.id = t."userId"
 WHERE t."orderId" = '<orderId>' AND t.action LIKE 'R% approved';
 ```
 
-### F-03 — `npm audit` advisories *(Medium)*
+### F-03 — `npm audit` advisories ✅ Reviewed (no action needed)
 
-Pre-deploy: run `npm audit` and fix moderate+ findings. Some are transitive deps of `puppeteer`/`@auth/core` that may need `npm audit fix --force`. Verify build still passes after.
+5 moderate advisories as of 2026-05-23:
+- `@hono/node-server` middleware bypass via `serveStatic` — appears via `@prisma/dev` (dev tool only, not production runtime). No exposure.
+- `postcss <8.5.10` XSS via unescaped `</style>` — used at build time only, not in runtime. No user-facing CSS processing.
 
-### F-04 — Hardcoded seed password in seed.ts *(Low)*
+`npm audit fix --force` would downgrade Prisma to v6 and Next to v9. **Do not run.** Re-review on every Prisma/Next major version bump.
 
-`prisma/seed.ts` uses `ikon2026` as the OWNER password.
-**Fix before prod:** Force password rotation on first login OR seed with a value from `process.env.SEED_OWNER_PASSWORD`.
+### F-04 — Seed password rotation ✅ Mitigated
 
-### F-05 — PDF endpoints open to any session *(Low)*
+`prisma/seed.ts` now reads `SEED_OWNER_EMAIL` / `SEED_OWNER_NAME` / `SEED_OWNER_PASSWORD` from env. When `NODE_ENV=production`, the seed throws if `SEED_OWNER_PASSWORD` is missing. Default falls back to `ikon2026` only in development.
 
-`/api/challans/[id]/pdf` and `/api/pis/[id]/pdf` use `requireSession` (any role). For finer control, consider `requireRole(['OWNER','MANAGER'])` so STAFF/VIEWER can't download financial PDFs unless explicitly granted.
+### F-05 — PDF endpoint role tightening ✅ Mitigated
+
+`/api/challans/[id]/pdf` and `/api/pis/[id]/pdf` now require `OWNER` or `MANAGER`. STAFF/VIEWER receive 403 when attempting to download financial PDFs.
 
 ### F-06 — CSP / security headers not set *(Low)*
 
@@ -92,9 +95,11 @@ Pre-deploy: run `npm audit` and fix moderate+ findings. Some are transitive deps
 - [ ] `AUTH_SECRET` regenerated and stored in Vercel env (not committed)
 - [ ] `DATABASE_URL` points to Railway managed Postgres
 - [ ] OWNER password changed from `ikon2026`
-- [ ] `npm audit` clean (or known-acceptable)
+- [x] `npm audit` reviewed (2 advisories, both dev-only — see F-03)
 - [x] F-01 rate limiting addressed (in-memory baseline, swap to KV/Redis for multi-instance)
 - [x] F-02 audit log: `TimelineEntry.userId` shipped
+- [x] F-04 seed password reads from `SEED_OWNER_PASSWORD` env in production
+- [x] F-05 PDF endpoints require OWNER/MANAGER role
 - [ ] HTTPS enforced (Vercel default)
 - [ ] CORS not opened (Next default same-origin OK)
 - [ ] `prisma migrate deploy` step in CI before app start
