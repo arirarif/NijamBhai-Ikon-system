@@ -53,7 +53,7 @@ The dashboard = 100+ orders, each at a different stage, grouped and sorted so yo
 
 ### Phase 1 — UI Mockups (HTML templates, no backend)
 - One `.html` file per screen
-- Shared CSS in `mockups/_shared.css`
+- Shared CSS in `03-mockups/_shared.css`
 - Iterate until every screen feels right
 - No data, no backend — just visual + UX
 
@@ -91,7 +91,7 @@ The dashboard = 100+ orders, each at a different stage, grouped and sorted so yo
 - `PI (Proforma Invoice)` — PI number, date, line items (style/qty/price), total amount
 - `LCRecord` — LC number, open date, maturity date (+90 days auto), bank name, docs submitted, status
 
-**Key real data seen in PI screenshot (img/Screenshot_104.png):**
+**Key real data seen in PI screenshot (05-images/Screenshot_104.png):**
 - Company: IKON GARMENTS ACCESSORIES
 - Buyer: RIO DESIGN LIMITED, Mirpur 1216
 - PI No.: PI-2025/02, Date: 17.03.2025
@@ -106,22 +106,22 @@ The dashboard = 100+ orders, each at a different stage, grouped and sorted so yo
 
 ## Screens identified (full list)
 
-See `strategy/screens.md` for the complete inventory with status.
+See `01-strategy/02-screens.md` for the complete inventory with status.
 
 ---
 
 ## Open questions / decisions pending
 
-See `decisions/` folder for each open decision.
+See `02-decisions/` folder for each open decision.
 
 ---
 
 ## Reference files
-- `img/Screenshot_104.png` — Real PI document (IKON letterhead)
-- `img/Screenshot 2026-04-06 161444.png` — Real order email (style MBJA W26 DENIM-06 from JBC)
-- `sugested ui or system desing/01.png` — Business lifecycle flowchart
-- `sugested ui or system desing/02.png` — Data model skeleton + pipeline stages
-- `sugested ui or system desing/03.png` — Dashboard UI concept
-- `sugested ui or system desing/04.png` — Order detail page concept
-- `sugested ui or system desing/05.png` — Order timeline + locked bulk section concept
-- `sugested ui or system desing/06.png` — Companies & merchandisers screen concept
+- `05-images/Screenshot_104.png` — Real PI document (IKON letterhead)
+- `05-images/Screenshot 2026-04-06 161444.png` — Real order email (style MBJA W26 DENIM-06 from JBC)
+- `04-design-refs/01.png` — Business lifecycle flowchart
+- `04-design-refs/02.png` — Data model skeleton + pipeline stages
+- `04-design-refs/03.png` — Dashboard UI concept
+- `04-design-refs/04.png` — Order detail page concept
+- `04-design-refs/05.png` — Order timeline + locked bulk section concept
+- `04-design-refs/06.png` — Companies & merchandisers screen concept

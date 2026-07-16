@@ -254,7 +254,7 @@ Generate and print dispatch/delivery challan documents with IKON letterhead.
 ### 3.7 Proforma Invoice (PI) Generation
 
 #### 3.7.1 Description
-Generate PI documents matching IKON's established format (as seen in real PI document `img/Screenshot_104.png`).
+Generate PI documents matching IKON's established format (as seen in real PI document `05-images/Screenshot_104.png`).
 
 #### 3.7.2 Functional Requirements
 
@@ -742,19 +742,19 @@ Company (1) ──── (M) Merchandiser
 
 | Screen | File Reference | Primary Function |
 |---|---|---|
-| Dashboard | `mockups/v2/01-dashboard.html` | Pipeline overview, stat cards, alerts, quick search |
-| Companies & Merchandisers | `mockups/v2/02-companies.html` | Company directory with nested merchandiser cards |
-| Order Detail | `mockups/v2/03-order-detail.html` | Full order file — info, revisions, timeline, locked sections |
-| New Order Form | `mockups/v2/04-new-order.html` | Order creation form |
-| Sample Revision Form | `mockups/v2/05-sample-revision.html` | Add/edit revision for an order |
-| Proforma Invoice | `mockups/v2/06-pi.html` | PI generation and print view |
-| LC Tracker | `mockups/v2/07-lc-tracker.html` | LC lifecycle management |
-| Delivery Challan | `mockups/v2/08-challan.html` | Challan generation and print view |
-| Future Vision | `mockups/v2/09-future-vision.html` | Phase 2+ feature roadmap |
-| Inventory | `mockups/v2/10-inventory.html` | Raw material stock management |
-| Accounts | `mockups/v2/11-accounts.html` | Income/expense tracking |
-| HR & Payroll | `mockups/v2/12-hr-payroll.html` | Employee and salary management |
-| Vehicles & Drivers | `mockups/v2/13-vehicles.html` | Fleet management |
+| Dashboard | `03-mockups/v2/01-dashboard.html` | Pipeline overview, stat cards, alerts, quick search |
+| Companies & Merchandisers | `03-mockups/v2/02-companies.html` | Company directory with nested merchandiser cards |
+| Order Detail | `03-mockups/v2/03-order-detail.html` | Full order file — info, revisions, timeline, locked sections |
+| New Order Form | `03-mockups/v2/04-new-order.html` | Order creation form |
+| Sample Revision Form | `03-mockups/v2/05-sample-revision.html` | Add/edit revision for an order |
+| Proforma Invoice | `03-mockups/v2/06-pi.html` | PI generation and print view |
+| LC Tracker | `03-mockups/v2/07-lc-tracker.html` | LC lifecycle management |
+| Delivery Challan | `03-mockups/v2/08-challan.html` | Challan generation and print view |
+| Future Vision | `03-mockups/v2/09-future-vision.html` | Phase 2+ feature roadmap |
+| Inventory | `03-mockups/v2/10-inventory.html` | Raw material stock management |
+| Accounts | `03-mockups/v2/11-accounts.html` | Income/expense tracking |
+| HR & Payroll | `03-mockups/v2/12-hr-payroll.html` | Employee and salary management |
+| Vehicles & Drivers | `03-mockups/v2/13-vehicles.html` | Fleet management |
 
 ### 5.2 Hardware Interfaces
 
@@ -940,7 +940,7 @@ Every order has exactly one `pipeline_stage` at any time. The stages and their t
 |---|---|
 | **URL** | `/` or `/dashboard` |
 | **Access** | All roles |
-| **Mockup** | `mockups/v2/01-dashboard.html` |
+| **Mockup** | `03-mockups/v2/01-dashboard.html` |
 
 **Layout:**
 1. **Header bar** — current date, "+ Company" button, "+ New Order" button
@@ -967,7 +967,7 @@ Every order has exactly one `pipeline_stage` at any time. The stages and their t
 |---|---|
 | **URL** | `/companies` |
 | **Access** | All roles (edit: owner/manager only) |
-| **Mockup** | `mockups/v2/02-companies.html` |
+| **Mockup** | `03-mockups/v2/02-companies.html` |
 
 **Layout:**
 1. Page title + search bar + "+ Add Company" button
@@ -990,7 +990,7 @@ Every order has exactly one `pipeline_stage` at any time. The stages and their t
 |---|---|
 | **URL** | `/orders/:id` |
 | **Access** | All roles (edit: owner/manager/staff) |
-| **Mockup** | `mockups/v2/03-order-detail.html` |
+| **Mockup** | `03-mockups/v2/03-order-detail.html` |
 
 **Layout:**
 1. **Breadcrumb:** Dashboard → Company Name → Merchandiser Name → Order #
@@ -1015,7 +1015,7 @@ Every order has exactly one `pipeline_stage` at any time. The stages and their t
 |---|---|
 | **URL** | `/orders/new` |
 | **Access** | Owner, Manager |
-| **Mockup** | `mockups/v2/04-new-order.html` |
+| **Mockup** | `03-mockups/v2/04-new-order.html` |
 
 **Fields:**
 1. Company (searchable dropdown — required)
@@ -1043,7 +1043,7 @@ Every order has exactly one `pipeline_stage` at any time. The stages and their t
 |---|---|
 | **URL** | `/orders/:id/revisions/new` or `/orders/:id/revisions/:rid/edit` |
 | **Access** | Owner, Manager, Staff |
-| **Mockup** | `mockups/v2/05-sample-revision.html` |
+| **Mockup** | `03-mockups/v2/05-sample-revision.html` |
 
 **Fields:**
 1. Revision Number (auto — read-only)
@@ -1068,7 +1068,7 @@ Every order has exactly one `pipeline_stage` at any time. The stages and their t
 |---|---|
 | **URL** | `/documents/pi/new` or `/documents/pi/:id` |
 | **Access** | Owner, Manager |
-| **Mockup** | `mockups/v2/06-pi.html` |
+| **Mockup** | `03-mockups/v2/06-pi.html` |
 
 **Layout (document view):**
 1. IKON letterhead (company name, address, phone — from settings)
@@ -1091,7 +1091,7 @@ Every order has exactly one `pipeline_stage` at any time. The stages and their t
 |---|---|
 | **URL** | `/documents/lc` or `/documents/lc/:id` |
 | **Access** | Owner, Manager |
-| **Mockup** | `mockups/v2/07-lc-tracker.html` |
+| **Mockup** | `03-mockups/v2/07-lc-tracker.html` |
 
 **Layout:**
 1. LC Number + Open Date + Maturity Date (auto-calculated)
@@ -1114,7 +1114,7 @@ Every order has exactly one `pipeline_stage` at any time. The stages and their t
 |---|---|
 | **URL** | `/documents/challan/new` or `/documents/challan/:id` |
 | **Access** | Owner, Manager |
-| **Mockup** | `mockups/v2/08-challan.html` |
+| **Mockup** | `03-mockups/v2/08-challan.html` |
 
 **Layout (document view):**
 1. IKON letterhead
@@ -1133,7 +1133,7 @@ Every order has exactly one `pipeline_stage` at any time. The stages and their t
 | Aspect | Detail |
 |---|---|
 | **URL** | `/vision` |
-| **Mockup** | `mockups/v2/09-future-vision.html` |
+| **Mockup** | `03-mockups/v2/09-future-vision.html` |
 
 Informational page showing the Phase 2+ roadmap (WhatsApp bot, QR stickers, voice-to-form, LC OCR scanning). No functional requirements — display only.
 
@@ -1145,7 +1145,7 @@ Informational page showing the Phase 2+ roadmap (WhatsApp bot, QR stickers, voic
 |---|---|
 | **URL** | `/inventory` |
 | **Access** | Owner, Manager, Staff |
-| **Mockup** | `mockups/v2/10-inventory.html` |
+| **Mockup** | `03-mockups/v2/10-inventory.html` |
 
 **Layout:**
 1. Stock register table: SKU | Item Name | Category | Qty | Unit | Stock Level Bar | Supplier
@@ -1162,7 +1162,7 @@ Informational page showing the Phase 2+ roadmap (WhatsApp bot, QR stickers, voic
 |---|---|
 | **URL** | `/accounts` |
 | **Access** | Owner only |
-| **Mockup** | `mockups/v2/11-accounts.html` |
+| **Mockup** | `03-mockups/v2/11-accounts.html` |
 
 **Layout:**
 1. Top summary: Total Income | Total Expense | Net P/L (current month)
@@ -1179,7 +1179,7 @@ Informational page showing the Phase 2+ roadmap (WhatsApp bot, QR stickers, voic
 |---|---|
 | **URL** | `/hr` |
 | **Access** | Owner, Manager |
-| **Mockup** | `mockups/v2/12-hr-payroll.html` |
+| **Mockup** | `03-mockups/v2/12-hr-payroll.html` |
 
 **Layout:**
 1. Employee directory table: Name | Designation | Department | Phone | Salary | Status
@@ -1196,7 +1196,7 @@ Informational page showing the Phase 2+ roadmap (WhatsApp bot, QR stickers, voic
 |---|---|
 | **URL** | `/vehicles` |
 | **Access** | Owner, Manager |
-| **Mockup** | `mockups/v2/13-vehicles.html` |
+| **Mockup** | `03-mockups/v2/13-vehicles.html` |
 
 **Layout:**
 1. Vehicle register cards: Reg No | Type | Make/Model | Status badge | Assigned Driver
@@ -1360,19 +1360,19 @@ These features are documented for planning but are explicitly **out of scope** f
 
 | Document | Location | Purpose |
 |---|---|---|
-| Real PI document | `img/Screenshot_104.png` | IKON letterhead, field layout, terms |
-| Real order email | `img/Screenshot 2026-04-06 161444.png` | Style code format, buyer communication |
-| Business lifecycle flowchart | `sugested ui or system desing/01.png` | Process flow visualization |
-| Data model skeleton | `sugested ui or system desing/02.png` | Entity relationships |
-| Dashboard concept | `sugested ui or system desing/03.png` | UI concept for main screen |
-| Order detail concept | `sugested ui or system desing/04.png` | UI concept for order page |
-| Timeline + locked bulk concept | `sugested ui or system desing/05.png` | Staged unlock UX pattern |
-| Companies screen concept | `sugested ui or system desing/06.png` | Company + merchandiser layout |
-| Master Plan | `strategy/MASTER-PLAN.md` | Project scope and phasing |
-| Screen Inventory | `strategy/screens.md` | All screens with field details |
-| Open Decisions | `decisions/open-decisions.md` | Pending design decisions |
-| Tech Stack | `tech-stack.md` | Technology choices and rationale |
-| V2 Mockups | `mockups/v2/*.html` | Working HTML prototypes (13 screens) |
+| Real PI document | `05-images/Screenshot_104.png` | IKON letterhead, field layout, terms |
+| Real order email | `05-images/Screenshot 2026-04-06 161444.png` | Style code format, buyer communication |
+| Business lifecycle flowchart | `04-design-refs/01.png` | Process flow visualization |
+| Data model skeleton | `04-design-refs/02.png` | Entity relationships |
+| Dashboard concept | `04-design-refs/03.png` | UI concept for main screen |
+| Order detail concept | `04-design-refs/04.png` | UI concept for order page |
+| Timeline + locked bulk concept | `04-design-refs/05.png` | Staged unlock UX pattern |
+| Companies screen concept | `04-design-refs/06.png` | Company + merchandiser layout |
+| Master Plan | `01-strategy/01-master-plan.md` | Project scope and phasing |
+| Screen Inventory | `01-strategy/02-screens.md` | All screens with field details |
+| Open Decisions | `02-decisions/01-open-decisions.md` | Pending design decisions |
+| Tech Stack | `06-docs/03-tech-stack.md` | Technology choices and rationale |
+| V2 Mockups | `03-mockups/v2/*.html` | Working HTML prototypes (13 screens) |
 
 ---
 

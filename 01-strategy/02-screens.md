@@ -5,10 +5,10 @@ All screens that need to exist — with purpose, key elements, and open question
 ---
 
 ## SCREEN 1 — Dashboard
-**File:** `mockups/01-dashboard.html`  
+**File:** `03-mockups/v2/01-dashboard.html`  
 **Purpose:** Daily command center. See all active orders at a glance, grouped by pipeline stage.
 
-**Key elements (from sugested ui/03.png):**
+**Key elements (from 04-design-refs/03.png):**
 - Header: date, "+ Company" and "+ New Order" quick buttons
 - Alert strip: "X LCs maturing within 14 days — action required"
 - 4 stat cards: Active orders / Pending corrections / Approved this month / LC maturing (90d)
@@ -25,10 +25,10 @@ All screens that need to exist — with purpose, key elements, and open question
 ---
 
 ## SCREEN 2 — Companies & Merchandisers
-**File:** `mockups/02-companies.html`  
+**File:** `03-mockups/v2/02-companies.html`  
 **Purpose:** Register all buyer companies and their merchandisers. Entry point for all new work.
 
-**Key elements (from sugested ui/06.png):**
+**Key elements (from 04-design-refs/06.png):**
 - Page title + search bar + "+ Add company" button
 - Company card: name, country, contact person, phone, total orders, active now count, Edit + All orders buttons
 - Under each company: merchandiser mini-cards (avatar initials, name, designation, active order count, order status badges)
@@ -43,7 +43,7 @@ All screens that need to exist — with purpose, key elements, and open question
 ---
 
 ## SCREEN 3 — New Order Form
-**File:** `mockups/03-new-order.html`  
+**File:** `03-mockups/v2/04-new-order.html`  
 **Purpose:** Create a new order when a merchandiser comes in.
 
 **Key elements:**
@@ -65,10 +65,10 @@ All screens that need to exist — with purpose, key elements, and open question
 ---
 
 ## SCREEN 4 — Order Detail Page
-**File:** `mockups/04-order-detail.html`  
+**File:** `03-mockups/v2/03-order-detail.html`  
 **Purpose:** The single "file" for one order. You open this and update it over weeks/months.
 
-**Key elements (from sugested ui/04.png + 05.png):**
+**Key elements (from 04-design-refs/04.png + 04-design-refs/05.png):**
 - Breadcrumb: Dashboard → Company → Merchandiser → Order
 - Style name as page title + pipeline status badge + Actions button
 - Merchandiser name, company, order date, days active subtitle
@@ -88,7 +88,7 @@ All screens that need to exist — with purpose, key elements, and open question
 ---
 
 ## SCREEN 5 — Sample Revision Tracker (add/edit revision)
-**File:** `mockups/05-sample-revision.html`  
+**File:** `03-mockups/v2/05-sample-revision.html`  
 **Purpose:** Form to log a new revision round OR edit an existing one.
 
 **Key elements:**
@@ -105,7 +105,7 @@ All screens that need to exist — with purpose, key elements, and open question
 ---
 
 ## SCREEN 6 — Bulk Production Tracker
-**File:** `mockups/06-bulk-production.html`  
+**File:** `03-mockups/v2/` *(not yet built — bulk production tracker)*  
 **Purpose:** Track production milestones after sample is approved. Unlocked state of the locked section.
 
 **Key elements:**
@@ -119,7 +119,7 @@ All screens that need to exist — with purpose, key elements, and open question
 ---
 
 ## SCREEN 7 — Delivery Challan
-**File:** `mockups/07-challan.html`  
+**File:** `03-mockups/v2/08-challan.html`  
 **Purpose:** Generate and print a Delivery Challan document.
 
 **Key elements:**
@@ -133,8 +133,8 @@ All screens that need to exist — with purpose, key elements, and open question
 ---
 
 ## SCREEN 8 — PI (Proforma Invoice)
-**File:** `mockups/08-pi-form.html`  
-**Purpose:** Generate the PI document. Based on real PI seen in `img/Screenshot_104.png`.
+**File:** `03-mockups/v2/06-pi.html`  
+**Purpose:** Generate the PI document. Based on real PI seen in `05-images/Screenshot_104.png`.
 
 **Key elements:**
 - IKON letterhead (pre-filled from system settings)
@@ -158,7 +158,7 @@ All screens that need to exist — with purpose, key elements, and open question
 ---
 
 ## SCREEN 9 — LC Tracker
-**File:** `mockups/09-lc-tracker.html`  
+**File:** `03-mockups/v2/07-lc-tracker.html`  
 **Purpose:** Track the Letter of Credit lifecycle — documents submitted, bank forwarding, maturity countdown.
 
 **Key elements:**
@@ -177,7 +177,7 @@ All screens that need to exist — with purpose, key elements, and open question
 ---
 
 ## SCREEN 10 — Vendor / Outsource Management *(pending discussion D-07)*
-**File:** `mockups/10-vendors.html`  
+**File:** `03-mockups/v2/` *(not yet built — vendors)*  
 **Purpose:** Keep a directory of outsource vendors (Mirpur, Gilistan, etc.)
 
 **Possible elements:**
@@ -188,7 +188,7 @@ All screens that need to exist — with purpose, key elements, and open question
 ---
 
 ## SCREEN 11 — Reports
-**File:** `mockups/11-reports.html`  
+**File:** `03-mockups/v2/` *(not yet built — reports)*  
 **Purpose:** Summary views for business overview.
 
 **Possible reports:**

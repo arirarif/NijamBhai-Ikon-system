@@ -34,7 +34,7 @@ Each file is a standalone screen. Iterate until every screen feels right, then w
 
 ---
 
-## Design decisions needed before starting (see `decisions/open-decisions.md`)
+## Design decisions needed before starting (see `02-decisions/01-open-decisions.md`)
 - D-01: Language
 - D-02: Visual direction (dark / light / mixed)
 - D-08: Mobile support needed?

@@ -122,6 +122,13 @@ nav { flex: 1; padding: 10px 0; }
   color: var(--text); background: var(--accent-bg);
   border-left-color: var(--accent);
 }
+.nav-item.disabled,
+.nav-section.disabled {
+  opacity: .35;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.nav-item.disabled svg { opacity: .4; }
 .nav-item svg { width: 15px; height: 15px; flex-shrink: 0; opacity: .6; }
 .nav-item.active svg { opacity: 1; color: var(--accent); }
 .nav-item:hover svg { opacity: .85; }

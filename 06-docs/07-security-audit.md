@@ -56,11 +56,13 @@ WHERE t."orderId" = '<orderId>' AND t.action LIKE 'R% approved';
 
 ### F-03 — `npm audit` advisories ✅ Reviewed (no action needed)
 
-5 moderate advisories as of 2026-05-23:
+6 advisories as of 2026-06-14 (5 moderate, 1 high) — **all dev/build-time only, none in the production runtime bundle**:
 - `@hono/node-server` middleware bypass via `serveStatic` — appears via `@prisma/dev` (dev tool only, not production runtime). No exposure.
-- `postcss <8.5.10` XSS via unescaped `</style>` — used at build time only, not in runtime. No user-facing CSS processing.
+- `@prisma/dev` / `prisma` — dev CLI tooling, not shipped to the serverless runtime.
+- `esbuild` (**high**) — arbitrary file read when running the *dev server* on Windows / RCE via `NPM_CONFIG_REGISTRY` in Deno. Pulled in transitively by Vitest/build tooling; not part of the deployed runtime and the dev server is never exposed publicly. No production exposure.
+- `postcss <8.5.10` (also surfaced via `next`) XSS via unescaped `</style>` — build-time CSS processing only, no user-facing CSS stringification at runtime.
 
-`npm audit fix --force` would downgrade Prisma to v6 and Next to v9. **Do not run.** Re-review on every Prisma/Next major version bump.
+`npm audit fix --force` would downgrade Prisma and Next to incompatible majors. **Do not run.** Re-review on every Prisma/Next/Vitest major version bump.
 
 ### F-04 — Seed password rotation ✅ Mitigated
 
